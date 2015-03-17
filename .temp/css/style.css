@@ -243,6 +243,7 @@ div.phone-number{
     padding-bottom: 20px;
     margin-bottom: 0px;
 }
+
 .icon-full-star {
     color: #ffe108;
 }
@@ -414,6 +415,29 @@ img.feed-img  {
     padding-left: 5px !important;
     word-spacing:  normal;
 }
+.comment_input
+{
+  line-height: 30px !important;
+  margin-top: 5px;
+}
+
+.comment_input::-webkit-input-placeholder {color: #c7c7cc;}
+.comment_input:-moz-placeholder {color: #c7c7cc;}
+.comment_input::-moz-placeholder {color: #c7c7cc;}
+.comment_input:-ms-input-placeholder {color: #c7c7cc;}
+
+.list-feed{border-top: 2px solid #b8b8b8;}
+
+.image_upload_icon img
+{
+  width: 85% !important;
+  margin-top: 10px;
+}
+.camera_icon img
+{
+  width: 100% !important;
+  margin-top: 9px;
+}
 .list-feed  .item-text{
     border-top: none;
     border-left: none;
@@ -555,7 +579,7 @@ img.feed-img  {
 }
 .right_comment_area
 {
-  margin: 29px 0 0px 15px;
+  margin: 29px 0 0px 30px;
   padding: 0;
   float: right;
   width: 100%;
@@ -601,8 +625,8 @@ img.feed-img  {
   margin: 0 !important;
   padding: 0 !important;
   float: left !important;
-  width: 25px !important;
-  height: 25px !important;
+  width: 22px !important;
+  height: 22px !important;
   position: relative !important;
   top: 0 !important;
   bottom: 0 !important;
@@ -694,10 +718,7 @@ img.feed-img  {
     padding: 0px;
     line-height: 10px;
 }
-.comment_input
-{
-  line-height: 30px !important;
-}
+
 .inputForm
 {
     border-radius:5px;

@@ -134,7 +134,7 @@
                 <div class="row">
                   <div class="left_comment_area">
                     <div class="col col-pic" style="margin-top:5px;" ng-click="go('app/comments_side')">
-                      <img class="feed-img" src="img/mark.png" />
+                      <img class="feed-img" src="img/default_avatar.jpg" />
                     </div>
                     <!--<div  class="col col-pic" style="margin-top:5px;" ng-click="go('app/comments_side')">
                       <img class="feed-img" src="img/mark.png" />
@@ -170,11 +170,15 @@
         <div class="list list-feed">
              <div class="item item-send-text">
                 <div class="row">
-                    <div  class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')"><img src="img/library.png" style="width:100%" /></div>
-                    <div  class="col col-75 col-center">
-                        <input type="text" style="font-size:20px" class="comment_input inputForm" placeholder="Say something" />
+                    <div class="col col-center image_upload_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')">
+                      <img src="img/image_upload.png" style="width:100%" />
                     </div>
-                    <div  class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')"><img style="width:120%" src="img/camera.png" /></div>
+                    <div class="col col-75 col-center">
+                        <input type="text" style="font-size:20px" class="comment_input inputForm" placeholder="Say something..." />
+                    </div>
+                    <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')">
+                      <img style="width:120%" src="img/camera-icon.png" />
+                    </div>
                 </div>
              </div>
         </div>
