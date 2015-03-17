@@ -2,7 +2,7 @@
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-.bar { background-image: none !important; 
+.bar { background-image: none !important;
     border-bottom: none;}
 a {
     text-decoration: none !important;
@@ -17,9 +17,9 @@ a {
 .list-login label {
     margin-top: 26px;
     padding-top: 5px;
-    padding-bottom: 5px; 
+    padding-bottom: 5px;
     padding-left: 40px;
-    
+
 }
 .list-login label:last-child {
     margin-top: 8px;
@@ -202,11 +202,11 @@ div.phone-number{
 .list-login number-only-input input{
     border: none;
     padding-top: 5px;
-    padding-bottom: 5px; 
+    padding-bottom: 5px;
 }
 .list-delete-number .item{
     border-left: none;
-    border-right: none; 
+    border-right: none;
     border-bottom-right-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
 }
@@ -251,7 +251,7 @@ div.phone-number{
 }
 .text-feedback .item{
     border:none;
-    
+
 }
 .text-feedback textarea{
     font-size: 18px;
@@ -286,7 +286,7 @@ div.phone-number{
     margin-bottom: 0px;
 }
 .list-chat .item-text {
-    padding:0px 0px 0px 0px; 
+    padding:0px 0px 0px 0px;
     border: none;
 }
 img.feed-img  {
@@ -314,11 +314,11 @@ img.feed-img  {
 }
 .chat-text-name {
     text-align: left;
-    padding: 15px 0px 0px 25px !important;
+    padding: 15px 0px 0px 42px !important;
     font-size: 12px;
 }
 .chat-bubble {
-  border-radius: 5px;
+  /*border-radius: 5px;
   padding: 3px 5px 3px 5px;
   font-size: 14px;
   position: relative;
@@ -329,24 +329,51 @@ img.feed-img  {
   float: left;
   margin-left: 25px;
   margin-top:0px;
-  margin-bottom:0px; 
-  white-space: normal;   
+  margin-bottom:0px;
+  white-space: normal;
+  text-align: left;*/
+
+  border-radius: 10px;
+  padding: 5px 8px 5px 8px;
+  font-size: 14px;
+  position: relative;
+  margin: 10px;
+  max-width: 80%;
+  display: inline-block;
+  background-color: #aaeeaa;
+  float: left;
+  margin-left: 40px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  white-space: normal;
   text-align: left;
 }
 
 .chat-bubble-green:before {
-  content: "\00a0";
+  /*content: "\00a0";
   display: block;
   height: 16px;
   width: 9px;
   position: absolute;
   background-color: #aaeeaa;
+  background:url("../img/comment-page-green-bubble-arrow.png") right bottom no-repeat;
   bottom: -7.5px;
     left: 10px;
-    -webkit-transform: rotate(70deg) skew(5deg);
+    -webkit-transform: rotate(70deg) skew(5deg);*/
+  content: "";
+  display: block;
+  height: 11px;
+  width: 20px;
+  position: absolute;
+  background-color: transparent;
+  background: url("../img/comment-page-green-bubble-arrow.png") right bottom no-repeat;
+  bottom: -10px;
+  left: 10px;
+  -webkit-transform: none;
+  background-size: 100%;
 }
 .chat-bubble-blue:before {
-  content: "\00a0";
+  /*content: "\00a0";
   display: block;
   height: 16px;
   width: 9px;
@@ -354,11 +381,22 @@ img.feed-img  {
   background-color: #d1f0f8;
   bottom: -7.5px;
     left: 10px;
-    -webkit-transform: rotate(70deg) skew(5deg);
-  
+    -webkit-transform: rotate(70deg) skew(5deg);*/
+
+  content: "";
+  display: block;
+  height: 11px;
+  width: 20px;
+  position: absolute;
+  background-color: transparent;
+  background: url("../img/blue_arrow.png") right bottom no-repeat;
+  bottom: -10px;
+  left: 10px;
+  -webkit-transform: none;
+  background-size: 100%;
 }
 .chat-bubble-green{
-    background-color: #aaeeaa;
+    background-color: #d8f7d8;
 }
 .chat-bubble-blue{
     background-color: #d1f0f8;
@@ -404,7 +442,7 @@ img.feed-img  {
     min-width: 60px;
     min-height: 60px;
     width: 100%;
-    border-radius: 50%; 
+    border-radius: 50%;
 }
 .list-feed .row {
     padding: 0px;
@@ -477,26 +515,129 @@ img.feed-img  {
 .item-send-text .row {
   height:40px;
 }
+.left_comment_area
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: auto;
+  min-width: 82px;
+  position: relative;
+  overflow: hidden;
+}
+.col-pic {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 50px;
+  max-width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+.left_comment_area .envelope
+{
+  margin: 29px 0 0;
+  padding: 0;
+  float: left;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+
+.chat-icons
+{
+  margin: 0;
+  padding: 0;
+  float: right;
+  width: 100%;
+  position: relative;
+}
+.right_comment_area
+{
+  margin: 29px 0 0px 15px;
+  padding: 0;
+  float: right;
+  width: 100%;
+  position: relative;
+}
+
 .chat-icons .envelope{
   position: absolute;
   bottom: 5px;
   left: 70px;
 }
 .chat-icons .hand-up{
-  position: absolute;
+ /* position: absolute;
   bottom: 0px;
-  right: 160px;
+  right: 160px;*/
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: auto;
+  position: relative;
+  overflow: hidden;
 }
 .chat-icons .hand-up img{
-    width: 24px;
-    height: 24px;
+    /*width: 24px;
+    height: 24px;*/
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    overflow: hidden;
 }
+.chat-icons .text-12-gray {
+  margin: 0 5px !important;
+  padding: 0 !important;
+  float: left !important;
+  width: auto !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.chat-icons img
+{
+  margin: 0 !important;
+  padding: 0 !important;
+  float: left !important;
+  width: 25px !important;
+  height: 25px !important;
+  position: relative !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  overflow: hidden !important;
+}
+.chat-icons span
+{
+  margin: 13px 0px 0 5px !important;
+  padding: 0 !important;
+  float: left !important;
+  line-height: 12px !important;
+  width: auto !important;
+  height: auto !important;
+  position: relative !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  overflow: hidden !important;
+}
+.chat-icons .hand-down{float: right !important;}
+.chat-icons .heart{margin: 0 7px 0 12px !important;}
 .chat-icons .heart img{
   position: absolute;
   bottom: 0px;
   right: 100px;
-  width: 28px;
-  height: 28px;
+  width: 35px !important;
+  height: 35px !important;
+}
+.chat-icons .grey-hand-down
+{
+  margin: 6px 18px 0 0 !important;
+  float: right !important;
 }
 .chat-icons .heart .text-heart{
   position: absolute;
@@ -553,7 +694,10 @@ img.feed-img  {
     padding: 0px;
     line-height: 10px;
 }
-
+.comment_input
+{
+  line-height: 30px !important;
+}
 .inputForm
 {
     border-radius:5px;
@@ -580,14 +724,14 @@ button.ion-android-send {
 }
 
 .footer-btn-wrap {
-  position: relative; 
-  height: 100%; 
-  width: 50px; 
+  position: relative;
+  height: 100%;
+  width: 50px;
   top: 7px;
 }
 
 .footer-btn {
-  position: absolute !important; 
+  position: absolute !important;
   bottom: 0;
 }
 
@@ -872,7 +1016,7 @@ img.profile-pic.right {
 .always-on{
     color:#006edb !important;
     opacity: 1;
-    
+
 }
 .always-on .icon{
   font-size:40px !important;
@@ -884,5 +1028,5 @@ img.profile-pic.right {
 
 .left{
   float:left !important;
-  margin-right:10px !important; 
+  margin-right:10px !important;
 }
