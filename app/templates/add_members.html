@@ -1,0 +1,20 @@
+<ion-view view-title="Add People" ng-controller="AddMembersCtrl">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="updateTriby()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <br>
+        <div class="list list-add-triby">
+            <label class="item item-input">
+                <input type="text" ng-model="query" placeholder="Enter Name, Email or Phone">
+            </label>
+        </div>
+        <ion-list class="list-search">
+            <ion-toggle class="item-avatar" ng-repeat="contact in contacts | filter:query" ng-model="contact.checked">
+                <img class="left" ng-src="{{contact.pic}}">
+                <h2>{{contact.name}}</h2>
+                <p>{{contact.city}}</p>
+            </ion-toggle>
+        </ion-list>
+    </ion-content>
+</ion-view>

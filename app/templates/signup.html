@@ -1,0 +1,28 @@
+<ion-view view-title="Sign Up" ng-controller="UserCtrl">
+    <ion-content scroll="true" style="background-color:#282828">
+        <p align="center" style="margin-top:35px">
+            <img src="img/logo.png" width="45%"/>
+        </p>
+        <div class="list list-facebook" ng-click="fbLogin()" >
+            <a href="#">
+            <div class="row row-center">
+              <div class="col text-right"><img src="img/logo_facebook.png" /></div>
+              <div class="col col-75"><span style="color: white">Sign in with facebook</span></div>
+            </div>
+            </a>            
+        </div>
+        <div class="list list-login">
+            <label class="item item-input">
+                <input type="text" ng-model="signupData.username" placeholder="Name">
+            </label>
+            <label class="item item-input" >
+                <number-only-input input-value="signupData.phone" input-name="phone" placeholder="'Phone'"/>
+            </label>
+        </div>
+        <p align="center">
+            <button class="button button-signup" style="border-radius:10px;" ng-click="signup()" >
+                Sign up
+            </button>
+        </p>
+    </ion-content>
+</ion-view>

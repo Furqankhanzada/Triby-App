@@ -1,0 +1,16 @@
+<ion-view view-title="Mural" ng-controller="MuralCtrl">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/main/home')"></button>
+    </ion-nav-buttons>
+    <ion-content class="center" style="background-color:#2b2b2b">
+        <div class="list">
+            <a class="item mural"
+                collection-repeat="item in [1,2,3,4,5,6,7,8,9,10]"
+                collection-item-width="Get_Width($index)"
+                collection-item-height="150"
+                ng-style="{height: '150px',width:Get_Width($index),'padding-left':'0px','padding-left':Get_PaddingLeft($index)}"  ng-click="openModal($index)">
+                <div style="background-image:url('img/10.png')" ng-style="Get_MarginRight($index)"></div>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

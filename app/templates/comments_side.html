@@ -1,0 +1,60 @@
+<ion-view title="Comments" ng-controller="FeedCtrl">
+    <ion-nav-bar align-title="center" class="bar bar-triby nav-title-slide-ios7"></ion-nav-bar>
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/comments')"></button>
+    </ion-nav-buttons>
+    <ion-content align="center" style="border:none" scroll="true" >
+        <div class="list list-chat">
+            <div class="item item-text">
+                <div class="row">
+                    <div class="col col-50 col-bottom chat-text-name">Carla Simpson</div>
+                    <div class="col col-50 "></div>
+                </div>
+                <div class="chat-bubble chat-bubble-green">
+                here is a text box<br>
+                    <div class="chat-text-date">Today @ 9:30am</div>
+                </div>
+                <div class="row">
+                    <div  class="col col-10 col-top" style="margin-top:5px;"><img class="feed-img" src="img/carla.png" /></div>
+                    <div class="col chat-icons">
+                        <div class="hand-up text-12-gray"><img src="img/hand-up.png" />1010</div>
+                        <div class="heart text-12-gray"><img src="img/heart.png" /><span class="text-heart">1010</span></div>
+                        <div class="hand-down text-12-gray"><img src="img/hand-down.png" /><span class="text-hand-down">10</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="item item-text">
+                <div class="row">
+                    <div class="col col-50 col-bottom chat-text-name ">Mark Smith</div>
+                    <div class="col col-50 "></div>
+                </div>
+                <div class="chat-bubble chat-bubble-blue">
+                here is a post, more stuff here.<br>
+                    <div class="chat-text-date">Today @ 9:30am</div>
+                </div>
+                <div class="row">
+                    <div class="col col-10 col-top" style="margin-top:5px;"><img class="feed-img" src="img/mark.png" /></div>
+                    <div class="col chat-icons">
+                        <div class="envelope text-12-gray"><img src="img/envelope.png" /></div>
+                        <div class="hand-up text-12-gray"><img src="img/hand-up.png" />1010</div>
+                        <div class="heart text-12-gray"><img src="img/heart.png" /><span class="text-heart">1010</span></div>
+                        <div class="hand-down text-12-gray"><img src="img/hand-down.png" /><span class="text-hand-down">10</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="list list-feed">
+             <div class="item item-send-text">
+                <div class="row">
+                    <div class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')"><img src="img/library.png" style="width:100%" /></div>
+                    <div class="col col-75 col-center">
+                        <input type="text" style="font-size:20px" class="inputForm" placeholder="Say something" />
+                    </div>
+                    <div  class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')"><img style="width:120%" src="img/camera.png" /></div>
+                </div>
+             </div>
+        </div>
+    </ion-content>
+</ion-view>
