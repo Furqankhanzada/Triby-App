@@ -25,18 +25,21 @@
             <div class="item item-icons">
                 <div class="icons-feed">
                     <div class="hand-up text-12-gray">
-                        <a ng-click="addLike(0)"><img ng-src="{{getHandUp(0)}}" /></a>{{feeds[0].likes}}
+                        <a ng-click="addLike(0)"><img ng-src="{{getHandUp(0)}}" /></a>
+                        <span>{{feeds[0].likes}}</span>
                     </div>
                     <div class="heart text-12-gray">
-                        <a ng-click="addHearth(0)"><img ng-src="{{getHearth(0)}}" /></a><span class="text-heart">&nbsp;{{feeds[0].hearth}}</span>
+                      <a ng-click="addHearth(0)"><img ng-src="{{getHearth(0)}}" /></a>
+                      <span class="text-heart">&nbsp;{{feeds[0].hearth}}</span>
                     </div>
                     <div class="hand-down text-12-gray">
-                        <a ng-click="addDislike(0)"><img ng-src="{{getHandDown(0)}}" /></a>{{feeds[0].dislikes}}
+                        <a ng-click="addDislike(0)"><img ng-src="{{getHandDown(0)}}" /></a>
+                        <span>{{feeds[0].dislikes}}</span>
                     </div>
                     <div class="envelope">
                         <a href="#/app/comments"><img src="img/envelope.png" /></a>
                     </div>
-                    <div class="comments text-12-gray">
+                    <div class="comments_area text-12-gray">
                         <img src="img/commetns-grey.png" /><span class="text-comment"></span>
                     </div>
                  </div>
@@ -84,11 +87,15 @@
             <div class="list list-feed">
                  <div class="item item-send-text">
                     <div class="row">
-                        <div  class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')"><img src="img/library.png" /></div>
+                      <div class="col col-center image_upload_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')">
+                        <img src="img/image_upload.png" style="width:100%" />
+                      </div>
                         <div  class="col col-75 col-center">
-                            <input type="text" style="font-size:20px" class="inputForm" ng-model="post.message" placeholder="Say something" />
+                            <input type="text" style="font-size:20px" class="comment_input inputForm" ng-model="post.message" placeholder="Say something..." />
                         </div>
-                        <div class="col col-center" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')"><img src="img/camera.png" /></div>
+                      <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')">
+                        <img style="width:120%" src="img/camera-icon.png" />
+                      </div>
                     </div>
                  </div>
             </div>
