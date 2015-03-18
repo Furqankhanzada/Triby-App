@@ -9,8 +9,12 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   if(UserService.isAuthorized()){
     UserService.loginUser().then(function(response){
       console.log(response.message);
-      if(response.status == "success")
+      if(response.status == "success"){
         $window.location.href = "#/app/main/home";
+        $timeout(function(){
+          $cordovaSplashscreen.hide();
+        },5000);
+      }
     });
     
   }

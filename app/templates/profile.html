@@ -3,7 +3,7 @@
         <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/settings')"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon" style="color:#2695f9" ng-click="saveProfile()">Done</button>
+        <button class="button button-icon" style="color:#2695f9" ng-show="user_data.name" ng-click="saveProfile()">Done</button>
     </ion-nav-buttons>
     <ion-content>
         <div class="edit_info_img" ng-style="{'background-image':'url(' + user_data.image + ')'}" ng-click="uploadPicture()">

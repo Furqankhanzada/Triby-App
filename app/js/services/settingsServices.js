@@ -1,6 +1,6 @@
 'use strict';
 
-MyApp.factory('SettingsService', function($q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile) {
+MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile) {
   
   var settingsServiceFactory = {};
 
@@ -64,8 +64,12 @@ MyApp.factory('SettingsService', function($q, $rootScope, $http, localStorageSer
           , encodingType: Camera.EncodingType.JPEG
       }
       if(aType === 'AVATAR'){
-        options.targetWidth = 160;
-        options.targetHeight = 160;
+        options.targetWidth = 200;
+        options.targetHeight = 200;
+      }
+      if(aType === 'TRIBY'){
+        options.targetWidth = 200;
+        options.targetHeight = 200;
       }
       if(aSource == 'CAMERA')
         sourceType: Camera.PictureSourceType.CAMERA;
@@ -75,7 +79,9 @@ MyApp.factory('SettingsService', function($q, $rootScope, $http, localStorageSer
       $cordovaCamera.getPicture(options).then(
 
         function(fileURL) {
-          console.log(fileURL);
+          $ionicLoading.show({
+            template: 'Uploading...'
+          });
 
           var authData = localStorageService.get('authorizationData');
           $http.defaults.headers.common.Authorization = authData.token;
@@ -96,19 +102,22 @@ MyApp.factory('SettingsService', function($q, $rootScope, $http, localStorageSer
             function(result) {
               var obj = JSON.parse(result.response);
               deferred.resolve(obj);
+              $ionicLoading.hide();
             }, function(err) {
               deferred.reject(err);
+              $ionicLoading.hide();
             });
 
         }, function(err){
           deferred.reject(err);
+          $ionicLoading.hide();
         });
 
     }
     else {
       deferred.reject('Uploading not supported in browser');
     }
-
+    $ionicLoading.hide();
     return deferred.promise;
 
   }

@@ -110,6 +110,14 @@ div.phone-number{
   font-size: 20px;
   line-height: 28px;
 }
+.list-message-blue-no-connection .item{
+  padding: 0px;
+  border: none;
+  background-color: #006edb;
+  color:white;
+  font-size: 16px;
+  line-height: 28px;
+}
 .text-no-tribes{
   color:gray;
   font-size: 20px;
@@ -1131,7 +1139,7 @@ img.profile-pic.right {
 }
 .always-on .icon{
   font-size:40px !important;
-  margin-top: -4px;
+  margin-top: -3px;
 }
 .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
   padding-left:20px !important;

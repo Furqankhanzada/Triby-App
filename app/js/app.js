@@ -48,12 +48,13 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.about', { url: '/about',views: {'menuContent': {templateUrl: 'templates/about.html'}}});
   $stateProvider.state('app.mural', { url: '/mural',views: {'menuContent': {templateUrl: 'templates/mural.html'}}});
   $stateProvider.state('mural_details', { url: '/mural_details',templateUrl: 'templates/mural_details.html'});
+  $stateProvider.state('app.main.no_connection', { url:'/no_connection',views: {'tab-home' :{templateUrl: 'templates/no_connection.html',controller:'AppCtrl'}}});
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/signup');
 });
 
-MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB) {
+MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location) {
   
   //$rootScope.urlBackend = 'http://localhost:3000';
   OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
@@ -87,29 +88,18 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
     }
     if(window.Connection) {
         if(navigator.connection.type == Connection.NONE) {
-            $ionicPopup.confirm({
-                title: "Internet Disconnected",
-                content: "The internet is disconnected on your device."
-            })
-            .then(function(result) {
-                if(!result) {
-                    ionic.Platform.exitApp();
-                }
-            });
+          $location.path('app/main/no_connection');
         }
         document.addEventListener("offline", function() {
-            $ionicPopup.confirm({
-                title: "Internet Disconnected",
-                content: "The internet is disconnected on your device."
-            })
-            .then(function(result) {
-                if(!result) {
-                    ionic.Platform.exitApp();
-                }
-            });
+          $location.path('app/main/no_connection');
+        }, false);
+        document.addEventListener("online", function() {
+          $location.path('app/main/home');
         }, false);
     }
+    console.log("Checking user..");
     if(!UserService.isAuthorized()){
+      console.log("Not authorized");
       $cordovaSplashscreen.hide();
     }
   });

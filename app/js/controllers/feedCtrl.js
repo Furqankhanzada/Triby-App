@@ -116,7 +116,7 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
 		$ionicLoading.show({
 	      template: 'Uploading...'
 	    });
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads').then(function(response){
+		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"TRIBY").then(function(response){
 
 			if(response.status == "success"){
 				$scope.triby.pic = response.url_file;
@@ -179,7 +179,7 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
 	  return newArr;
 	}
 });
-MyApp.controller('InfoCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, UserService, $ionicPopup) {
+MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, UserService, $ionicPopup) {
 	
 	$scope.triby = {};
 	FeedService.getTriby($stateParams.triby_id).then(function(response){
@@ -197,16 +197,17 @@ MyApp.controller('InfoCtrl', function($scope, $location, $ionicLoading, FeedServ
 		$location.path('app/news_feed/' + tribyId);
 	}
 
-	$scope.exitApp = function(){
-	    $ionicPopup.confirm({
-	        title: 'Triby',
-	        template: 'Do you want to remove your profile from Triby?'
-	      }).then(function(res){
-	        if( res ){
-	          navigator.app.exitApp();
-	        }
-	    });
-	    return;
+	$scope.exitTriby = function(tribyId){
+		FeedService.exitTriby(tribyId).then(function(response){
+			if(response.status === 'success'){
+				$timeout(function(){
+					$window.location.href = "#/app/main/home";
+					$window.location.reload();
+				}, 100);
+			}
+			else
+				window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+		});
 	  }
 });
 MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, SettingsService, $window, $timeout, $route) {
@@ -243,6 +244,13 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
 			else
 				window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 		});
+	}
+
+	$scope.goBack = function(){
+		$timeout(function(){
+			$window.location.href = "#/app/info/" + $scope.triby._id;
+			$window.location.reload();
+		}, 100);
 	}
 });
 MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window, $route, $state) {

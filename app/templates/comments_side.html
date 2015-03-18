@@ -1,4 +1,4 @@
-<ion-view title="Comments" ng-controller="FeedCtrl">
+<ion-view title="Carla Simpson" ng-controller="FeedCtrl">
     <ion-nav-bar align-title="center" class="bar bar-triby nav-title-slide-ios7"></ion-nav-bar>
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
     <ion-nav-buttons side="left">
@@ -71,22 +71,24 @@
             </div>
           </div>
         </div>
-        <br>
-        <div class="list list-feed bottom_top-border">
-          <div class="item item-send-text">
-            <div class="row">
-              <div class="col col-center image_upload_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')">
-                <img src="img/image_upload.png" style="width:100%" />
-              </div>
-              <div class="col col-75 col-center">
-                <input type="text" style="font-size:20px" class="comment_input inputForm" placeholder="Say something..." />
-              </div>
-              <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')">
-                <img style="width:120%" src="img/camera-icon.png" />
-              </div>
-            </div>
-          </div>
-        </div>
-
     </ion-content>
+    <form name="sendMessageForm" ng-submit="postMessage()" >
+        <ion-footer-bar class="bar-stable message-footer" >
+            <div class="list list-feed bottom_top-border">
+                 <div class="item item-send-text">
+                    <div class="row">
+                      <div class="col col-center image_upload_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')">
+                        <img src="img/image_upload.png" style="width:100%" />
+                      </div>
+                        <div  class="col col-75 col-center">
+                            <input type="text" style="font-size:20px" class="comment_input inputForm" ng-model="post.message" placeholder="Say something..." />
+                        </div>
+                      <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')">
+                        <img style="width:120%" src="img/camera-icon.png" />
+                      </div>
+                    </div>
+                 </div>
+            </div>
+        </ion-footer-bar>
+    </form>
 </ion-view>

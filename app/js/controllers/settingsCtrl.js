@@ -25,9 +25,6 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
 
 	$scope.uploadPicture = function(){
-		$ionicLoading.show({
-	      template: 'Uploading...'
-	    });
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads','AVATAR').then(function(response){
 
 			if(response.status === 'success'){
@@ -35,7 +32,7 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 			}
 			else
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-			$ionicLoading.hide();
+			
 		});
 	}
 
@@ -78,6 +75,8 @@ MyApp.controller('FeedbackCtrl', function($scope, $ionicModal, $timeout, $ionicP
 		stars : [0,0,0,0,0],
 		score: 0
 	}
+
+	$scope.showDone = $scope.score > 0 || $scope.feedback.text.length > 0;
 
 	$scope.addStar = function(index){
 
