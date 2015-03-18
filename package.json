@@ -60,6 +60,7 @@
     "org.apache.cordova.file-transfer",
     "org.apache.cordova.network-information",
     "org.apache.cordova.splashscreen",
-    "org.apache.cordova.inappbrowser"
+    "org.apache.cordova.inappbrowser",
+    "nl.x-services.plugins.toast"
   ]
 }
