@@ -434,7 +434,7 @@ img.feed-img  {
 .comment_input
 {
   line-height: 30px !important;
-  margin-top: 1px;
+  margin-top: 6px;
 }
 
 .comment_input::-webkit-input-placeholder {color: #c7c7cc;}
@@ -625,6 +625,14 @@ img.feed-img  {
 .item-send-text .row {
   height:40px;
 }
+.news_feed_message_area .item-send-text .row
+{
+  height:45px;
+}
+.news_feed_message_area .item-send-text .row input
+{
+  margin: 1px 0;
+}
 .left_comment_area
 {
   margin: 0;
@@ -739,7 +747,7 @@ img.feed-img  {
   right: 0 !important;
   overflow: hidden !important;
 }
-.chat-icons .hand-down{float: right !important;}
+.chat-icons .hand-down{margin:2px 5px 0 0 !important;float: right !important;}
 .chat-icons .heart{margin: 0 7px 0 12px !important;}
 .chat-icons .heart img{
   position: absolute;
@@ -750,7 +758,7 @@ img.feed-img  {
 }
 .chat-icons .grey-hand-down
 {
-  margin: 6px 18px 0 0 !important;
+  margin: 2px 18px 0 0 !important;
   float: right !important;
 }
 .chat-icons .heart .text-heart{
@@ -996,12 +1004,12 @@ img.profile-pic.right {
 }
 .mural_footer
 {
-    background: black;
-    opacity: 0.7;
-    height: 100px;
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
 }
 .mural_footer .profile
 {
@@ -1014,18 +1022,32 @@ img.profile-pic.right {
 }
 .mural_footer h4
 {
-    position: absolute;
-    top: 5px;
-    left: 50px;
-    color: white;
-    width:100%;
+  position: absolute;
+  top: 8px;
+  left: 55px;
+  color: white;
+  width: 100%;
 }
-
+.mural_footer .icons
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  height: 50px;
+  position: relative;
+  clear: both;
+  color: #fff;
+}
 .mural_footer .icons img{
   height: 30px;
   width: 30px;
 }
-
+.mural_footer .icons span
+{
+  color: #fff;
+  font-size: 12px;
+}
 .mural_footer div.hand-down
 {
    position:absolute;
@@ -1141,3 +1163,118 @@ img.profile-pic.right {
   float:left !important;
   margin-right:10px !important;
 }
+
+.news_feed_content_wrapper .item-text
+{
+  margin: 0;
+  padding: 0 25px 0 8px;
+}
+.news_feed_content_wrapper .item-text > .row{margin-bottom: 5px;color: #000;}
+.news_feed_content_wrapper .item-text > .feed-post-text{margin-bottom: 0px;color: #000;}
+.news_feed_content_wrapper .item-text .feed-img{margin: 8px 0 0 0}
+.news_feed_content_wrapper .item-text .feed-text-name{color: #000;}
+.pro_pic {
+  margin: 10px 7px 0 7px;
+  padding: 0;
+  float: left;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 100%;
+}
+img.pro_pic_img
+{
+  margin: 0 0 0 -2px;
+  padding: 0;
+  display: inline-block;
+  position: relative;
+}
+.account_wrapper
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.account_wrapper .list-profile {margin:20px 10px 0 10px;}
+.account_wrapper .list-account {margin:0px 10px 0 10px;}
+.account_wrapper .list-account .item {padding-left: 25px;}
+.change_number_wrapper .list-change-number .item
+{
+  margin: 15px 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.delete_number_wrapper .list-delete-number label
+{
+  padding: 0;
+}
+.change_number_wrapper .list-change-number .item number-only-input,
+.delete_number_wrapper .list-delete-number label number-only-input
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.change_number_wrapper .list-change-number .item input,
+.delete_number_wrapper .list-delete-number label number-only-input input
+{
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  line-height: 40px;
+  text-align: center;
+  color: #000 !important;
+}
+.list-change-number number-only-input input {color: #000 !important;}
+
+.change_number_wrapper .list-change-number .item input::-webkit-input-placeholder,
+.delete_number_wrapper .list-inset input::-webkit-input-placeholder
+{
+  color: #c7c7cc;
+  word-break: break-all;
+  overflow: hidden;
+  font-size: 13px;
+}
+.change_number_wrapper .list-change-number .item input:-moz-placeholder,
+.delete_number_wrapper .list-inset input:-moz-placeholder {
+  color: #c7c7cc;
+  word-break: break-all;
+  overflow: hidden;
+  font-size: 13px;
+}
+.change_number_wrapper .list-change-number .item input::-moz-placeholder,
+.delete_number_wrapper .list-inset input::-moz-placeholder
+{
+  color: #c7c7cc;
+  word-break: break-all;
+  overflow: hidden;
+  font-size: 13px;
+}
+.change_number_wrapper .list-change-number .item input:-ms-input-placeholder,
+.delete_number_wrapper .list-inset input:-ms-input-placeholder
+{
+  color: #c7c7cc;
+  word-break: break-all;
+  overflow: hidden;
+  font-size: 13px;
+}
+.delete_number_wrapper .list-inset {
+  overflow: hidden;
+  margin: 0px 10px;
+  border-radius: 2px;
+  background-color: #fff;
+}
+
+
+
