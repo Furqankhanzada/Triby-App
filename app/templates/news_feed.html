@@ -8,19 +8,20 @@
         <button class="button button-icon" style="color:#fff" ng-click="go('app/mural')">Mural</button>
     </ion-nav-buttons>
     <ion-content align="center" style="border:none" scroll="true" >
-        <div >
+        <div class="news_feed_content_wrapper">
+          <div>
             <img  style="width: 100%;height: auto; max-width: 100%;" src="img/feed_photo.png">
-        </div>
-        <div class="list list-feed">
+          </div>
+          <div class="list list-feed">
             <div class="item item-text">
-                <div class="row">
-                    <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
-                    <div  class="col  feed-text-name col-center">Carla Simpson</div>
-                    <div class="col col-33 feed-text-date">Today @ 9:30am</div>
-                </div>
-                <div class="row feed-post-text" >
-                    <div class="col col-center">Best ice cream in town @ Byward Ottawa #fun #BFF #summer</div>
-                </div>
+              <div class="row">
+                <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
+                <div  class="col  feed-text-name col-center">Carla Simpson</div>
+                <div class="col col-33 feed-text-date">Today @ 9:30am</div>
+              </div>
+              <div class="row feed-post-text" >
+                <div class="col col-center">Best ice cream in town @ Byward Ottawa #fun #BFF #summer</div>
+              </div>
             </div>
             <div class="item item-icons">
                 <div class="icons-feed">
@@ -45,19 +46,19 @@
                  </div>
             </div>
             <div class="item black-divider">
-                &nbsp;
+              &nbsp;
             </div>
-        </div>
-        <div class="list list-feed">
+          </div>
+          <div class="list list-feed">
             <div class="item item-text">
-                <div class="row">
-                    <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
-                    <div  class="col  feed-text-name col-center">Carla Simpson</div>
-                    <div class="col col-33 feed-text-date">Today @ 9:30am</div>
-                </div>
-                <div class="row feed-post-text" >
-                    <div class="col col-center">This is a text post, this is a text post, this is a text post, this is a text post.</div>
-                </div>
+              <div class="row">
+                <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
+                <div  class="col  feed-text-name col-center">Carla Simpson</div>
+                <div class="col col-33 feed-text-date">Today @ 9:30am</div>
+              </div>
+              <div class="row feed-post-text" >
+                <div class="col col-center">This is a text post, this is a text post, this is a text post, this is a text post.</div>
+              </div>
             </div>
             <div class="item item-icons">
                 <div class="icons-feed">
@@ -82,11 +83,12 @@
                  </div>
             </div>
             <div class="item black-divider">
-                &nbsp;
+              &nbsp;
             </div>
+          </div>
         </div>
     </ion-content>
-    <form name="sendMessageForm" ng-submit="postMessage()" >
+    <form name="sendMessageForm news_feed_message_area" ng-submit="postMessage()" >
         <ion-footer-bar class="bar-stable message-footer" >
             <div class="list list-feed bottom_top-border">
                  <div class="item item-send-text">
