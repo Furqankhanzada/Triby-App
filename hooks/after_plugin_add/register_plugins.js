@@ -13,7 +13,7 @@ for (var i = 0; i < fromEnv.length; i++) {
 	var plugin = fromEnv[i];
 
   if (packageJSON.cordovaPlugins.indexOf(plugin) !== -1) {
-    packageJSON.cordovaPlugins.push(plugin);
+    //packageJSON.cordovaPlugins.push(plugin);
   }
 }
 

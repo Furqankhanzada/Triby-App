@@ -1,6 +1,6 @@
 <ion-view view-title="Info" ng-controller="InfoCtrl">
     <ion-nav-buttons side="left">
-        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/news_feed')"></button>
+        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="goBack(triby._id)"></button>
     </ion-nav-buttons>
     <ion-content>
         <div class="list list-info">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="list" style="margin-bottom:0px;">
-            <div class="item item-icon-right" style="text-align:center;border-bottom:none;">
+            <div class="item item-icon-right" style="text-align:center;border-top:none;border-bottom:none;">
                 <a class="icon ion-ios-plus-outline" href="#/app/add_members"  style="text-decoration: none;color: #2695f9;"></a>
                 <span style="font-size:24px;font-weight:400;color:black">Members</span>
             </div>

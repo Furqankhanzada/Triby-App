@@ -49,7 +49,7 @@ process.env.CORDOVA_PLUGINS.split(',').forEach(function (plugin) {
       }
     })
     if(!pluginExists) {
-      packageJSON.cordovaPlugins.push(pluginToAdd);
+      //packageJSON.cordovaPlugins.push(pluginToAdd);
     }
   }
 });
