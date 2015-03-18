@@ -28,7 +28,20 @@ a {
     font-size: 16px !important;
     font-weight: 200;
 }
-
+.scroll
+{
+  height: 100%;
+}
+.list-exit {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: absolute;
+  top: 84%;
+  clear: both;
+}
+.tribys_circles{padding:0 15px !important;}
 .button-signup {
     font-weight: bold;
     background-color: #3b5a99;
@@ -429,7 +442,7 @@ img.feed-img  {
 .comment_input::-moz-placeholder {color: #c7c7cc;}
 .comment_input:-ms-input-placeholder {color: #c7c7cc;}
 
-.list-feed{border-top: 2px solid #b8b8b8;}
+.bottom_top-border{border-top: 2px solid #b8b8b8;}
 
 .image_upload_icon img
 {
@@ -475,7 +488,7 @@ img.feed-img  {
 .icons-feed div
 {
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 0 0 5px !important;
   float: left !important;
   width: 20% !important;
   line-height: 28px;
@@ -486,7 +499,7 @@ img.feed-img  {
   left: 0 !important;
   right: 0 !important;
   font-size: 12px;
-  text-align: center;
+  text-align: left;
 }
 .icons-feed div img
 {
@@ -496,9 +509,20 @@ img.feed-img  {
   width: 25px !important;
   height: 25px !important;
 }
+.icons-feed div span
+{
+  margin: 0;
+  padding: 0;
+  float: right;
+  position: absolute;
+  bottom: 7px;
+  left: 30px;
+  line-height: 12px;
+}
+.icons-feed .heart span {left: 40px !important;}
 .icons-feed .heart img
 {
-  margin: 0px 0 0 0 !important;
+  margin: -1px 0 0 0 !important;
   width: 35px !important;
   height: 35px !important;
 }
@@ -508,9 +532,10 @@ img.feed-img  {
 }
 .icons-feed .envelope img
 {
-  margin: 5px 0 0 0 !important;
-  width: 25px !important;
-  height: 23px !important;
+  margin: 8px 9px 0 0 !important;
+  width: 22px !important;
+  height: 20px !important;
+  float: right;
 }
 .list-feed  .item-icons img{
   width:30px;
@@ -539,6 +564,7 @@ img.feed-img  {
 .list-feed .item-send-text{
     border-top: none;
     padding: 0px ;
+    border: none !important;
 }
 .list-feed .item-send-text .col-center
 {
@@ -621,7 +647,7 @@ img.feed-img  {
 }
 .left_comment_area .envelope
 {
-  margin: 32px 0 0;
+  margin: 34px 0 0;
   padding: 0;
   float: left;
   overflow: hidden;
@@ -630,8 +656,8 @@ img.feed-img  {
 }
 .left_comment_area .envelope img
 {
-  width: 25px;
-  height: 22px;
+  width: 22px;
+  height: 20px;
 }
 .chat-icons
 {
@@ -1105,7 +1131,7 @@ img.profile-pic.right {
 }
 .always-on .icon{
   font-size:40px !important;
-  /*margin-top: -2px;*/
+  margin-top: -4px;
 }
 .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
   padding-left:20px !important;
