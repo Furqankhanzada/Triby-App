@@ -184,7 +184,6 @@ MyApp.controller('InfoCtrl', function($scope, $location, $ionicLoading, FeedServ
 	$scope.triby = {};
 	FeedService.getTriby($stateParams.triby_id).then(function(response){
 		$scope.triby = response.data.tribe;
-		console.log(JSON.stringify($scope.triby));
 		var members = $scope.triby.members;
 		$scope.triby.users = [];
 		for(var i=0; i < members.length; i++)
@@ -194,6 +193,10 @@ MyApp.controller('InfoCtrl', function($scope, $location, $ionicLoading, FeedServ
 		FeedService.setNewTriby($scope.triby);
 	});
 	
+	$scope.goBack = function(tribyId){
+		$location.path('app/news_feed/' + tribyId);
+	}
+
 	$scope.exitApp = function(){
 	    $ionicPopup.confirm({
 	        title: 'Triby',

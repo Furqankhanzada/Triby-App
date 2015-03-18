@@ -282,11 +282,11 @@ div.phone-number{
     border-bottom: none;
 }
 .list-info img {
-    max-height: 80px !important;
-    max-width: 80px !important;
+    max-height: 60px !important;
+    max-width: 60px !important;
 }
 .list-info span {
-    padding-left: 60px;
+    padding-left: 70px;
     font-size: 22px;
     font-weight: 400;
     color:black;
