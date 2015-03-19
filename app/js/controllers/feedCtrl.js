@@ -148,9 +148,9 @@ MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionic
 			console.log(JSON.stringify(response));
 			if(response.status=="success"){
 				window.plugins.toast.showShortCenter("New Triby created successfully", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+				
 				$timeout(function(){
 					$window.location.href = "#/app/main/home";
-					$window.location.reload();
 				}, 100);
 			}
 			else
@@ -158,7 +158,13 @@ MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionic
 		});
 	}
 });
-MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope) {
+MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope,$timeout) {
+
+	$ionicLoading.show({
+      duration: 30000,
+      noBackdrop: false,
+      content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+    });
 
 	$scope.tribes = {};
 	$scope.hideEmptyTribes = true;
@@ -169,6 +175,7 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
 		else
 			$scope.hideEmptyTribes = false;
 		$scope.tribes = chunk(response.data.tribes, 2);
+		$timeout(function() { $ionicLoading.hide(); },300);
 	});
 
 	function chunk(arr, size) {
@@ -215,13 +222,37 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
 	$scope.triby = {};
 	FeedService.getTriby($stateParams.triby_id).then(function(response){
 		$scope.triby = response.data.tribe;
+
+	});
+
+	$scope.showDone = "";
+	var initializing = true
+	$scope.$watch("triby.name", function(newValue, oldValue) {
+		if(initializing){
+			$timeout(function() { initializing = false; },500);
+		}
+		else{
+			if (newValue != oldValue) {
+	  			$scope.showDone = "Done";
+			}	
+		}
+	});
+	$scope.$watch("triby.pic", function(newValue, oldValue) {
+		if(initializing){
+			$timeout(function() { initializing = false; },500);
+		}
+		else{
+			if (newValue != oldValue) {
+	  			$scope.showDone = "Done";
+			}	
+		}
 	});
 
 	$scope.uploadPicture = function(){
 		$ionicLoading.show({
 	      template: 'Uploading...'
 	    });
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads').then(function(response){
+		SettingsService.fileTo($rootScope.urlBackend + '/uploads','AVATAR').then(function(response){
 
 			if(response.status == "success"){
 				$scope.triby.pic = response.url_file;
