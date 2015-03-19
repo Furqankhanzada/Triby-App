@@ -440,11 +440,6 @@ img.feed-img  {
     padding-left: 5px !important;
     word-spacing:  normal;
 }
-.comment_input
-{
-  line-height: 30px !important;
-  margin-top: 6px;
-}
 
 .comment_input::-webkit-input-placeholder {color: #c7c7cc;}
 .comment_input:-moz-placeholder {color: #c7c7cc;}
@@ -453,16 +448,6 @@ img.feed-img  {
 
 .bottom_top-border{border-top: 2px solid #b8b8b8;}
 
-.image_upload_icon img
-{
-  width: 85% !important;
-  margin-top: 10px;
-}
-.camera_icon img
-{
-  width: 100% !important;
-  margin-top: 9px;
-}
 .list-feed  .item-text{
     border-top: none;
     border-left: none;
@@ -689,7 +674,7 @@ img.feed-img  {
   margin: 29px 0 0px 30px;
   padding: 0;
   float: right;
-  width: 100%;
+  width: auto;
   position: relative;
 }
 
@@ -1162,7 +1147,8 @@ img.profile-pic.right {
 }
 .always-on .icon{
   font-size:40px !important;
-  margin-top: -3px;
+  /*margin-top: -3px;*/
+  margin-top: 0px;
 }
 .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
   padding-left:20px !important;
@@ -1299,4 +1285,92 @@ img.pro_pic_img
   fill: #999;
 }*/
 
-
+.list-message-blue-no-connection
+{
+  margin: 0;
+  padding:20px 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+  text-align: center;
+  background: #006edb;
+}
+.chat_detail_box
+{
+  margin: 0;
+  padding: 5px 15px;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.comment_footer_wrapper
+{
+  height: 50px;
+}
+.comment_footer_wrapper .list-feed,
+.comment_footer_wrapper .list-feed .item-send-text,
+.comment_footer_wrapper .list-feed .item-send-text .row
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  height: inherit;
+  position: relative;
+  clear: both;
+}
+.comment_input
+{
+  margin-top: 0;
+  line-height: 35px !important;
+  height: 35px !important;
+}
+.comment_footer_wrapper .list-feed .item-send-text .row .image_upload_icon,
+.comment_footer_wrapper .list-feed .item-send-text .row .comment_input_box,
+.comment_footer_wrapper .list-feed .item-send-text .row .camera_icon
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  position: relative;
+}
+.comment_footer_wrapper .image_upload_icon {
+  margin: 5px 0 0 !important;
+  padding: 0 !important;
+}
+.comment_footer_wrapper .image_upload_icon img
+{
+  width: 30px !important;
+  height: 30px;
+}
+.comment_footer_wrapper .comment_input_box {
+  margin: 0px 0 0 0 !important;
+  padding: 0 !important;
+}
+.comment_footer_wrapper .camera_icon {
+  margin: 1px 0 0 !important;
+  padding: 0 !important;
+  float: left;
+  position: relative;
+}
+.comment_footer_wrapper .camera_icon img
+{
+  width: 35px !important;
+}
+.tribys_pic_circle
+{
+  margin: 10px 0 0 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.tribys_pic_circle img {
+  width: 100% !important;
+  margin-top: 0 !important;
+}
