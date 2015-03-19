@@ -1,6 +1,6 @@
 'use strict';
 
-MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile) {
+MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile, OpenFB) {
   
   var settingsServiceFactory = {};
 
@@ -68,8 +68,8 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
         options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
 
       if(aType === 'AVATAR'){
-        options.targetWidth = 200;
-        options.targetHeight = 200;
+        options.targetWidth = 400;
+        options.targetHeight = 400;
       }
       if(aType === 'TRIBY'){
         options.targetWidth = 200;
@@ -155,13 +155,42 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
   }
 
   var _getContactsLocal = function(){
-    var authData = localStorageService.get('contacts');
-    if(!authData)
-      return [];
+    var deferred = $q.defer();
+    var authData = localStorageService.get('authorizationData');
+    if(authData.mobilenumber === "na"){
+      console.log("Getting facebook users");
+      OpenFB.get('/me/friends',{limit: 50}).success(function (result) {
+          
+          var contacts = [];
+          for(var i=0; i < result.data.length; i++)
+            contacts.push(result.data[i].id);
+          
+          $http.defaults.headers.common.Authorization = authData.token;
+          $http.post($rootScope.urlBackend + '/user/facebook/contacts', {'contacts':contacts}).success(function (response) {
+            if(response.status === 'success')
+              deferred.resolve(response.users);
+            else
+              deferred.reject({"error":"error getting facebook friends"});
+          }).error(function (err, status) {
+              deferred.reject(err);
+          });
+      })
+      .error(function(data) {
+          deferred.reject(data.error.message);
+      });
+    }
     else
-      return authData.contacts;
-  }
+    {
+      authData = localStorageService.get('contacts');
+      if(!authData)
+        deferred.resolve([]);
+      else
+        deferred.resolve(authData.contacts);
+    }
 
+    return deferred.promise;
+  }
+  
   var _getContacts = function(numbers){
     var deferred = $q.defer();
     var authData = localStorageService.get('authorizationData');
