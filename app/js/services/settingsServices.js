@@ -60,9 +60,13 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
       var options = {
           quality: 100
           , destinationType: Camera.DestinationType.FILE_URI
-          , sourceType: Camera.PictureSourceType.PHOTOLIBRARY
           , encodingType: Camera.EncodingType.JPEG
       }
+      if(aSource === 'CAMERA')
+        options.sourceType = Camera.PictureSourceType.CAMERA;
+      else
+        options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+
       if(aType === 'AVATAR'){
         options.targetWidth = 200;
         options.targetHeight = 200;
@@ -71,10 +75,6 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
         options.targetWidth = 200;
         options.targetHeight = 200;
       }
-      if(aSource == 'CAMERA')
-        sourceType: Camera.PictureSourceType.CAMERA;
-      else
-        sourceType: Camera.PictureSourceType.PHOTOLIBRARY;
 
       $cordovaCamera.getPicture(options).then(
 
