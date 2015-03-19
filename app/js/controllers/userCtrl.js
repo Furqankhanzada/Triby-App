@@ -21,7 +21,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   $scope.fbLogin = function(){
     
-    OpenFB.login('email').then(
+    OpenFB.login('email,user_friends').then(
       function () {
         var aUser = {};
         OpenFB.get('/me').success(function (user) {
