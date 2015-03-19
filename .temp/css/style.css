@@ -266,6 +266,8 @@ div.phone-number{
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: 0px;
+    float: left;
+    width: 100%;
 }
 
 .icon-full-star {
@@ -445,7 +447,7 @@ img.feed-img  {
 .comment_input::-moz-placeholder {color: #c7c7cc;}
 .comment_input:-ms-input-placeholder {color: #c7c7cc;}
 
-.bottom_top-border{border-top: 2px solid #b8b8b8;}
+.bottom_top-border{border-top: 1px solid #b8b8b8;}
 
 .list-feed  .item-text{
     border-top: none;
@@ -1359,4 +1361,42 @@ img.pro_pic_img
 .tribys_pic_circle img {
   width: 100% !important;
   margin-top: 0 !important;
+}
+.mural_details_icons
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.mural_details_icons > div
+{
+  margin: 0;
+  padding: 0 10px;
+  float: left;
+  width: auto;
+  height: auto;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+}
+.mural_details_icons > div > img,
+.mural_details_icons > div > span
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: auto;
+  height: auto;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
 }
