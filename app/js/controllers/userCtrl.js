@@ -3,6 +3,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   
   $scope.signupData = {
     username: "",
+    countryCode: "",
     phone: ""
   }
   $scope.texto = 'Hello World!';
@@ -71,6 +72,10 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       else
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
     });
+  }
+
+  $scope.step1 = function(){
+    $location.path('signup_1');
   }
 });
 
