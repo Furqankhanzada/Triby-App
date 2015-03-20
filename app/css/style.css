@@ -122,7 +122,7 @@ div.phone-number{
 .text-no-tribes{
   color:gray;
   font-size: 20px;
-  margin-top: 25px;
+  margin-top: 15px;
 }
 .msg-no-tribys{
   margin-bottom: 42px;
@@ -585,7 +585,7 @@ img.feed-img  {
   position: relative;
 }
 .circle-border {
-  border: 5px dashed  gray;
+  border: 2px dashed #a0a0a0;
 
 }
 .circle-solid{
@@ -614,6 +614,7 @@ img.feed-img  {
   height: 1em;
   line-height: 1em;
   font-size: 1em;
+  color: #a0a0a0;
 }
 /* end circle */
 .item-send-text .row {
@@ -1663,3 +1664,11 @@ img.pro_pic_img
   height: 50px;
 }
 .confirmation_popup .bottom_button_box div:first-child{border-right: 1px solid #c6c6c6;}
+.homepage_blue_wrapper{bottom: 46px !important;height: 78px !important;}
+.homepage_blue_area
+{
+  float: left;
+  padding: 15px 0 20px;
+  background: #006edb;
+}
+.homepage_blue_area .item{padding: 5px 0 0 !important;}
