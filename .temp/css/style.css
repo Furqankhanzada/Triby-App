@@ -450,7 +450,7 @@ img.feed-img  {
 .comment_input::-moz-placeholder {color: #c7c7cc;}
 .comment_input:-ms-input-placeholder {color: #c7c7cc;}
 
-.bottom_top-border{border-top: 1px solid #b2b2b2;}
+/*.bottom_top-border{border-top: 1px solid #b2b2b2;}*/
 
 .list-feed  .item-text{
     border-top: none;
@@ -788,7 +788,7 @@ img.feed-img  {
 .feed-text-date {
     text-align: right;
     font-size: 14px;
-    padding-right: 15px !important;
+    padding-right: 25px !important;
     color:#989898;
 }
 .feed-post-text {
@@ -1496,7 +1496,7 @@ img.pro_pic_img
 .signup_first_step_form form select
 {
   margin: 0;
-  padding: 0 5%;
+  padding: 0 0 0 32%;
   float: left;
   width: 105%;
   position: relative;
@@ -1504,6 +1504,7 @@ img.pro_pic_img
   overflow: hidden;
   font-size: 22px;
   height: 50px;
+  line-height: 50px;
   color: #007aff;
   text-align: center !important;
   background: none;
@@ -1609,7 +1610,7 @@ img.pro_pic_img
 .clear{clear: both;}
 .confirmation_popup
 {
-  margin: 0 auto;
+  margin:150px auto;
   padding:0;
   display: block;
   width:90%;
@@ -1620,17 +1621,33 @@ img.pro_pic_img
   border: 1px solid #7b7b7b;
   border-radius: 10px;
 }
-.confirmation_popup .popup {width: 100% !important;}
+.confirmation_popup .popup
+{
+  width: 100% !important;
+  background: #f6f6f6 !important;
+}
+.confirmation_popup .popup .popup-body
+{
+  border-bottom: 1px solid #dddddd;
+}
+
+.confirmation_popup .popup .popup-head {display: none !important;}
 .confirmation_popup .popup .popup-body{padding: 0 !important;}
 .confirmation_popup .confirmation_text_box,
-.confirmation_popup .bottom_button_box
+.confirmation_popup .bottom_button_box,
+.confirmation_popup .popup .popup-buttons
 {
   margin:5% 0;
-  padding: 0;
+  padding: 0 !important;
   float: left;
   width: 100%;
   position: relative;
   clear: both;
+}
+.confirmation_popup .popup .popup-buttons
+{
+  margin: 0 !important;
+  min-height: 50px;
 }
 .confirmation_popup .confirmation_text_box .confirm_text,
 .confirmation_popup .confirmation_text_box .check_number,
@@ -1661,19 +1678,24 @@ img.pro_pic_img
   margin: 0;
   border-top: 1px solid #c6c6c6;
 }
-.confirmation_popup .bottom_button_box div {
-  margin: 0;
-  padding: 0;
-  float: left;
-  width: 50%;
-  text-align: center;
-  position: relative;
+.confirmation_popup .bottom_button_box div,
+.confirmation_popup .popup .popup-buttons button
+{
+  margin: 0 !important;
+  padding: 0 !important;
+  float: left !important;
+  width: 50% !important;
+  text-align: center !important;
+  position: relative !important;
   font-size: 20px;
-  color: #007aff;
-  line-height: 50px;
-  height: 50px;
+  color: #007aff !important;
+  line-height: 50px !important;
+  height: 50px !important;
+  background: none !important;
+  border: none !important;
 }
-.confirmation_popup .bottom_button_box div:first-child{border-right: 1px solid #c6c6c6;}
+.confirmation_popup .bottom_button_box div:first-child,
+.confirmation_popup .popup .popup-buttons button:first-child{border-right: 1px solid #c6c6c6 !important;}
 .homepage_blue_wrapper{bottom: 46px !important;height: 78px !important;}
 .homepage_blue_area
 {
