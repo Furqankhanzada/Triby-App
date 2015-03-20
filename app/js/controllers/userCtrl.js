@@ -77,6 +77,14 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   $scope.step1 = function(){
     $location.path('signup_1');
   }
+
+  $scope.showPopup = function(){
+    console.log("CLICK");
+    var confirmPopup = $ionicPopup.show({
+     template: '<div class="confirmation_text_box"><div class="confirm_text">Is this your correct number ?</div><div class="check_number"><span class="confirm_code">(' + $scope.signupData.countryCode + ') </span><span class="confirm_no">' + $scope.signupData.phone + '</span></div><div class="instruction_text">An access code will be sent to this number.</div></div><div class="bottom_button_box"><div class="edit_number" ng-click="closePop()">Edit</div><div class="confirm_number">OK</div></div> <div class="clear"></div>',
+     cssClass: 'confirmation_popup',
+    });
+  }
 });
 
 MyApp.controller('UserCtrlConfirm', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $window, UserService) {

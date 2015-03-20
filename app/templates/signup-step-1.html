@@ -1,4 +1,4 @@
-<ion-view view-title="Sign Up">
+<ion-view view-title="Sign Up" ng-controller="UserCtrl">
   <ion-content scroll="false">
     <div class="singup_first_step_wrapper">
       <div class="signup_first_step_title">
@@ -6,7 +6,7 @@
       </div>
       <div class="signup_first_step_form">
         <form>
-          <select ng-model="signUp.countryCode">
+          <select ng-model="signupData.countryCode">
             <option select value="" >Select your country</option>
             <option value="+93" >Afghanistan</option>
             <option value="+358" >Aland Islands</option>
@@ -259,17 +259,18 @@
           <div class="phone_number">
             <!--<input type="tel" class="country_code" placeholder="+1" ng-model="signUp.countryCode">-->
             <label class="country_code">
-              <span ng-if="!signUp.countryCode"> +1 </span>
-              <span>{{signUp.countryCode}}</span>
+              <span ng-if="!signupData.countryCode"> +1 </span>
+              <span>{{signupData.countryCode}}</span>
             </label>
             <number-only-input input-value="signupData.phone" input-name="phone" class="number" placeholder="'Enter your number'" />
           </div>
-          <div class="next_button_box">
-            <input type="button" class="next_step_button" value="Next">
+          <div class="next_button_box" ng-click="showPopup()">
+            <input type="button" class="next_step_button" value="Next" >
           </div>
         </form>
       </div>
 <!--confirmation popup's html start from here-->
+<!--
       <div class="confirmation_popup">
         <div class="confirmation_text_box">
           <div class="confirm_text">
@@ -289,6 +290,7 @@
         </div>
         <div class="clear"></div>
       </div>
+-->
 <!--confirmation popup's html fiinish here-->
     </div>
   </ion-content>
