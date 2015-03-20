@@ -257,7 +257,11 @@
           </select>
           <div class="select_arrow"> > </div>
           <div class="phone_number">
-            <input type="tel" class="country_code" placeholder="+1" ng-model="signUp.countryCode">
+            <!--<input type="tel" class="country_code" placeholder="+1" ng-model="signUp.countryCode">-->
+            <label class="country_code">
+              <span ng-if="!signUp.countryCode"> +1 </span>
+              <span>{{signUp.countryCode}}</span>
+            </label>
             <number-only-input input-value="signupData.phone" input-name="phone" class="number" placeholder="'Enter your number'" />
           </div>
           <div class="next_button_box">
