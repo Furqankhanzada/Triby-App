@@ -1451,3 +1451,217 @@ img.pro_pic_img
   line-height: 30px;
   overflow: visible;
 }
+.singup_first_step_wrapper,
+.signup_first_step_form,
+.signup_first_step_form form,
+
+.singup_second_step_wrapper,
+.signup_second_step_form,
+.signup_second_step_form form,
+
+.singup_third_step_wrapper,
+.signup_third_step_form,
+.signup_third_step_form form
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+}
+.signup_first_step_title,
+.signup_second_step_title,
+.signup_third_step_title
+{
+  margin: 15% 0;
+  padding: 0 5%;
+  float: left;
+  width: inherit;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  font-size: 22px;
+  line-height: 30px;
+  color: black;
+  text-align: center;
+}
+.signup_third_step_title{margin: 15% 0 20%;}
+.signup_second_step_title{margin: 15% 0 2%;}
+.signup_first_step_form form select
+{
+  margin: 0;
+  padding: 0 5%;
+  float: left;
+  width: 105%;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  font-size: 22px;
+  height: 50px;
+  color: #007aff;
+  text-align: center !important;
+  background: none;
+  border: none;
+  border-top: 1px solid #b8bfc1;
+  border-bottom: 1px solid #b8bfc1;
+  z-index: 2;
+}
+.select_arrow {
+  content: '';
+  margin: 0;
+  padding: 0;
+  width: 30px;
+  height: 17px;
+  font-size: 30px;
+  position: absolute;
+  top: 15px;
+  right: 0;
+  background: white;
+  z-index: 1;
+  color: #007aff;
+}
+.signup_first_step_form form .phone_number,
+.signup_second_step_form form .enter_code_box,
+.signup_third_step_form form .enter_code_box
+{
+  margin:0;
+  padding: 0 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  font-size: 22px;
+  line-height: 50px;
+  height: 50px;
+  color: black;
+  text-align: center;
+  /*border-top: 1px solid #b8bfc1;*/
+  border-bottom: 1px solid #b8bfc1;
+}
+.signup_second_step_form form .enter_code_box,
+.signup_third_step_form form .enter_code_box{margin:5% 0 0; border-top: 1px solid #b8bfc1;}
+
+.signup_first_step_form form .phone_number .country_code,
+.signup_first_step_form form .phone_number .number,
+.signup_second_step_form form .enter_code_box .enter_code,
+.signup_third_step_form form .enter_code_box .enter_code
+{
+  margin: 0;
+  padding: 0 2%;
+  display: inline-block;
+  float: left;
+  width: 24%;
+  position: relative;
+  overflow: hidden;
+  font-size: 22px;
+  line-height: 50px;
+  height: 50px;
+  color: black;
+  text-align: center;
+  border: none;
+  background: none;
+  border-right: 1px solid #b8bfc1;
+  clear: none;
+}
+.signup_second_step_form form .enter_code_box .enter_code,
+.signup_third_step_form form .enter_code_box .enter_code{width: 100%;border: none;}
+.signup_first_step_form form .phone_number .number{width: 75%;border: none;}
+.signup_first_step_form form .next_button_box,
+.singup_second_step_wrapper .ok_button_box,
+.signup_third_step_form .ok_button_box
+{
+  margin:10% 0%;
+  padding: 0%;
+  float: left;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+.signup_first_step_form form .next_button_box .next_step_button,
+.singup_second_step_wrapper .ok_button_box .ok_step_button,
+.signup_third_step_form .ok_button_box .ok_step_button
+{
+  margin: 0 auto;
+  padding: 0 5%;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  font-size: 22px;
+  line-height: 50px;
+  color: white;
+  text-align: center;
+  border: none;
+  background: none;
+  clear: both;
+  background: #007aff;
+  border-radius: 10px;
+}
+.clear{clear: both;}
+.confirmation_popup
+{
+  margin: 0 auto;
+  padding:0;
+  display: block;
+  width:90%;
+  position: relative;
+  clear: both;
+  overflow: hidden;
+  background: #f6f6f6;
+  border: 1px solid #7b7b7b;
+  border-radius: 10px;
+}
+.confirmation_popup .confirmation_text_box,
+.confirmation_popup .bottom_button_box
+{
+  margin:5% 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  position: relative;
+  clear: both;
+}
+.confirmation_popup .confirmation_text_box .confirm_text,
+.confirmation_popup .confirmation_text_box .check_number,
+.singup_second_step_wrapper .check_number
+{
+  padding: 0 5%;
+  font-size: 20px;
+  line-height:28px;
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+  color: #000;
+}
+.confirmation_popup .confirmation_text_box .check_number,
+.singup_second_step_wrapper .check_number{font-weight: bold;}
+.confirmation_popup .confirmation_text_box .instruction_text
+{
+  padding: 5% 10%;
+  font-size: 20px;
+  line-height: 28px;
+  position: relative;
+  text-align: center;
+  font-weight: 400;
+  color: #000;
+}
+.confirmation_popup .bottom_button_box
+{
+  margin: 0;
+  border-top: 1px solid #c6c6c6;
+}
+.confirmation_popup .bottom_button_box div {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 50%;
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+  color: #007aff;
+  line-height: 50px;
+  height: 50px;
+}
+.confirmation_popup .bottom_button_box div:first-child{border-right: 1px solid #c6c6c6;}
