@@ -754,7 +754,7 @@ img.feed-img  {
 }
 .chat-icons .grey-hand-down
 {
-  margin: 2px 18px 0 0 !important;
+  margin: 2px 3px 0 0 !important;
   float: right !important;
 }
 .chat-icons .heart .text-heart{
@@ -1425,4 +1425,29 @@ img.pro_pic_img
 }
 .mural_details_icons > div:last-child img {margin: -2px 0 0 0;}
 .mural_details_icons > div:last-child {float: right !important;}
-
+.reload_page_icon {
+  margin: 0;
+  padding: 0;
+  float: right;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 17px;
+  right: 30px;
+  font-size: 13px;
+  z-index: 99;
+}
+.reload_button {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 30px;
+  height: 25px;
+  min-height: 30px;
+  min-width: 30px;
+  position: relative;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 30px;
+  overflow: visible;
+}
