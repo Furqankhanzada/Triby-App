@@ -8,7 +8,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		image: "",
 		triby: $stateParams.triby_id
 	};
-
+	console.log("DJDJDJ")
 	FeedService.getPosts($stateParams.triby_id).then(function(response){
 		console.log(response);
 	});
@@ -73,7 +73,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 			}
 		});
 	}
-	
+
 	$scope.uploadPicture = function(source){
 
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){

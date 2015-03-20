@@ -56,7 +56,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/signup');
 });
 
-MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location) {
+MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location,$state) {
   
   //$rootScope.urlBackend = 'http://localhost:3000';
   OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
@@ -76,6 +76,15 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
         else
            return '3px';
   }
+
+  $ionicPlatform.registerBackButtonAction(function (event) {
+    if($state.current.name=="app.main.home"){
+      navigator.app.exitApp();
+    }
+    else {
+      navigator.app.backHistory();
+    }
+  }, 100);
 
   $ionicPlatform.ready(function() {
       
