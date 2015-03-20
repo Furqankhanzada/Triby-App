@@ -5,7 +5,7 @@
         <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/main/home')"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-icon" style="color:#fff" ng-click="go('app/mural')">Mural</button>
+        <button class="button button-icon" style="color:#fff" ng-click="goMural()">Mural</button>
     </ion-nav-buttons>
     <ion-content align="center" style="border:none" scroll="true" >
         <div class="news_feed_content_wrapper">
@@ -15,7 +15,7 @@
           <div class="list list-feed">
             <div class="item item-text">
               <div class="row">
-                <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
+                <div  class="col col-10 col-center feed-img"><a ng-href="#/app/comments/{{post.triby}}"><img src="img/carla_big.png" /></a></div>
                 <div  class="col  feed-text-name col-center">Carla Simpson</div>
                 <div class="col col-33 feed-text-date">Today @ 9:30am</div>
               </div>
@@ -27,18 +27,18 @@
                 <div class="icons-feed">
                     <div class="hand-up text-12-gray">
                         <a ng-click="addLike(0)"><img ng-src="{{getHandUp(0)}}" /></a>
-                        <span>{{feeds[0].likes}}</span>
+                        <span>{{(feeds[0].likes > 0 ? feeds[0].likes : '')}}</span>
                     </div>
                     <div class="heart text-12-gray">
                       <a ng-click="addHearth(0)"><img ng-src="{{getHearth(0)}}" /></a>
-                      <span class="text-heart">&nbsp;{{feeds[0].hearth}}</span>
+                      <span class="text-heart">&nbsp;{{(feeds[0].hearth > 0 ? feeds[0].hearth : '')}}</span>
                     </div>
                     <div class="hand-down text-12-gray">
-                        <a ng-click="addDislike(2)"><img ng-src="{{getHandDown(1)}}" /></a>
-                        <span>{{feeds[0].dislikes}}</span>
+                        <a ng-click="addDislike(0)"><img ng-src="{{getHandDown(0)}}" /></a>
+                        <span>{{(feeds[0].dislikes > 0 ? feeds[0].dislikes : '')}}</span>
                     </div>
                     <div class="envelope">
-                        <a href="#/app/comments_side"><img src="img/envelope.png" /></a>
+                        <a ng-href="#/app/comments_side/{{post.triby}}"><img src="img/envelope.png" /></a>
                     </div>
                     <div class="comments_area text-12-gray">
                         <img src="img/commetns-grey.png" /><span class="text-comment">0</span>
@@ -52,7 +52,7 @@
           <div class="list list-feed">
             <div class="item item-text">
               <div class="row">
-                <div  class="col col-10 col-center feed-img"><a href="#/app/comments"><img src="img/carla_big.png" /></a></div>
+                <div  class="col col-10 col-center feed-img"><a ng-href="#/app/comments/{{post.triby}}"><img src="img/carla_big.png" /></a></div>
                 <div  class="col  feed-text-name col-center">Carla Simpson</div>
                 <div class="col col-33 feed-text-date">Today @ 9:30am</div>
               </div>
@@ -64,20 +64,20 @@
                 <div class="icons-feed">
                     <div class="hand-up text-12-gray">
                         <a ng-click="addLike(1)"><img ng-src="{{getHandUp(1)}}" /></a>
-                      <span>{{feeds[1].likes}}</span>
+                      <span>{{(feeds[1].likes > 0 ? feeds[1].likes : '')}}</span>
                     </div>
                     <div class="heart text-12-gray">
                         <a ng-click="addHearth(1)"><img ng-src="{{getHearth(1)}}" /></a>
-                      <span class="text-heart">&nbsp;{{feeds[1].hearth}}</span>
+                      <span class="text-heart">&nbsp;{{(feeds[1].hearth > 0 ? feeds[1].hearth : '')}}</span>
                     </div>
                     <div class="hand-down text-12-gray">
                         <a ng-click="addDislike(1)"><img ng-src="{{getHandDown(1)}}" /></a>
-                      <span>{{feeds[1].dislikes}}</span>
+                      <span>{{(feeds[1].dislikes > 0 ? feeds[1].dislikes : '')}}</span>
                     </div>
                     <div class="envelope">
                     </div>
                     <div class="comments_area text-12-gray">
-                      <a href="#/app/comments"><img src="img/commetns.png" /></a>
+                      <a ng-href="#/app/comments/{{post.triby}}"><img src="img/commetns.png" /></a>
                       <span class="text-comment">1010</span>
                     </div>
                  </div>

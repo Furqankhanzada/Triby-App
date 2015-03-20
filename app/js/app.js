@@ -27,8 +27,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.noti', { url:'/noti',views: {'menuContent' :{templateUrl: 'templates/noti.html',controller:'AppCtrl'}}});
   $stateProvider.state('app.settings', { url: '/settings',views: {'menuContent': {templateUrl: 'templates/setting.html'}}});
   $stateProvider.state('app.news_feed', { url: '/news_feed/:triby_id',views: {'menuContent': {templateUrl: 'templates/news_feed.html'}}});
-  $stateProvider.state('app.comments', { url: '/comments',views: {'menuContent': {templateUrl: 'templates/comments.html'}}});
-  $stateProvider.state('app.comments_side', { url: '/comments_side',views: {'menuContent': {templateUrl: 'templates/comments_side.html'}}});
+  $stateProvider.state('app.comments', { url: '/comments/:triby_id',views: {'menuContent': {templateUrl: 'templates/comments.html'}}});
+  $stateProvider.state('app.comments_side', { url: '/comments_side/:triby_id',views: {'menuContent': {templateUrl: 'templates/comments_side.html'}}});
   $stateProvider.state('app.chat', { url: '/chat',views: {'menuContent': {templateUrl: 'templates/chat.html'}}});
   $stateProvider.state('app.add_members', { url: '/add_members',views: {'menuContent': {templateUrl: 'templates/add_members.html'}}});
   $stateProvider.state('app.new_triby', { url: '/new_triby',views: {'menuContent': {templateUrl: 'templates/new_triby.html'}}});
@@ -46,7 +46,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.feedback', { url: '/feedback',views: {'menuContent': {templateUrl: 'templates/feedback.html'}}});
   $stateProvider.state('app.terms', { url: '/terms',views: {'menuContent': {templateUrl: 'templates/terms.html'}}});
   $stateProvider.state('app.about', { url: '/about',views: {'menuContent': {templateUrl: 'templates/about.html'}}});
-  $stateProvider.state('app.mural', { url: '/mural',views: {'menuContent': {templateUrl: 'templates/mural.html'}}});
+  $stateProvider.state('app.mural', { url: '/mural/:triby_info',views: {'menuContent': {templateUrl: 'templates/mural.html'}}});
   $stateProvider.state('mural_details', { url: '/mural_details',templateUrl: 'templates/mural_details.html'});
   $stateProvider.state('app.main.no_connection', { url:'/no_connection',views: {'tab-home' :{templateUrl: 'templates/no_connection.html',controller:'AppCtrl'}}});
 

@@ -79,7 +79,6 @@ MyApp.controller('FeedbackCtrl', function($scope, $ionicModal, $timeout, $ionicP
 	$scope.showDone = $scope.score > 0 || $scope.feedback.text.length > 0;
 
 	$scope.addStar = function(index){
-
 		for(var i=0; i <= index; i++){
 			$scope.feedback.stars[i] = 1;
 		}
@@ -100,15 +99,14 @@ MyApp.controller('FeedbackCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
 	$scope.saveFeedback = function(){
 		$scope.feedback.score = getScore($scope.feedback.stars);
-		console.log($scope.feedback.score);
 		SettingsService.saveFeedback($scope.feedback).then(function(response){
 			if(response.status == "success"){
-				window.plugins.toast.showShortCenter("Thank you for your feedback!", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 				$window.location.href = "#/app/settings";
+				window.plugins.toast.showShortCenter("Thank you for your feedback!", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 			}
 			else
 				window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-		});		
+		});	
 	}
 
 });

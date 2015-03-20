@@ -1,5 +1,5 @@
 'use strict';
-MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location) {
+MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService) {
   
   $scope.go = function(path){
     $location.path( path );
@@ -23,6 +23,12 @@ MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,
   $scope.login = function() {
     $scope.modal.show();
   };
+
+  // Facebook user?
+  $scope.isFacebookUser = function() {
+    console.log(UserService.getMobileNumber());
+    return UserService.getMobileNumber() === 'na';
+  }
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
