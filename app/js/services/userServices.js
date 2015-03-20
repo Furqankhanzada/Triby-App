@@ -9,7 +9,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
   		var deferred = $q.defer();
         var data = {
                         username:signupData.username,
-                        mobilenumber:signupData.phone,
+                        mobilenumber:signupData.countryCode + signupData.phone,
                         device_id: deviceId,
                         password:"demo" // hardcode right now
                     };
@@ -25,6 +25,14 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
 
         return deferred.promise;
 	};
+
+  var _tmpUserName = "";
+  var _setUserNameTmp = function(aUserName) {
+    _tmpUserName = aUserName;
+  }
+  var _getUserNameTmp = function() {
+    return _tmpUserName;
+  }
 
   var _getMobileNumber = function () {
     var authData = localStorageService.get('authorizationData');
@@ -113,6 +121,8 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
   userServiceFactory.loginUser = _loginUser;
   userServiceFactory.loginUserFacebook = _loginUserFacebook;
   userServiceFactory.getUser = _getUser; 
+  userServiceFactory.getUserNameTmp = _getUserNameTmp;
+  userServiceFactory.setUserNameTmp = _setUserNameTmp;
 	
   return userServiceFactory;
 })

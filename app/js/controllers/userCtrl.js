@@ -65,7 +65,8 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   }
 
   $scope.signup = function(){
-    
+    $scope.signupData.username = UserService.getUserNameTmp();
+    console.log(JSON.stringify($scope.signupData));
     UserService.signUpUser($scope.signupData,$cordovaDevice.getUUID()).then(function(response){
       if(response.status == "success")
         $location.path("/confirm");
@@ -78,12 +79,32 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     $location.path('signup_1');
   }
 
+  $scope.step2 = function(){
+    UserService.setUserNameTmp($scope.signupData.username);
+    $location.path('signup_2');
+  }
+
+  var myPopup;
   $scope.showPopup = function(){
-    console.log("CLICK");
-    var confirmPopup = $ionicPopup.show({
-     template: '<div class="confirmation_text_box"><div class="confirm_text">Is this your correct number ?</div><div class="check_number"><span class="confirm_code">(' + $scope.signupData.countryCode + ') </span><span class="confirm_no">' + $scope.signupData.phone + '</span></div><div class="instruction_text">An access code will be sent to this number.</div></div><div class="bottom_button_box"><div class="edit_number" ng-click="closePop()">Edit</div><div class="confirm_number">OK</div></div> <div class="clear"></div>',
+    myPopup = $ionicPopup.show({
+     template: '<div class="confirmation_text_box"><div class="confirm_text">Is this your correct number ?</div><div class="check_number"><span class="confirm_code">(' + $scope.signupData.countryCode + ') </span><span class="confirm_no">' + $scope.signupData.phone + '</span></div><div class="instruction_text">An access code will be sent to this number.</div></div><div class="clear"></div>',
      cssClass: 'confirmation_popup',
+     scope: $scope,
+     buttons: [
+      { text: 'Edit' },
+      {
+        text: '<div class="confirm_number">OK</div>',
+        type: 'button-positive',
+        onTap: function(e) {
+           $scope.signup();
+        }
+      }
+      ]
     });
+  }
+
+  function closePop(){
+    myPopup.close();
   }
 });
 

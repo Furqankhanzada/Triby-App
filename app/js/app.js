@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordova']);
+var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordovaMocks']);
 
 MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', function ($ionicConfigProvider,$compileProvider,$sceDelegateProvider){
   $ionicConfigProvider.tabs.style('standard');
@@ -22,7 +22,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('signup_step1', { url: '/signup_1',templateUrl: 'templates/signup-step-1.html'});
   $stateProvider.state('signup_step2', { url: '/signup_2',templateUrl: 'templates/signup-step-2.html'});
   $stateProvider.state('login_facebook', { url: '/login_facebook',templateUrl: 'templates/login_facebook.html',controller: 'AppCtrl'});
-  $stateProvider.state('confirm', { url: '/confirm',templateUrl: 'templates/confirm.html'});
+  $stateProvider.state('confirm', { url: '/confirm',templateUrl: 'templates/signup-step-3.html'});
   $stateProvider.state('app', { url: '/app', abstract: true,templateUrl: 'templates/container.html',controller: 'AppCtrl'});
   $stateProvider.state('app.main', { url:'/main',views: {'menuContent' :{templateUrl: 'templates/main.html',controller: 'AppCtrl'}}});
   $stateProvider.state('app.main.home', { url:'/home',views: {'tab-home' :{templateUrl: 'templates/home.html',controller:'AppCtrl'}}});
