@@ -1362,7 +1362,7 @@ img.pro_pic_img
 {
   width: 35px !important;
 }
-.tribys_pic_circle
+/*.tribys_pic_circle
 {
   margin: 10px 0 0 0;
   padding: 0;
@@ -1376,7 +1376,7 @@ img.pro_pic_img
 .tribys_pic_circle img {
   width: 100% !important;
   margin-top: 0 !important;
-}
+}*/
 .mural_details_icons
 {
   margin: 0;
