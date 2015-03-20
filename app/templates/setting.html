@@ -1,4 +1,4 @@
-<ion-view view-title="Settings">
+<ion-view view-title="Settings" ng-controller="AppCtrl">
     <ion-nav-buttons side="left">
         <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/main/home')"></button>
     </ion-nav-buttons>
@@ -8,7 +8,7 @@
                 <i class="icon ion-person"></i>
                 Profile
             </a>
-            <a class="item item-icon-left" href="#/app/account">
+            <a class="item item-icon-left" href="#/app/account" ng-hide="isFacebookUser()">
                 <i class="icon ion-locked"></i>
                 Account
             </a>

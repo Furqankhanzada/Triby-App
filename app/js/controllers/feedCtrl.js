@@ -83,9 +83,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 		});
 	}
+
+	$scope.goMural = function(){
+		$window.location.href = "#/app/mural/" + $stateParams.triby_id;
+	}
 });
 
-MyApp.controller('MuralCtrl', function($scope, $timeout, $ionicPopup, $location, $cordovaCamera, $ionicModal) {
+MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $location, $cordovaCamera, $ionicModal, $stateParams) {
 
 	$ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
 		$scope.gridModal = modal;
@@ -93,6 +97,10 @@ MyApp.controller('MuralCtrl', function($scope, $timeout, $ionicPopup, $location,
 		{
 			scope: $scope
 	});
+
+	$scope.goBack = function(){
+		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+	}
 
 	$scope.openModal = function(selected) {
 		
@@ -281,8 +289,7 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
 
 	$scope.goBack = function(){
 		$timeout(function(){
-			$window.location.href = "#/app/info/" + $scope.triby._id;
-			$window.location.reload();
+			$window.location.href = "#/app/news_feed/" + $scope.triby._id;
 		}, 100);
 	}
 });
@@ -333,5 +340,68 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 			$window.location.href = "#/app/info/" + triby._id;
 			$window.location.reload();
 		}, 100);
+	}
+});
+MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
+
+	$scope.triby = {
+		id: $stateParams.triby_id
+	};
+
+	$scope.goBack = function(){
+		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+	}
+
+	$scope.uploadPicture = function(source){
+
+		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
+
+			if(response.status == "success"){
+				$scope.post.image = response.url_file;
+				// adding post
+				FeedService.savePost($scope.post).then(function(response){
+					console.log(response);
+					if(response.status == "success"){
+						$timeout(function(){
+							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+							$window.location.reload();
+						}, 100);
+					}
+				});
+			}
+			else
+				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+		});
+	}
+});
+MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
+
+	$scope.triby = {
+		id: $stateParams.triby_id
+	};
+
+	$scope.goBack = function(){
+		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+	}
+	$scope.uploadPicture = function(source){
+
+		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
+
+			if(response.status == "success"){
+				$scope.post.image = response.url_file;
+				// adding post
+				FeedService.savePost($scope.post).then(function(response){
+					console.log(response);
+					if(response.status == "success"){
+						$timeout(function(){
+							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+							$window.location.reload();
+						}, 100);
+					}
+				});
+			}
+			else
+				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+		});
 	}
 });

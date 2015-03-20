@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordova']);
+var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordovaMocks']);
 
 MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', function ($ionicConfigProvider,$compileProvider,$sceDelegateProvider){
   $ionicConfigProvider.tabs.style('standard');
@@ -19,6 +19,7 @@ MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', 
 
 MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('signup', { url: '/signup',templateUrl: 'templates/signup.html'});
+  $stateProvider.state('signup_step1', { url: '/signup_1',templateUrl: 'templates/signup-step-1.html'});
   $stateProvider.state('login_facebook', { url: '/login_facebook',templateUrl: 'templates/login_facebook.html',controller: 'AppCtrl'});
   $stateProvider.state('confirm', { url: '/confirm',templateUrl: 'templates/confirm.html'});
   $stateProvider.state('app', { url: '/app', abstract: true,templateUrl: 'templates/container.html',controller: 'AppCtrl'});
@@ -27,8 +28,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.noti', { url:'/noti',views: {'menuContent' :{templateUrl: 'templates/noti.html',controller:'AppCtrl'}}});
   $stateProvider.state('app.settings', { url: '/settings',views: {'menuContent': {templateUrl: 'templates/setting.html'}}});
   $stateProvider.state('app.news_feed', { url: '/news_feed/:triby_id',views: {'menuContent': {templateUrl: 'templates/news_feed.html'}}});
-  $stateProvider.state('app.comments', { url: '/comments',views: {'menuContent': {templateUrl: 'templates/comments.html'}}});
-  $stateProvider.state('app.comments_side', { url: '/comments_side',views: {'menuContent': {templateUrl: 'templates/comments_side.html'}}});
+  $stateProvider.state('app.comments', { url: '/comments/:triby_id',views: {'menuContent': {templateUrl: 'templates/comments.html'}}});
+  $stateProvider.state('app.comments_side', { url: '/comments_side/:triby_id',views: {'menuContent': {templateUrl: 'templates/comments_side.html'}}});
   $stateProvider.state('app.chat', { url: '/chat',views: {'menuContent': {templateUrl: 'templates/chat.html'}}});
   $stateProvider.state('app.add_members', { url: '/add_members',views: {'menuContent': {templateUrl: 'templates/add_members.html'}}});
   $stateProvider.state('app.new_triby', { url: '/new_triby',views: {'menuContent': {templateUrl: 'templates/new_triby.html'}}});
@@ -46,7 +47,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('app.feedback', { url: '/feedback',views: {'menuContent': {templateUrl: 'templates/feedback.html'}}});
   $stateProvider.state('app.terms', { url: '/terms',views: {'menuContent': {templateUrl: 'templates/terms.html'}}});
   $stateProvider.state('app.about', { url: '/about',views: {'menuContent': {templateUrl: 'templates/about.html'}}});
-  $stateProvider.state('app.mural', { url: '/mural',views: {'menuContent': {templateUrl: 'templates/mural.html'}}});
+  $stateProvider.state('app.mural', { url: '/mural/:triby_info',views: {'menuContent': {templateUrl: 'templates/mural.html'}}});
   $stateProvider.state('mural_details', { url: '/mural_details',templateUrl: 'templates/mural_details.html'});
   $stateProvider.state('app.main.no_connection', { url:'/no_connection',views: {'tab-home' :{templateUrl: 'templates/no_connection.html',controller:'AppCtrl'}}});
 
