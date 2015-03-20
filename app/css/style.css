@@ -43,12 +43,15 @@ a {
 }
 .tribys_circles{padding:0 15px !important;}
 .button-signup {
-    font-weight: bold;
-    background-color: #3b5a99;
+    /*font-weight: bold;*/
+    /*background-color: #3b5a99;*/
+    background-color: #fff;
     border-width: 0px;
-    color:white;
-    width:45%;
+    /*color:white;*/
+    width:100%;
     font-size: 18px;
+    text-align: center;
+  margin: 15px 0 0;
 }
 .button-fb {
     font-weight: bold;
@@ -79,6 +82,7 @@ div.phone-number{
 }
 .tab-nav {
   /*border-top: 1px solid #878787 !important;*/
+  border-top: none !important;
 }
 .bar-triby {
     background-color: #1c1c1c;
@@ -1148,7 +1152,7 @@ img.profile-pic.right {
 }
 .always-on .icon{
   font-size:40px !important;
-  /*margin-top: -3px;*/
+  margin-top: -3px !important;
   margin-top: 0px;
 }
 .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
