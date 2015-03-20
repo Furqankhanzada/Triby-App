@@ -62,6 +62,18 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		console.log($scope.post.message)
 	};
 
+	$scope.sendPost = function(){
+		FeedService.savePost($scope.post).then(function(response){
+			console.log(response);
+			if(response.status == "success"){
+				$timeout(function(){
+					$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+					$window.location.reload();
+				}, 100);
+			}
+		});
+	}
+	
 	$scope.uploadPicture = function(source){
 
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
