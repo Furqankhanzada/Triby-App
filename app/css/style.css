@@ -276,6 +276,7 @@ div.phone-number{
 
 .icon-full-star {
     color: #ffe108;
+    width: 35px !important;
 }
 .icon-empty-star {
     color: #ebeded;
@@ -1039,8 +1040,15 @@ img.profile-pic.right {
   color: #fff;
 }
 .mural_footer .icons img{
-  height: 30px;
-  width: 30px;
+  margin: 4px 0 0 0;
+  height: 25px;
+  width: 25px;
+}
+.mural_footer .icons .hand-down img {margin: 7px 0 0 0 !important;}
+.mural_footer > h4
+{
+  margin-top: 20px !important;
+  margin-bottom: 0 !important;
 }
 .mural_footer .icons span
 {
@@ -1152,7 +1160,7 @@ img.profile-pic.right {
 }
 .always-on .icon{
   font-size:40px !important;
-  margin-top: -3px !important;
+  /*margin-top: -3px !important;*/
   margin-top: 0px;
 }
 .item-avatar, .item-avatar .item-content, .item-avatar-left, .item-avatar-left .item-content{
@@ -1356,14 +1364,14 @@ img.pro_pic_img
   padding: 0 !important;
 }
 .comment_footer_wrapper .camera_icon {
-  margin: 1px 0 0 !important;
+  margin: 3px 0 0 !important;
   padding: 0 !important;
   float: left;
   position: relative;
 }
 .comment_footer_wrapper .camera_icon img
 {
-  width: 25px !important;
+  width: 28px !important;
 }
 /*.tribys_pic_circle
 {
@@ -1419,15 +1427,15 @@ img.pro_pic_img
   overflow: hidden;
 }
 .mural_details_icons > div:nth-child(2) img {
-  height: 45px;
-  width: 45px;
-  margin: -9px 0 0 0;
+  height: 35px;
+  width: 35px;
+  margin:2px 0 0 0;
 }
 .mural_details_icons > div > span
 {
   margin: 15px 5px 0 5px;
 }
-.mural_details_icons > div:last-child img {margin: -2px 0 0 0;}
+.mural_details_icons > div:last-child img {margin: 2px 0 0 0;}
 .mural_details_icons > div:last-child {float: right !important;}
 .reload_page_icon {
   margin: 0;
@@ -1618,13 +1626,15 @@ img.pro_pic_img
   clear: both;
   overflow: hidden;
   background: #f6f6f6;
-  border: 1px solid #7b7b7b;
-  border-radius: 10px;
+  border: none;
+  border-radius: 20px;
 }
 .confirmation_popup .popup
 {
   width: 100% !important;
   background: #f6f6f6 !important;
+  border-radius: 15px !important;
+  border: 1px solid #7e7e7e;
 }
 .confirmation_popup .popup .popup-body
 {
@@ -1693,6 +1703,7 @@ img.pro_pic_img
   height: 50px !important;
   background: none !important;
   border: none !important;
+  border-radius: 0;
 }
 .confirmation_popup .bottom_button_box div:first-child,
 .confirmation_popup .popup .popup-buttons button:first-child{border-right: 1px solid #c6c6c6 !important;}
@@ -1704,3 +1715,117 @@ img.pro_pic_img
   background: #006edb;
 }
 .homepage_blue_area .item{padding: 5px 0 0 !important;}
+.create_new_tribys_icons {
+  margin: -2px 0 0 0 !important;
+}
+.chat_message_area {
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  height: inherit;
+  position: relative;
+  clear: both;
+  border-top: 1px solid #d6d6d6;
+}
+.chat_mesg_footer_bar {
+  border: none !important;
+}
+.news_feed_icon_wrapper
+{
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  clear: both;
+  text-align: center;
+}
+.left_chat_icon {
+  margin: 8px 0 0 0;
+  padding: 0;
+  float: left;
+  width: 60%;
+  position: relative;
+  overflow: hidden;
+}
+.right_chat_icon {
+  margin: 8px 0 0 0;
+  padding: 0;
+  float: right;
+  width: 40%;
+  height: 31px;
+  position: relative;
+  overflow: hidden;
+}
+.left_chat_icon div,
+.right_chat_icon div
+{
+  margin: 0 10px !important;
+  padding: 0 !important;
+  float: left !important;
+  width: auto !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.right_chat_icon .envelope
+{
+  margin: 0 0px !important;
+  float: left !important;
+  width: 35% !important;
+  text-align: right;
+}
+.right_chat_icon .comments_area
+{
+  margin: 0 5px 0 0!important;
+  float: right !important;
+  width: 55% !important;
+  text-align: left;
+}
+.left_chat_icon div img,
+.right_chat_icon div img {
+  margin: 0 ;
+  padding: 0 ;
+  float: left ;
+  width: 25px !important;
+  height: 25px !important;
+  position: relative ;
+  top: 0 ;
+  bottom: 0 ;
+  left: 0 ;
+  right: 0 ;
+  overflow: hidden ;
+}
+.left_chat_icon .heart img {
+  margin: -4px 0 0 0;
+  width: 35px !important;
+  height: 35px !important;
+}
+.left_chat_icon div span,
+.right_chat_icon div span {
+  margin: 15px 0px 0 5px ;
+  padding: 0 ;
+  float: left ;
+  line-height: 12px ;
+  width: auto ;
+  height: auto ;
+  position: relative ;
+  top: 0 ;
+  bottom: 0 ;
+  left: 0 ;
+  right: 0 ;
+  overflow: hidden;
+}
+.right_chat_icon .envelope img
+{
+  float: right !important;
+  width: 25px !important;
+  height: 22px !important;
+}
+.right_chat_icon .comments_area img {
+  float: left !important;
+  width: 25px !important;
+  height: 24px !important;
+}
