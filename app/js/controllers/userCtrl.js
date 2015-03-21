@@ -66,12 +66,14 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   $scope.signup = function(){
     $scope.signupData.username = UserService.getUserNameTmp();
-    console.log(JSON.stringify($scope.signupData));
+    
     UserService.signUpUser($scope.signupData,$cordovaDevice.getUUID()).then(function(response){
+    
       if(response.status == "success")
         $location.path("/confirm");
-      else
+      else{
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+      }
     });
   }
 
