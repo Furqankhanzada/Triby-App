@@ -72,8 +72,8 @@
           </div>
         </div>
     </ion-content>
-    <form name="sendMessageForm" ng-submit="postMessage()" >
-        <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper">
+        <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
+          <form name="sendMessageForm" class="chat_message_area" ng-submit="postMessage()" >
             <div class="list list-feed bottom_top-border">
                  <div class="item item-send-text">
                     <div class="row">
@@ -89,6 +89,6 @@
                     </div>
                  </div>
             </div>
+          </form>
         </ion-footer-bar>
-    </form>
 </ion-view>

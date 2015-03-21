@@ -50,7 +50,7 @@
         </div>
         <div class="row row-center tribys_circles" ng-repeat="rows in tribes">
           <div class="col col-50 triby-title" style="text-align:center;" ng-repeat="item in rows">
-            {{item.name}}
+            <div class="tribys_name_text" style="text-align: center">{{item.name}}</div>
             <a class="tribys_pic_circle" ng-href="#/app/news_feed/{{item._id}}">
               <img ng-src="{{item.pic}}" />
             </a>

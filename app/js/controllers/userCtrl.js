@@ -1,6 +1,6 @@
 'use strict';
 MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen) {
-  
+
   $scope.signupData = {
     username: "",
     countryCode: "",
@@ -17,11 +17,11 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
         },5000);
       }
     });
-    
+
   }
 
   $scope.fbLogin = function(){
-    
+
     OpenFB.login('email,user_friends').then(
       function () {
         var aUser = {};
@@ -42,36 +42,39 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
                 $location.path('app/main/home');
             });
           });
-            
+
         });
       },
       function () {
-          alert('OpenFB login failed');
+        alert('OpenFB login failed');
       });
   }
 
   $scope.loginFacebook = function(){
     var confirmPopup = $ionicPopup.confirm({
-     title: 'Authorization',
-     template: 'Triby would like to access your public profile, location and friend lists.'
-   });
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log("OK");
-     } else {
-       console.log("Don't allow");
-     }
-   });
+      title: 'Authorization',
+      template: 'Triby would like to access your public profile, location and friend lists.'
+    });
+    confirmPopup.then(function(res) {
+      if(res) {
+        console.log("OK");
+      } else {
+        console.log("Don't allow");
+      }
+    });
   }
 
   $scope.signup = function(){
     $scope.signupData.username = UserService.getUserNameTmp();
+
     console.log(JSON.stringify($scope.signupData));
     UserService.signUpUser($scope.signupData,$cordovaDevice.getUUID()).then(function(response){
+      console.log(JSON.stringify(response));
       if(response.status == "success")
         $location.path("/confirm");
-      else
+      else{
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+      }
     });
   }
 
@@ -87,18 +90,18 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   var myPopup;
   $scope.showPopup = function(){
     myPopup = $ionicPopup.show({
-     template: '<div class="confirmation_text_box"><div class="confirm_text">Is this your correct number ?</div><div class="check_number"><span class="confirm_code">(' + $scope.signupData.countryCode + ') </span><span class="confirm_no">' + $scope.signupData.phone + '</span></div><div class="instruction_text">An access code will be sent to this number.</div></div><div class="clear"></div>',
-     cssClass: 'confirmation_popup',
-     scope: $scope,
-     buttons: [
-      { text: 'Edit' },
-      {
-        text: '<div class="confirm_number">OK</div>',
-        type: 'button-positive',
-        onTap: function(e) {
-           $scope.signup();
+      template: '<div class="confirmation_text_box"><div class="confirm_text">Is this your correct number ?</div><div class="check_number"><span class="confirm_code">(' + $scope.signupData.countryCode + ') </span><span class="confirm_no">' + $scope.signupData.phone + '</span></div><div class="instruction_text">An access code will be sent to this number.</div></div><div class="clear"></div>',
+      cssClass: 'confirmation_popup',
+      scope: $scope,
+      buttons: [
+        { text: 'Edit' },
+        {
+          text: '<div class="confirm_number">OK</div>',
+          type: 'button-positive',
+          onTap: function(e) {
+            $scope.signup();
+          }
         }
-      }
       ]
     });
   }
@@ -109,7 +112,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 });
 
 MyApp.controller('UserCtrlConfirm', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $window, UserService) {
-  
+
   $scope.formData = {
     code : ""
   };
@@ -122,13 +125,13 @@ MyApp.controller('UserCtrlConfirm', function($scope, $ionicModal, $timeout, $ion
   $scope.init();
 
   $scope.confirm = function() {
-   
+
     UserService.confirmUser($scope.formData.code).then(function(response){
 
       if(response.status == "success")
         $window.location.href = "#/app/main/home";
       else
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-   });
+    });
   }
 });
