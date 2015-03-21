@@ -1040,8 +1040,15 @@ img.profile-pic.right {
   color: #fff;
 }
 .mural_footer .icons img{
-  height: 30px;
-  width: 30px;
+  margin: 4px 0 0 0;
+  height: 25px;
+  width: 25px;
+}
+.mural_footer .icons .hand-down img {margin: 7px 0 0 0 !important;}
+.mural_footer > h4
+{
+  margin-top: 20px !important;
+  margin-bottom: 0 !important;
 }
 .mural_footer .icons span
 {
@@ -1420,15 +1427,15 @@ img.pro_pic_img
   overflow: hidden;
 }
 .mural_details_icons > div:nth-child(2) img {
-  height: 45px;
-  width: 45px;
-  margin: -9px 0 0 0;
+  height: 35px;
+  width: 35px;
+  margin:2px 0 0 0;
 }
 .mural_details_icons > div > span
 {
   margin: 15px 5px 0 5px;
 }
-.mural_details_icons > div:last-child img {margin: -2px 0 0 0;}
+.mural_details_icons > div:last-child img {margin: 2px 0 0 0;}
 .mural_details_icons > div:last-child {float: right !important;}
 .reload_page_icon {
   margin: 0;
