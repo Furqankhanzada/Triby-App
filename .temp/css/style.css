@@ -1829,3 +1829,31 @@ img.pro_pic_img
   width: 25px !important;
   height: 24px !important;
 }
+.about_wrapper .slider-pager-page
+{
+  height: 18px !important;
+}
+
+.slider-pager .slider-pager-page {
+  display: inline-block;
+  margin: 0 3px;
+  width: 13px !important;
+  height: 13px !important;
+  color: #000;
+  text-decoration: none;
+  opacity: 1;
+  background: #000 !important;
+  border: 2px solid #000 !important;
+  border-radius: 100% !important;
+  -webkit-border-radius: 100% !important;
+  -moz-border-radius: 100% !important;
+}
+.about_wrapper .slider-pager .active
+{
+  background: #fff !important;
+}
+.about_wrapper .slider-pager-page .icon
+{
+  display: none !important;
+}
+
