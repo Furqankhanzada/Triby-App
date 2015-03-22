@@ -1799,7 +1799,7 @@ img.pro_pic_img
   overflow: hidden ;
 }
 .left_chat_icon .heart img {
-  margin: -4px 0 0 0;
+  margin: 0px 0 0 0;
   width: 35px !important;
   height: 35px !important;
 }
@@ -1821,13 +1821,15 @@ img.pro_pic_img
 .right_chat_icon .envelope img
 {
   float: right !important;
-  width: 25px !important;
-  height: 22px !important;
+  width: 20px !important;
+  height: 18px !important;
+  margin: 5px 0 0 0;
 }
 .right_chat_icon .comments_area img {
   float: left !important;
   width: 25px !important;
   height: 24px !important;
+  margin: 1px 0 0 0;
 }
 .about_wrapper .slider-pager-page
 {
@@ -1856,4 +1858,20 @@ img.pro_pic_img
 {
   display: none !important;
 }
+.about_wrapper ion-slide
+{
+  position: relative;
+}
+.about_wrapper .white_back_button,
+.about_wrapper .black_back_button
+{
+  color: #fff !important;
+  font-size: 25px;
+  line-height: 25px;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+
+}
+.about_wrapper .black_back_button{color: #000 !important;}
 
