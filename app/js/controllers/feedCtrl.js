@@ -1,5 +1,5 @@
 'use strict';
-MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
+MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state) {
   console.log("FeedCtrl start ...");
 	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
 	$scope.posts = [];
@@ -8,9 +8,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		image: "",
 		triby: $stateParams.triby_id
 	};
-	FeedService.getPosts($stateParams.triby_id).then(function(response){
-    $scope.getAllPost = response.data.posts;
-	});
+
+  $scope.getAllPostInCtrl = function(){
+    FeedService.getPosts($stateParams.triby_id).then(function(response){
+      $scope.getAllPost = response.data.posts;
+    });
+  };
+  $scope.getAllPostInCtrl();
 
 	$scope.feeds = [
 		{
@@ -57,13 +61,11 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		$scope.feeds[index].dislikes += 1;
 	};
 
-	$scope.postMessage = function(){
-		console.log($scope.post.message)
-	};
-
 	$scope.sendPost = function(){
 		FeedService.savePost($scope.post).then(function(response){
 			console.log("$scope.sendPost :", response);
+      $scope.getAllPostInCtrl();
+      $scope.post.message = "";
 			/*if(response.status == "success"){
 				$timeout(function(){
 					$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
@@ -82,6 +84,8 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 				// adding post
 				FeedService.savePost($scope.post).then(function(response){
 					console.log("News-feed uploadPicture :", response);
+          $scope.getAllPostInCtrl();
+          $scope.post.message = "";
 					/*if(response.status == "success"){
 						$timeout(function(){
 							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
@@ -390,7 +394,6 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 		id: $stateParams.triby_id
 	};
   console.log("$scope.triby :", $scope.triby);
-  console.log("$stateParams :", $stateParams);
 
 	$scope.goBack = function(){
 		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;

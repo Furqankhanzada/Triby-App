@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordovaMocks']);
+var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordova']);
 
 MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', function ($ionicConfigProvider,$compileProvider,$sceDelegateProvider){
   $ionicConfigProvider.tabs.style('standard');
@@ -81,10 +81,11 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.news_feed', {
-      url: '/news_feed/:triby_id',
+      url: '/news_feed/:triby_id/:count',
       views: {
         'menuContent': {
-          templateUrl: 'templates/news_feed.html'
+          templateUrl: 'templates/news_feed.html',
+          controller: "FeedCtrl"
         }
       }
     })
@@ -92,7 +93,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/comments/:triby_id',
       views: {
         'menuContent': {
-          templateUrl: 'templates/comments.html'
+          templateUrl: 'templates/comments.html',
+          controller:"CommentsCtrl"
         }
       }
     })
@@ -268,9 +270,14 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
 
 MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location,$state) {
 
+  $rootScope.params = {count: 0};
+  $rootScope.params.increment = function(){
+    $rootScope.params.count++;
+  };
+
   //$rootScope.urlBackend = 'http://localhost:3000';
   OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
-  $rootScope.urlBackend = 'http://104.236.5.153:30`00';
+  $rootScope.urlBackend = 'http://104.236.5.153:3000';
   //$rootScope.urlBackend = 'http://192.168.1.77:3000';
 
   $rootScope.Get_Width=function(index)

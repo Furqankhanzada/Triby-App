@@ -1,6 +1,10 @@
 'use strict';
-MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService) {
-  
+MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $rootScope) {
+
+  $scope.$watch('params.count', function(){
+    console.log($rootScope.params.count);
+  });
+
   $scope.go = function(path){
     $location.path( path );
   }
@@ -111,7 +115,7 @@ MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,
       template: 'Are you sure you want to delete your account?'
     });
     confirmPopup.then(function(res) {
-      if(res) 
+      if(res)
         navigator.app.exitApp();
     });
   }

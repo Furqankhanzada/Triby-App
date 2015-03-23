@@ -1,4 +1,5 @@
-<ion-view title="{{title}}" ng-controller="FeedCtrl">
+<!--<ion-view title="{{title}}" ng-controller="FeedCtrl">-->
+<ion-view title="{{title}}">
   <ion-nav-bar align-title="center" class="bar bar-triby nav-title-slide-ios7"></ion-nav-bar>
   <ion-nav-view animation="slide-left-right"></ion-nav-view>
   <ion-nav-buttons side="left">
@@ -31,7 +32,6 @@
             </div>
           </div>
           <div class="row feed-post-text" >
-            <!--<div class="col col-center">Best ice cream in town @ Byward Ottawa #fun #BFF #summer</div>-->
             <div class="col col-center">{{post.content}}</div>
           </div>
         </div>
@@ -81,7 +81,7 @@
     </div>
   </ion-content>
   <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
-    <form name="sendMessageForm" class="chat_message_area" ng-submit="postMessage()" >
+    <form name="sendMessageForm" class="chat_message_area">
       <div class="list list-feed bottom_top-border">
         <div class="item item-send-text">
           <div class="row">
