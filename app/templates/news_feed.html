@@ -9,20 +9,29 @@
   </ion-nav-buttons>
   <ion-content align="center" style="border:none" scroll="true" >
     <div class="news_feed_content_wrapper">
-      <div>
-        <a href="#/mural_details">
-        <img style="width: 100%;height: auto; max-width: 100%;" src="img/feed_photo.png">
-        </a>
-      </div>
-      <div class="list list-feed">
+      <div class="list list-feed" ng-repeat="post in getAllPost">
+        <div ng-if="post.pic" class="news_feed_img_box">
+          <a href="#/mural_details">
+            <!--<img style="width: 100%;height: auto; max-width: 100%;" src="img/feed_photo.png">-->
+            <img style="width: auto;height: auto;" ng-src="{{post.pic}}">
+          </a>
+        </div>
         <div class="item item-text">
           <div class="row">
-            <div  class="col col-10 col-center feed-img"><a ng-href="#/app/comments/{{post.triby}}"><img src="img/carla_big.png" /></a></div>
-            <div  class="col  feed-text-name col-center">Carla Simpson</div>
-            <div class="col col-33 feed-text-date">Today @ 9:30am</div>
+            <div class="col col-10 col-center feed-img">
+              <a ng-href="#/app/comments/{{post.triby}}">
+                <img src="img/carla_big.png" />
+              </a>
+            </div>
+            <div  class="col feed-text-name col-center">Carla Simpson</div>
+            <!--<div class="col col-33 feed-text-date">Today @ 9:30am</div>-->
+            <div class="col col-33 feed-text-date">
+              {{post.date | date:'MMM dd, yyyy @ h:mma'}}
+            </div>
           </div>
           <div class="row feed-post-text" >
-            <div class="col col-center">Best ice cream in town @ Byward Ottawa #fun #BFF #summer</div>
+            <!--<div class="col col-center">Best ice cream in town @ Byward Ottawa #fun #BFF #summer</div>-->
+            <div class="col col-center">{{post.content}}</div>
           </div>
         </div>
         <div class="item item-icons">
@@ -34,7 +43,8 @@
               </div>
               <div class="heart text-12-gray">
                 <a ng-click="addHearth(0)"><img ng-src="{{getHearth(0)}}" /></a>
-                <span class="text-heart">&nbsp;{{(feeds[0].hearth > 0 ? feeds[0].hearth : '')}}</span>
+                <!--<span class="text-heart">&nbsp;{{(feeds[0].hearth > 0 ? feeds[0].hearth : '')}}</span>-->
+                <span class="text-heart"> {{post.heart.length}} </span>
               </div>
               <div class="hand-down text-12-gray">
                 <a ng-click="addDislike(0)"><img ng-src="{{getHandDown(0)}}" /></a>
@@ -46,7 +56,9 @@
                 <a ng-href="#/app/comments_side/{{post.triby}}"><img src="img/envelope.png" /></a>
               </div>
               <div class="comments_area text-12-gray">
-                <img src="img/commetns-grey.png" /><span class="text-comment">0</span>
+                <img src="img/commetns-grey.png" />
+                <!--<span class="text-comment">0</span>-->
+                <span class="text-comment">{{post.comments.length}}</span>
               </div>
             </div>
           </div>
@@ -55,7 +67,8 @@
           &nbsp;
         </div>
       </div>
-      <div class="list list-feed">
+
+      <!--<div class="list list-feed">
         <div class="item item-text">
           <div class="row">
             <div  class="col col-10 col-center feed-img"><a ng-href="#/app/comments/{{post.triby}}"><img src="img/carla_big.png" /></a></div>
@@ -94,7 +107,8 @@
         <div class="item black-divider">
           &nbsp;
         </div>
-      </div>
+      </div>-->
+
     </div>
   </ion-content>
   <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
@@ -111,7 +125,6 @@
             <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-show="post.message" ng-click="sendPost()">
               <span style="color:#006edb">send</span>
             </div>
-            {{post.message}}
             <div ng-hide="post.message" class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('CAMERA')">
               <img style="width:120%" src="img/camera-icon.png" />
             </div>

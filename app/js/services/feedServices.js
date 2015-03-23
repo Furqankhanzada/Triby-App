@@ -1,7 +1,7 @@
 'use strict';
 
 MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile) {
-  
+
   var feedServiceFactory = {};
 
   var _tribyData = {};
@@ -75,7 +75,7 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     var deferred = $q.defer();
     var authData = localStorageService.get('authorizationData');
     $http.defaults.headers.common['Authorization'] = authData.token;
-    
+
     postData.parentid = postData.triby;
     postData.parenttype = "tribe";
     postData.content = postData.message;
@@ -102,7 +102,7 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     var deferred = $q.defer();
     var authData = localStorageService.get('authorizationData');
     $http.defaults.headers.common.Authorization = authData.token;
-    
+
     var postData = {};
     postData.username = authData.username;
 

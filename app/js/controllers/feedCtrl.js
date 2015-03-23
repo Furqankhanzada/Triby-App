@@ -8,9 +8,8 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		image: "",
 		triby: $stateParams.triby_id
 	};
-	console.log("DJDJDJ")
 	FeedService.getPosts($stateParams.triby_id).then(function(response){
-		console.log(response);
+    $scope.getAllPost = response.data.posts;
 	});
 
 	$scope.feeds = [
@@ -27,7 +26,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		  "dislikes":1,
 		  "messages":false,
 		  "chatMessages":100
-		},
+		}
 	];
 
 	$scope.getHandUp = function(index){
@@ -35,28 +34,28 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		  return "img/hand-up.png";
 		else
 		  return "img/hand-up-grey.png";
-	}
+	};
 	$scope.getHearth = function(index){
 		if($scope.feeds[index].hearth > 0)
 		  return "img/heart.png";
 		else
 		  return "img/heart-grey.png";
-	}
+	};
 	$scope.getHandDown = function(index){
 		if($scope.feeds[index].dislikes > 0)
 		  return "img/hand-down.png";
 		else
 		  return "img/hand-down-grey.png";
-	}
+	};
 	$scope.addLike = function(index){
 		$scope.feeds[index].likes += 1;
-	}
+	};
 	$scope.addHearth = function(index){
 		$scope.feeds[index].hearth += 1;
-	}
+	};
 	$scope.addDislike = function(index){
 		$scope.feeds[index].dislikes += 1;
-	}
+	};
 
 	$scope.postMessage = function(){
 		console.log($scope.post.message)
@@ -64,13 +63,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
 	$scope.sendPost = function(){
 		FeedService.savePost($scope.post).then(function(response){
-			console.log(response);
-			if(response.status == "success"){
+			console.log("$scope.sendPost :", response);
+			/*if(response.status == "success"){
 				$timeout(function(){
 					$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
 					$window.location.reload();
 				}, 100);
-			}
+			}*/
 		});
 	}
 
@@ -82,13 +81,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 				$scope.post.image = response.url_file;
 				// adding post
 				FeedService.savePost($scope.post).then(function(response){
-					console.log(response);
-					if(response.status == "success"){
+					console.log("News-feed uploadPicture :", response);
+					/*if(response.status == "success"){
 						$timeout(function(){
 							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
 							$window.location.reload();
 						}, 100);
-					}
+					}*/
 				});
 			}
 			else
@@ -105,7 +104,7 @@ MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $
 
 	$ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
 		$scope.gridModal = modal;
-		}, 
+		},
 		{
 			scope: $scope
 	});
@@ -115,7 +114,7 @@ MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $
 	}
 
 	$scope.openModal = function(selected) {
-		
+
 		$scope.gridModal.show();
 	};
 
@@ -123,7 +122,6 @@ MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $
 		$scope.gridModal.hide();
 	};
 });
-
 MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window) {
 
 	$scope.triby = {
@@ -143,9 +141,9 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
 			}
 			else
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-			$ionicLoading.hide();
+			  $ionicLoading.hide();
 		});
-	}
+	};
 
 	$scope.nextStep = function(){
 		FeedService.setNewTriby($scope.triby);
@@ -156,7 +154,7 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
 MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window) {
 
 	SettingsService.getContactsLocal().then(function(response){
-		$scope.contacts = response;	
+		$scope.contacts = response;
 	});
 
 	$scope.createTriby = function(){
@@ -170,7 +168,7 @@ MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionic
 			console.log(JSON.stringify(response));
 			if(response.status=="success"){
 				window.plugins.toast.showShortCenter("New Triby created successfully", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-				
+
 				$timeout(function(){
 					$window.location.href = "#/app/main/home";
 				}, 100);
@@ -196,8 +194,8 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
 			$scope.hideEmptyTribes = true;
 		else
 			$scope.hideEmptyTribes = false;
-		$scope.tribes = chunk(response.data.tribes, 2);
-		$timeout(function() { $ionicLoading.hide(); },300);
+		  $scope.tribes = chunk(response.data.tribes, 2);
+		  $timeout(function() { $ionicLoading.hide(); },300);
 	});
 
 	function chunk(arr, size) {
@@ -209,7 +207,7 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
 	}
 });
 MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, UserService, $ionicPopup) {
-	
+
 	$scope.triby = {};
 	FeedService.getTriby($stateParams.triby_id).then(function(response){
 		$scope.triby = response.data.tribe;
@@ -221,7 +219,7 @@ MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ion
 			});
 		FeedService.setNewTriby($scope.triby);
 	});
-	
+
 	$scope.goBack = function(tribyId){
 		$location.path('app/news_feed/' + tribyId);
 	}
@@ -256,7 +254,7 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
 		else{
 			if (newValue != oldValue) {
 	  			$scope.showDone = "Done";
-			}	
+			}
 		}
 	});
 	$scope.$watch("triby.pic", function(newValue, oldValue) {
@@ -266,7 +264,7 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
 		else{
 			if (newValue != oldValue) {
 	  			$scope.showDone = "Done";
-			}	
+			}
 		}
 	});
 
@@ -311,7 +309,7 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 	var contacts = [];
 	SettingsService.getContactsLocal().then(function(response){
 		console.log(response);
-		contacts = response;	
+		contacts = response;
 		//console.log(JSON.stringify(triby));
 		triby = FeedService.getNewTriby();
 		console.log(JSON.stringify(contacts));
@@ -323,9 +321,9 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 				contacts[i].checked = false;
 		}
 		console.log(JSON.stringify(contacts));
-		$scope.contacts = contacts; 
+		$scope.contacts = contacts;
 	});
-	
+
 	$scope.updateTriby = function(){
 		var triby = FeedService.getNewTriby();
 		console.log(triby);
