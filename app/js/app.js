@@ -275,7 +275,6 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
     $rootScope.params.count++;
   };
 
-  //$rootScope.urlBackend = 'http://localhost:3000';
   OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
   $rootScope.urlBackend = 'http://104.236.5.153:3000';
   //$rootScope.urlBackend = 'http://192.168.1.77:3000';
