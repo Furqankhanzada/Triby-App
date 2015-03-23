@@ -389,6 +389,8 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 	$scope.triby = {
 		id: $stateParams.triby_id
 	};
+  console.log("$scope.triby :", $scope.triby);
+  console.log("$stateParams :", $stateParams);
 
 	$scope.goBack = function(){
 		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
