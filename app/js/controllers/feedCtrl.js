@@ -1,6 +1,6 @@
 'use strict';
 MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
-
+  console.log("FeedCtrl start ...");
 	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
 	$scope.posts = [];
 	$scope.post = {

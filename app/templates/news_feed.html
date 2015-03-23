@@ -11,7 +11,7 @@
     <div class="news_feed_content_wrapper">
       <div class="list list-feed" ng-repeat="post in getAllPost">
         <div ng-if="post.pic" class="news_feed_img_box">
-          <a href="#/mural_details">
+          <a ui-sref="mural_details">
             <!--<img style="width: 100%;height: auto; max-width: 100%;" src="img/feed_photo.png">-->
             <img style="width: auto;height: auto;" ng-src="{{post.pic}}">
           </a>
@@ -19,7 +19,8 @@
         <div class="item item-text">
           <div class="row">
             <div class="col col-10 col-center feed-img">
-              <a ng-href="#/app/comments/{{post.triby}}">
+              <!--<a ng-href="#/app/comments/{{post.triby}}">-->
+              <a ui-sref="app.comments({triby_id:post._id})">
                 <img src="img/carla_big.png" />
               </a>
             </div>
@@ -38,27 +39,37 @@
           <div class="news_feed_icon_wrapper">
             <div class="left_chat_icon">
               <div class="hand-up text-12-gray">
-                <a ng-click="addLike(0)"><img ng-src="{{getHandUp(0)}}" /></a>
+                <a ng-click="addLike(0)">
+                  <img ng-src="{{getHandUp(0)}}" />
+                </a>
                 <span>{{(feeds[0].likes > 0 ? feeds[0].likes : '')}}</span>
               </div>
               <div class="heart text-12-gray">
-                <a ng-click="addHearth(0)"><img ng-src="{{getHearth(0)}}" /></a>
+                <a ng-click="addHearth(0)">
+                  <img ng-src="{{getHearth(0)}}" />
+                </a>
                 <!--<span class="text-heart">&nbsp;{{(feeds[0].hearth > 0 ? feeds[0].hearth : '')}}</span>-->
                 <span class="text-heart"> {{post.heart.length}} </span>
               </div>
               <div class="hand-down text-12-gray">
-                <a ng-click="addDislike(0)"><img ng-src="{{getHandDown(0)}}" /></a>
+                <a ng-click="addDislike(0)">
+                  <img ng-src="{{getHandDown(0)}}" />
+                </a>
                 <span>{{(feeds[0].dislikes > 0 ? feeds[0].dislikes : '')}}</span>
               </div>
             </div>
             <div class="right_chat_icon">
               <div class="envelope">
-                <a ng-href="#/app/comments_side/{{post.triby}}"><img src="img/envelope.png" /></a>
+                <a ng-href="#/app/comments_side/{{post.triby}}">
+                  <img src="img/envelope.png" />
+                </a>
               </div>
               <div class="comments_area text-12-gray">
                 <img src="img/commetns-grey.png" />
                 <!--<span class="text-comment">0</span>-->
-                <span class="text-comment">{{post.comments.length}}</span>
+                <span class="text-comment">
+                  {{post.comments.length}}
+                </span>
               </div>
             </div>
           </div>
@@ -67,48 +78,6 @@
           &nbsp;
         </div>
       </div>
-
-      <!--<div class="list list-feed">
-        <div class="item item-text">
-          <div class="row">
-            <div  class="col col-10 col-center feed-img"><a ng-href="#/app/comments/{{post.triby}}"><img src="img/carla_big.png" /></a></div>
-            <div  class="col  feed-text-name col-center">Carla Simpson</div>
-            <div class="col col-33 feed-text-date">Today @ 9:30am</div>
-          </div>
-          <div class="row feed-post-text" >
-            <div class="col col-center">This is a text post, this is a text post, this is a text post, this is a text post.</div>
-          </div>
-        </div>
-        <div class="item item-icons">
-          <div class="news_feed_icon_wrapper">
-            <div class="left_chat_icon">
-              <div class="hand-up text-12-gray">
-                <a ng-click="addLike(1)"><img ng-src="{{getHandUp(1)}}" /></a>
-                <span>{{(feeds[1].likes > 0 ? feeds[1].likes : '')}}</span>
-              </div>
-              <div class="heart text-12-gray">
-                <a ng-click="addHearth(1)"><img ng-src="{{getHearth(1)}}" /></a>
-                <span class="text-heart">&nbsp;{{(feeds[1].hearth > 0 ? feeds[1].hearth : '')}}</span>
-              </div>
-              <div class="hand-down text-12-gray">
-                <a ng-click="addDislike(1)"><img ng-src="{{getHandDown(1)}}" /></a>
-                <span>{{(feeds[1].dislikes > 0 ? feeds[1].dislikes : '')}}</span>
-              </div>
-            </div>
-            <div class="right_chat_icon">
-              <div class="envelope"></div>
-              <div class="comments_area text-12-gray">
-                <a ng-href="#/app/comments/{{post.triby}}"><img src="img/commetns.png" /></a>
-                <span class="text-comment">1010</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="item black-divider">
-          &nbsp;
-        </div>
-      </div>-->
-
     </div>
   </ion-content>
   <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
