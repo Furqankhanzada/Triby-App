@@ -21,10 +21,13 @@
           <div class="row">
             <div class="col col-10 col-center feed-img">
               <!--<a ui-sref="app.comments({triby_id:post._id})">-->
-                <img src="img/carla_big.png" />
+                <!--<img src="img/carla_big.png" />-->
+                <img ng-src="{{post.createdBy.pic}}" />
               <!--</a>-->
             </div>
-            <div  class="col feed-text-name col-center">Carla Simpson</div>
+            <div  class="col feed-text-name col-center">
+              <span ng-bind="post.createdBy.name"></span>
+            </div>
             <!--<div class="col col-33 feed-text-date">Today @ 9:30am</div>-->
             <div class="col col-33 feed-text-date">
               {{post.date | date:'MMM dd, yyyy @ h:mma'}}

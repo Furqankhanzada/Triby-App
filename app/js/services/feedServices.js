@@ -80,7 +80,7 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     postData.parenttype = "tribe";
     postData.content = postData.message;
     postData.pic = postData.image;
-    postData.user = authData.username;
+    //postData.user = authData.username;
 
     $http.post($rootScope.urlBackend + '/posts', postData).success(function (response) {
         deferred.resolve(response);
