@@ -1,17 +1,19 @@
 'use strict';
-MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen) {
+MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state) {
 
   $scope.signupData = {
     username: "",
     countryCode: "",
     phone: ""
-  }
+  };
   $scope.texto = 'Hello World!';
   if(UserService.isAuthorized()){
     UserService.loginUser().then(function(response){
-      console.log(response.message);
+      console.log("loginUser if Authorized response :", response);
+      console.log("loginUser if Authorized response.message :",response.message);
       if(response.status == "success"){
         $window.location.href = "#/app/main/home";
+        $state.go('app.main.home');
         $timeout(function(){
           $cordovaSplashscreen.hide();
         },5000);
@@ -21,7 +23,6 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   }
 
   $scope.fbLogin = function(){
-
     OpenFB.login('email,user_friends').then(
       function () {
         var aUser = {};
@@ -37,9 +38,13 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
           }).success(function(response){
             aUser.image = response.data.url;
             UserService.loginUserFacebook(aUser).then(function(response){
-              console.log(response);
+              console.log("UserService.loginUserFacebook success response :", response);
               if(response.status == "success")
-                $location.path('app/main/home');
+              {
+                //$location.path('app/main/home');
+                $state.go('app.main.home');
+                console.log("Facebook login success...");
+              }
             });
           });
 
@@ -48,9 +53,10 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       function () {
         alert('OpenFB login failed');
       });
-  }
+  };
 
   $scope.loginFacebook = function(){
+    console.log("loginFacebook ......")
     var confirmPopup = $ionicPopup.confirm({
       title: 'Authorization',
       template: 'Triby would like to access your public profile, location and friend lists.'
@@ -125,10 +131,12 @@ MyApp.controller('UserCtrlConfirm', function($scope, $ionicModal, $timeout, $ion
 
     UserService.confirmUser($scope.formData.code).then(function(response){
 
-      if(response.status == "success")
+      if(response.status == "success"){
+        console.log("$scope.confirm working ....");
         $window.location.href = "#/app/main/home";
-      else
+      }else{
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-    });
+      }
+      });
   }
 });

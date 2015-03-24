@@ -1,4 +1,32 @@
 'use strict';
+MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $timeout) {
+
+  $ionicLoading.show({
+    duration: 30000,
+    noBackdrop: false,
+    content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+  });
+  console.log()
+  $scope.tribes = {};
+  $scope.hideEmptyTribes = true;
+
+  FeedService.getTribes().then(function(response){
+    if(response.data.tribes.length > 0)
+      $scope.hideEmptyTribes = true;
+    else
+      $scope.hideEmptyTribes = false;
+    $scope.tribes = chunk(response.data.tribes, 2);
+    $timeout(function() { $ionicLoading.hide(); },300);
+  });
+
+  function chunk(arr, size) {
+    var newArr = [];
+    for (var i=0; i<arr.length; i+=size) {
+      newArr.push(arr.slice(i, i+size));
+    }
+    return newArr;
+  }
+});
 MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state) {
   console.log("FeedCtrl start ...");
 	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
@@ -11,6 +39,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   $scope.getAllPostInCtrl = function(){
     FeedService.getPosts($stateParams.triby_id).then(function(response){
+      console.log("getPosts :", response);
       $scope.getAllPost = response.data.posts;
     });
   };
@@ -54,8 +83,9 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 	$scope.addLike = function(index){
 		$scope.feeds[index].likes += 1;
 	};
-	$scope.addHearth = function(index){
-		$scope.feeds[index].hearth += 1;
+	$scope.addHearth = function(index, addHeart){
+    var heartCount = $scope.getAllPost[index].heart.length + addHeart;
+    $scope.getAllPost[index].heart.push(heartCount);
 	};
 	$scope.addDislike = function(index){
 		$scope.feeds[index].dislikes += 1;
@@ -103,7 +133,39 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		$window.location.href = "#/app/mural/" + $stateParams.triby_id;
 	}
 });
+MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state) {
 
+  $scope.triby = {
+    id: $stateParams.post_id
+  };
+  console.log("$scope.triby :", $stateParams);
+
+  $scope.goBack = function(){
+    //$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+
+  };
+  $scope.uploadPicture = function(source){
+
+    SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
+
+      if(response.status == "success"){
+        $scope.post.image = response.url_file;
+        // adding post
+        FeedService.savePost($scope.post).then(function(response){
+          console.log("comment area post from album or camera", response);
+          //if(response.status == "success"){
+          //  $timeout(function(){
+          //    $window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+          //    $window.location.reload();
+          //  }, 100);
+          //}
+        });
+      }
+      else
+        window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+    });
+  }
+});
 MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $location, $cordovaCamera, $ionicModal, $stateParams) {
 
 	$ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
@@ -180,34 +242,6 @@ MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionic
 			else
 				window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 		});
-	}
-});
-MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope,$timeout) {
-
-	$ionicLoading.show({
-      duration: 30000,
-      noBackdrop: false,
-      content: '<ion-spinner class="spinner-energized"></ion-spinner>'
-    });
-
-	$scope.tribes = {};
-	$scope.hideEmptyTribes = true;
-
-	FeedService.getTribes().then(function(response){
-		if(response.data.tribes.length > 0)
-			$scope.hideEmptyTribes = true;
-		else
-			$scope.hideEmptyTribes = false;
-		  $scope.tribes = chunk(response.data.tribes, 2);
-		  $timeout(function() { $ionicLoading.hide(); },300);
-	});
-
-	function chunk(arr, size) {
-	  var newArr = [];
-	  for (var i=0; i<arr.length; i+=size) {
-	    newArr.push(arr.slice(i, i+size));
-	  }
-	  return newArr;
 	}
 });
 MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, UserService, $ionicPopup) {
@@ -366,38 +400,6 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
 	}
 
-	$scope.uploadPicture = function(source){
-
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
-
-			if(response.status == "success"){
-				$scope.post.image = response.url_file;
-				// adding post
-				FeedService.savePost($scope.post).then(function(response){
-					console.log(response);
-					if(response.status == "success"){
-						$timeout(function(){
-							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-							$window.location.reload();
-						}, 100);
-					}
-				});
-			}
-			else
-				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-		});
-	}
-});
-MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
-
-	$scope.triby = {
-		id: $stateParams.triby_id
-	};
-  console.log("$scope.triby :", $scope.triby);
-
-	$scope.goBack = function(){
-		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-	}
 	$scope.uploadPicture = function(source){
 
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){

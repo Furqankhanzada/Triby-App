@@ -4,13 +4,16 @@
     <ion-nav-view animation="slide-left-right"></ion-nav-view>
     <ion-nav-buttons side="left">
         <button class="button button-icon ion-chevron-left" style="color:white" ng-click="goBack()"></button>
+      <!--<a class="button button-icon ion-chevron-left" style="color:white"
+          ui-sref="app.news_feed({triby_id: triby.id, count: params.count})"
+          ng-click="params.increment()"></a>-->
     </ion-nav-buttons>
     <ion-content align="center" style="border:none" scroll="true" >
         <div class="list list-chat">
             <div class="item item-text">
                 <div class="row">
                     <div class="col col-50 col-bottom chat-text-name">Carla Simpson</div>
-                    <div class="col col-50 "></div>
+                    <div class="col col-50"></div>
                 </div>
                 <div class="chat-bubble chat-bubble-green">
                     here is a text box<br>

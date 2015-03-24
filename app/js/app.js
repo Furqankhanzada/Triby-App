@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordova']);
+var MyApp = angular.module('MyApp', ['ionic','LocalStorageModule','openfb','ngRoute','ngCordovaMocks']);
 
 MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', function ($ionicConfigProvider,$compileProvider,$sceDelegateProvider){
   $ionicConfigProvider.tabs.style('standard');
@@ -90,7 +90,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.comments', {
-      url: '/comments/:triby_id',
+      url: '/comments/:post_id/:count',
       views: {
         'menuContent': {
           templateUrl: 'templates/comments.html',
@@ -276,8 +276,8 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
   };
 
   OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
-  $rootScope.urlBackend = 'http://104.236.5.153:3000';
-  //$rootScope.urlBackend = 'http://192.168.1.77:3000';
+  //$rootScope.urlBackend = 'http://104.236.5.153:3000';
+  $rootScope.urlBackend = 'http://192.168.1.77:3000';
 
   $rootScope.Get_Width=function(index)
   {
@@ -316,13 +316,16 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
     }
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
-        $location.path('app/main/no_connection');
+        //$location.path('app/main/no_connection');
+        $state.go('app.main.no_connection');
       }
       document.addEventListener("offline", function() {
-        $location.path('app/main/no_connection');
+        //$location.path('app/main/no_connection');
+        $state.go('app.main.no_connection');
       }, false);
       document.addEventListener("online", function() {
-        $location.path('app/main/home');
+        //$location.path('app/main/home');
+        $state.go('app.main.home');
       }, false);
     }
     console.log("Checking user..");

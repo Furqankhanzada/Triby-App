@@ -20,10 +20,9 @@
         <div class="item item-text">
           <div class="row">
             <div class="col col-10 col-center feed-img">
-              <!--<a ng-href="#/app/comments/{{post.triby}}">-->
-              <a ui-sref="app.comments({triby_id:post._id})">
+              <!--<a ui-sref="app.comments({triby_id:post._id})">-->
                 <img src="img/carla_big.png" />
-              </a>
+              <!--</a>-->
             </div>
             <div  class="col feed-text-name col-center">Carla Simpson</div>
             <!--<div class="col col-33 feed-text-date">Today @ 9:30am</div>-->
@@ -45,8 +44,10 @@
                 <span>{{(feeds[0].likes > 0 ? feeds[0].likes : '')}}</span>
               </div>
               <div class="heart text-12-gray">
-                <a ng-click="addHearth(0)">
-                  <img ng-src="{{getHearth(0)}}" />
+                <a ng-click="addHearth($index, 1)">
+                  <!--<img ng-src="{{getHearth(0)}}" />-->
+                  <img ng-if="!post.heart.length" src="img/heart-grey.png" />
+                  <img ng-if="post.heart.length" src="img/heart.png" />
                 </a>
                 <!--<span class="text-heart">&nbsp;{{(feeds[0].hearth > 0 ? feeds[0].hearth : '')}}</span>-->
                 <span class="text-heart"> {{post.heart.length}} </span>
@@ -64,13 +65,18 @@
                   <img src="img/envelope.png" />
                 </a>
               </div>
-              <div class="comments_area text-12-gray">
-                <img src="img/commetns-grey.png" />
-                <!--<span class="text-comment">0</span>-->
-                <span class="text-comment">
-                  {{post.comments.length}}
-                </span>
-              </div>
+              <a class="tribys_pic_circle"
+                 ui-sref="app.comments({post_id: post._id, count: params.count})"
+                 ng-click="params.increment()">
+              <!--<a ui-sref="app.comments({post_id:post._id})">-->
+                <div class="comments_area text-12-gray">
+                  <img src="img/commetns-grey.png" />
+                  <!--<span class="text-comment">0</span>-->
+                  <span class="text-comment">
+                    {{post.comments.length}}
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
         </div>
