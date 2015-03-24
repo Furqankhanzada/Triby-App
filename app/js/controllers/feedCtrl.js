@@ -6,7 +6,6 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
     noBackdrop: false,
     content: '<ion-spinner class="spinner-energized"></ion-spinner>'
   });
-  console.log()
   $scope.tribes = {};
   $scope.hideEmptyTribes = true;
 
@@ -38,7 +37,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 	};
 
   $scope.getAllPostInCtrl = function(){
-    FeedService.getPosts($stateParams.triby_id).then(function(response){
+    FeedService.getTribyPosts($stateParams.triby_id).then(function(response){
       console.log("getPosts :", response);
       $scope.getAllPost = response.data.posts;
     });
@@ -133,8 +132,9 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		$window.location.href = "#/app/mural/" + $stateParams.triby_id;
 	}
 });
-MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state) {
+MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, CommentsService, FeedService, $window, $state) {
 
+  $scope.post = {type: 'post', id: $stateParams.post_id};
   $scope.triby = {
     id: $stateParams.post_id
   };
@@ -142,8 +142,31 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
   $scope.goBack = function(){
     //$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-
   };
+
+  $scope.addComment = function(form){
+    $scope.submitted = true;
+    if(form.$valid){
+      CommentsService.addComment($scope.post).then(function(data){
+        console.log("comment success :", data);
+        $scope.post.comment = '';
+        $scope.submitted = false;
+        $scope.comments = data.data.post.comments;
+      }, function(err){
+        console.log("comment error :", err);
+      });    }
+  };
+
+  $scope.getComments = function(){
+    FeedService.getPosts($stateParams.post_id).then(function(data){
+        console.log("comment success :", data);
+        $scope.comments = data.data.post.comments;
+      }, function(err){
+        console.log("comment error :", err);
+      });
+  };
+
+
   $scope.uploadPicture = function(source){
 
     SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){

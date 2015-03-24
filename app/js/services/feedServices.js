@@ -91,12 +91,19 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     return deferred.promise;
   }
 
-  var _getPosts = function(tribyID){
+  var _getTribyPosts = function(tribyID){
     var authData = localStorageService.get('authorizationData');
     $http.defaults.headers.common['Authorization'] = authData.token;
 
-    return $http.get($rootScope.urlBackend + '/posts/' + tribyID);
+    return $http.get($rootScope.urlBackend + '/posts/triby/' + tribyID);
   }
+
+  var _getPosts = function(postId){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.get($rootScope.urlBackend + '/posts/' + postId);
+  };
 
   var _exitTriby = function(tribyId){
     var deferred = $q.defer();
@@ -123,6 +130,7 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
   feedServiceFactory.getTribes = _getTribes;
   feedServiceFactory.getTriby = _getTriby;
   feedServiceFactory.savePost = _savePost;
+  feedServiceFactory.getTribyPosts = _getTribyPosts;
   feedServiceFactory.getPosts = _getPosts;
   feedServiceFactory.exitTriby = _exitTriby;
 
