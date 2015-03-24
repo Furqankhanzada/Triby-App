@@ -31,7 +31,7 @@ MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,
   // Facebook user?
   $scope.isFacebookUser = function() {
     console.log(UserService.getMobileNumber());
-    return UserService.getMobileNumber() === 'na';
+    return UserService.getMobileNumber() === '';
   }
 
   // Perform the login action when the user submits the login form
