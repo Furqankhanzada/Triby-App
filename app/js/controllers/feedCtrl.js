@@ -26,7 +26,7 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
     return newArr;
   }
 });
-MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state) {
+MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state, UserService) {
   console.log("FeedCtrl start ...");
 	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
 	$scope.posts = [];
@@ -35,6 +35,31 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		image: "",
 		triby: $stateParams.triby_id
 	};
+  UserService.getUser().then(function(data){
+    console.log("get user .... :", data);
+    $scope.currentUser = data.data.user;
+  });
+
+  $scope.iconFilter = function(array){
+    if($scope.currentUser){
+      for(var i = 0; i < array.length; i++)
+      {
+        if(array[i] == $scope.currentUser._id){
+          console.log('matching user id jo user ne di hai');
+          console.log(array[i] == $scope.currentUser._id);
+          return true;
+        }
+      }
+      return false;
+    }
+    else{
+      UserService.getUser().then(function(data){
+        console.log("get user .... :", data);
+        $scope.currentUser = data.data.user;
+        $scope.iconFilter(array)
+      });
+    }
+  };
 
   $scope.getAllPostInCtrl = function(){
     FeedService.getTribyPosts($stateParams.triby_id).then(function(response){
@@ -43,66 +68,90 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     });
   };
   $scope.getAllPostInCtrl();
+  ///////////////////  set Heart /////////////////////////
+  $scope.setHeart = function(post){
+    var heart = {
+      type: 'post',
+      id: post._id
+    };
+    if($scope.iconFilter(post.hearts)){
+      FeedService.removeHeart(heart).then(function(response){
+        console.log("heart success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("heart error :", err);
+      });
+    }
+    else{
+      FeedService.addHeart(heart).then(function(response){
+        console.log("heart success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("heart error :", err);
+      });
+    }
+  };
+  ///////////////////  set Heart /////////////////////////
 
-	$scope.feeds = [
-		{
-		  "likes":50,
-		  "hearth":50,
-		  "dislikes":0,
-		  "messages":true,
-		  "chatMessages":0
-		},
-		{
-		  "likes":0,
-		  "hearth":0,
-		  "dislikes":1,
-		  "messages":false,
-		  "chatMessages":100
-		}
-	];
+  ///////////////////  set Like /////////////////////////
+  $scope.setLike = function(post){
+    var like = {
+      type: 'post',
+      id: post._id
+    };
+    if($scope.iconFilter(post.likes)){
+      FeedService.removeLike(like).then(function(response){
+        console.log("like success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("like error :", err);
+      });
+    }
+    else{
+      FeedService.addLike(like).then(function(response){
+        console.log("like success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("like error :", err);
+      });
+    }
+  };
+  ///////////////////  set Like /////////////////////////
 
-	$scope.getHandUp = function(index){
-		if($scope.feeds[index].likes > 0)
-		  return "img/hand-up.png";
-		else
-		  return "img/hand-up-grey.png";
-	};
-	$scope.getHearth = function(index){
-		if($scope.feeds[index].hearth > 0)
-		  return "img/heart.png";
-		else
-		  return "img/heart-grey.png";
-	};
-	$scope.getHandDown = function(index){
-		if($scope.feeds[index].dislikes > 0)
-		  return "img/hand-down.png";
-		else
-		  return "img/hand-down-grey.png";
-	};
-	$scope.addLike = function(index){
-		$scope.feeds[index].likes += 1;
-	};
-	$scope.addHearth = function(index, addHeart){
-    var heartCount = $scope.getAllPost[index].heart.length + addHeart;
-    $scope.getAllPost[index].heart.push(heartCount);
-	};
-	$scope.addDislike = function(index){
-		$scope.feeds[index].dislikes += 1;
-	};
+  ///////////////////  set DisLike /////////////////////////
+  $scope.setDislike = function(post){
+    var dislike = {
+      type: 'post',
+      id: post._id
+    };
+    if($scope.iconFilter(post.dislikes)){
+      FeedService.removeDislike(dislike).then(function(response){
+        console.log("dislike success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("dislike error :", err);
+      });
+    }
+    else{
+      FeedService.addDislike(dislike).then(function(response){
+        console.log("dislike success :", response);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("dislike error :", err);
+      });
+    }
+  };
+  ///////////////////  set DisLike /////////////////////////
+
 
 	$scope.sendPost = function(){
 		FeedService.savePost($scope.post).then(function(response){
 			console.log("$scope.sendPost :", response);
       $scope.getAllPostInCtrl();
       $scope.post.message = "";
-			/*if(response.status == "success"){
-				$timeout(function(){
-					$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-					$window.location.reload();
-				}, 100);
-			}*/
+
 		});
-	}
+	};
 
 	$scope.uploadPicture = function(source){
 
@@ -115,18 +164,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 					console.log("News-feed uploadPicture :", response);
           $scope.getAllPostInCtrl();
           $scope.post.message = "";
-					/*if(response.status == "success"){
-						$timeout(function(){
-							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-							$window.location.reload();
-						}, 100);
-					}*/
+
 				});
 			}
 			else
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 		});
-	}
+	};
 
 	$scope.goMural = function(){
 		$window.location.href = "#/app/mural/" + $stateParams.triby_id;

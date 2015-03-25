@@ -275,9 +275,10 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
     $rootScope.params.count++;
   };
 
-  OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
-  $rootScope.urlBackend = 'http://104.236.5.153:3000';
-  //$rootScope.urlBackend = 'http://192.168.1.114:3000';
+  // this is a old one OpenFB.init('585883268214163','http://localhost:8100/oauthcallback.html', window.localStorage);
+  OpenFB.init('738821969512630','http://localhost:8100/oauthcallback.html', window.localStorage);
+  //$rootScope.urlBackend = 'http://104.236.5.153:3000';
+  $rootScope.urlBackend = 'http://192.168.1.103:3000';
 
   $rootScope.Get_Width=function(index)
   {
@@ -311,24 +312,20 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
     if(window.Connection) {
       if(navigator.connection.type == Connection.NONE) {
-        //$location.path('app/main/no_connection');
         $state.go('app.main.no_connection');
       }
       document.addEventListener("offline", function() {
-        //$location.path('app/main/no_connection');
         $state.go('app.main.no_connection');
       }, false);
       document.addEventListener("online", function() {
-        //$location.path('app/main/home');
         $state.go('app.main.home');
       }, false);
     }
-    console.log("Checking user..");
+      console.log("Checking user..");
     if(!UserService.isAuthorized()){
       console.log("Not authorized");
       $cordovaSplashscreen.hide();

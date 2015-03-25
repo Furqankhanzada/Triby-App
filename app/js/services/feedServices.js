@@ -122,6 +122,53 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     return deferred.promise;
   }
 
+  //////// heart icon services start from here ////////
+  var _addHeart = function(heartData){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.post($rootScope.urlBackend + '/heart', heartData);
+  };
+
+  var _removeHeart = function(heartData){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.put($rootScope.urlBackend + '/heart', heartData);
+  };
+  //////// heart icon services Finish here ////////
+  //////// Like icon services start from here ////////
+  var _addLike = function(like){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.post($rootScope.urlBackend + '/like', like);
+  };
+
+  var _removeLike = function(like){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.put($rootScope.urlBackend + '/like', like);
+  };
+  //////// Like icon services Finish here ////////
+
+  //////// DisLike icon services start from here ////////
+  var _addDislike = function(disLike){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.post($rootScope.urlBackend + '/dislike', disLike);
+  };
+
+  var _removeDislike = function(disLike){
+    var authData = localStorageService.get('authorizationData');
+    $http.defaults.headers.common['Authorization'] = authData.token;
+
+    return $http.put($rootScope.urlBackend + '/dislike', disLike);
+  };
+  //////// DisLike icon services Finish here ////////
+
   feedServiceFactory.setNewTriby = _setNewTriby;
   feedServiceFactory.getNewTriby = _getNewTriby;
   feedServiceFactory.saveTriby = _saveTriby;
@@ -133,6 +180,12 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
   feedServiceFactory.getTribyPosts = _getTribyPosts;
   feedServiceFactory.getPosts = _getPosts;
   feedServiceFactory.exitTriby = _exitTriby;
+  feedServiceFactory.addHeart = _addHeart;
+  feedServiceFactory.removeHeart = _removeHeart;
+  feedServiceFactory.addLike = _addLike;
+  feedServiceFactory.removeLike = _removeLike;
+  feedServiceFactory.addDislike = _addDislike;
+  feedServiceFactory.removeDislike = _removeDislike;
 
   return feedServiceFactory;
 })

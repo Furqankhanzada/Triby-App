@@ -1877,10 +1877,13 @@ img.pro_pic_img
 .about_wrapper .black_back_button{color: #000 !important;}
 .news_feed_img_box
 {
-  margin: 0 0 20px 0;
+  margin: 0 0 0px 0;
   padding: 0;
   float: left;
   width: 100%;
   height: 300px;
   overflow: hidden;
 }
+.news_feed_content_wrapper .list-feed .feed-text-date {margin: 20px 0 0 0;}
+.black-header-bar .bar-header{background: #000;color: #fff;}
+.black-header-bar .button-icon{width: 46px;}
