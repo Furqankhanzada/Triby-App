@@ -59,11 +59,13 @@
               </div>
             </div>
             <div class="right_chat_icon">
-              <a ui-sref="app.comments_side({post_id: post.createdBy._id})">
+              <!--<a ui-sref="app.comments_side({user_id: post.createdBy._id})">-->
+              <a ng-click="goSideChat(post.createdBy._id)">
                 <div class="envelope">
                   <img src="img/envelope.png" />
                 </div>
               </a>
+              <!--</a>-->
               <a ui-sref="app.comments({post_id: post._id})">
                 <div class="comments_area text-12-gray">
                   <img ng-if="post.comments.length" src="img/commetns.png" />

@@ -9,18 +9,14 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
   $scope.tribes = {};
   $scope.hideEmptyTribes = true;
 
-  /////////////////// get All Tribes /////////////////////
   FeedService.getTribes().then(function(response){
-    if(response.data.tribes.length > 0){
+    if(response.data.tribes.length > 0)
       $scope.hideEmptyTribes = true;
-      console.log("get All Tribes :", response);
-    }else{
+    else
       $scope.hideEmptyTribes = false;
       $scope.tribes = chunk(response.data.tribes, 2);
       $timeout(function() { $ionicLoading.hide(); },300);
-    }
   });
-  /////////////////// get All Tribes /////////////////////
 
   function chunk(arr, size) {
     var newArr = [];
@@ -32,14 +28,24 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
 });
 MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state, UserService) {
   console.log("FeedCtrl start ...");
-	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
-	$scope.posts = [];
+	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '" >BFFs</a>';
+  //$scope.title = '<a ui-sref="app.info({triby_id:})" href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
+
+  $scope.posts = [];
 	$scope.post = {
 		message: "",
 		image: "",
 		triby: $stateParams.triby_id
 	};
 
+  $scope.goSideChat = function(id){
+    if(id == $scope.currentUser._id)
+    {
+      alert("Post owner side-chat bar is in progress")
+    }else{
+      $state.go("app.comments_side",{user_id: id});
+    }
+  };
   /////////////////// get Current User /////////////////////
   UserService.getUser().then(function(data){
     console.log("get user .... :", data);
@@ -62,8 +68,8 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     else{
       UserService.getUser().then(function(data){
         console.log("get user .... :", data);
-        $scope.currentUser = data.data.user;
-        $scope.iconFilter(array)
+        //$scope.currentUser = data.data.user;
+        //$scope.iconFilter(array)
       });
     }
   };
@@ -241,16 +247,88 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
   /////////////////// upload Picture /////////////////////////
 
 });
-MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
+MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, CommentsService, SideChatService) {
   console.log("Private ChatCtrl start ...");
   console.log("$stateParams :", $stateParams);
-  $scope.triby = {
-    id: $stateParams.triby_id
+
+  $scope.userID = $stateParams.user_id;
+  $scope.post = {type: 'sidechat'};
+  console.log("user id :", $scope.post);
+
+  //$scope.privateChat = {
+  //  owner : { },
+  //  user: { },
+  //  date: '22-03-2015 @ 4:35:50 AM',
+  //  comments: [
+  //    {
+  //      comment: 'this is a comment in private Chat',
+  //      user: {
+  //        name: "Haider alee",
+  //        pic: "img/default_avatar.jpg"
+  //      } ,
+  //      time:Date
+  //    },
+  //    {
+  //      comment: 'this is a comment in private Chat 2',
+  //      user: {
+  //        name: "Sumair khanzada",
+  //        pic: "img/default_avatar.jpg"
+  //      } ,
+  //      "time":Date
+  //    },
+  //    {
+  //      comment: 'this is a comment in private Chat 3',
+  //      user: {
+  //        name: "Haider alee",
+  //        pic: "img/default_avatar.jpg"
+  //      } ,
+  //      time:Date
+  //    },
+  //    {
+  //      comment: 'this is a comment in private Chat 4',
+  //      user: {
+  //        name: "Sumair khanzada",
+  //        pic: "img/default_avatar.jpg"
+  //      } ,
+  //      time:Date
+  //    }
+  //  ]
+  //};
+
+  $scope.sidechat = {
+    comments: []
   };
 
-  $scope.goBack = function(){
-    $window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-  }
+
+  /////////////////// add Comment /////////////////////////
+  $scope.addComment = function(form){
+    $scope.submitted = true;
+    if(form.$valid){
+      //SideChatService.addComment({user : $scope.post.user}).then(function(data){
+      CommentsService.addComment($scope.post).then(function(res){
+        console.log("sidechat add comment success :", res);
+        $scope.post.comment = '';
+        $scope.submitted = false;
+        $scope.sidechat = res.data.sidechat;
+      }, function(err){
+        console.log("sidechat add comment error :", err);
+      });    }
+  };
+  /////////////////// add Comment /////////////////////////
+
+  /////////////////// get Comment /////////////////////////
+  $scope.sideChat = function(){
+    //SideChatService.addComment({user : $scope.post.user}).then(function(data){
+    SideChatService.sideChat({user : $scope.userID}).then(function(res){
+      console.log("sideChat success :", res);
+      $scope.sidechat = res.data.sidechat;
+      $scope.post.id = res.data.sidechat._id;
+      //$scope.comments = data.data.post.comments;
+    }, function(err){
+      console.log("sideChat error :", err);
+    });
+  };
+  /////////////////// get Comment /////////////////////////
 
   $scope.uploadPicture = function(source){
 
