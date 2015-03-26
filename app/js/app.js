@@ -81,7 +81,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.news_feed', {
-      url: '/news_feed/:triby_id/:count',
+      //url: '/news_feed/:triby_id/:count',
+      url: '/news_feed/:triby_id',
       views: {
         'menuContent': {
           templateUrl: 'templates/news_feed.html',
@@ -90,7 +91,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.comments', {
-      url: '/comments/:post_id/:count',
+      //url: '/comments/:post_id/:count',
+      url: '/comments/:post_id',
       views: {
         'menuContent': {
           templateUrl: 'templates/comments.html',
@@ -99,10 +101,11 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       }
     })
     .state('app.comments_side', {
-      url: '/comments_side/:triby_id',
+      url: '/comments_side/:post_id',
       views: {
         'menuContent': {
-          templateUrl: 'templates/comments_side.html'
+          templateUrl: 'templates/comments_side.html',
+          controller:"ChatCtrl"
         }
       }
     })

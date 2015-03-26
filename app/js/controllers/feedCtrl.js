@@ -9,14 +9,18 @@ MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedServ
   $scope.tribes = {};
   $scope.hideEmptyTribes = true;
 
+  /////////////////// get All Tribes /////////////////////
   FeedService.getTribes().then(function(response){
-    if(response.data.tribes.length > 0)
+    if(response.data.tribes.length > 0){
       $scope.hideEmptyTribes = true;
-    else
+      console.log("get All Tribes :", response);
+    }else{
       $scope.hideEmptyTribes = false;
-    $scope.tribes = chunk(response.data.tribes, 2);
-    $timeout(function() { $ionicLoading.hide(); },300);
+      $scope.tribes = chunk(response.data.tribes, 2);
+      $timeout(function() { $ionicLoading.hide(); },300);
+    }
   });
+  /////////////////// get All Tribes /////////////////////
 
   function chunk(arr, size) {
     var newArr = [];
@@ -35,18 +39,21 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 		image: "",
 		triby: $stateParams.triby_id
 	};
+
+  /////////////////// get Current User /////////////////////
   UserService.getUser().then(function(data){
     console.log("get user .... :", data);
     $scope.currentUser = data.data.user;
   });
+  /////////////////// get Current User /////////////////////
 
+  /////////////////// icon Filter /////////////////////////
   $scope.iconFilter = function(array){
     if($scope.currentUser){
       for(var i = 0; i < array.length; i++)
       {
         if(array[i] == $scope.currentUser._id){
-          console.log('matching user id jo user ne di hai');
-          console.log(array[i] == $scope.currentUser._id);
+          console.log('matching user id :', array[i] == $scope.currentUser._id);
           return true;
         }
       }
@@ -60,38 +67,18 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       });
     }
   };
+  /////////////////// icon Filter /////////////////////////
 
+  /////////////////// get All Currrnt Triby Post /////////////////////////
   $scope.getAllPostInCtrl = function(){
     FeedService.getTribyPosts($stateParams.triby_id).then(function(response){
-      console.log("getPosts :", response);
+      console.log("get All Currrnt Triby Post :", response.data.posts);
       $scope.getAllPost = response.data.posts;
     });
   };
+  /////////////////// get All Currrnt Triby Post /////////////////////////
+
   $scope.getAllPostInCtrl();
-  ///////////////////  set Heart /////////////////////////
-  $scope.setHeart = function(post){
-    var heart = {
-      type: 'post',
-      id: post._id
-    };
-    if($scope.iconFilter(post.hearts)){
-      FeedService.removeHeart(heart).then(function(response){
-        console.log("heart success :", response);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("heart error :", err);
-      });
-    }
-    else{
-      FeedService.addHeart(heart).then(function(response){
-        console.log("heart success :", response);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("heart error :", err);
-      });
-    }
-  };
-  ///////////////////  set Heart /////////////////////////
 
   ///////////////////  set Like /////////////////////////
   $scope.setLike = function(post){
@@ -101,7 +88,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     };
     if($scope.iconFilter(post.likes)){
       FeedService.removeLike(like).then(function(response){
-        console.log("like success :", response);
+        console.log("like success :", response.data.post);
         $scope.getAllPostInCtrl();
       }, function(err){
         console.log("like error :", err);
@@ -109,7 +96,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     }
     else{
       FeedService.addLike(like).then(function(response){
-        console.log("like success :", response);
+        console.log("like success :", response.data.post);
         $scope.getAllPostInCtrl();
       }, function(err){
         console.log("like error :", err);
@@ -117,6 +104,31 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     }
   };
   ///////////////////  set Like /////////////////////////
+
+  ///////////////////  set Heart /////////////////////////
+  $scope.setHeart = function(post){
+    var heart = {
+      type: 'post',
+      id: post._id
+    };
+    if($scope.iconFilter(post.hearts)){
+      FeedService.removeHeart(heart).then(function(response){
+        console.log("heart success :", response.data.post);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("heart error :", err);
+      });
+    }
+    else{
+      FeedService.addHeart(heart).then(function(response){
+        console.log("heart success :", response.data.post);
+        $scope.getAllPostInCtrl();
+      }, function(err){
+        console.log("heart error :", err);
+      });
+    }
+  };
+  ///////////////////  set Heart /////////////////////////
 
   ///////////////////  set DisLike /////////////////////////
   $scope.setDislike = function(post){
@@ -126,7 +138,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     };
     if($scope.iconFilter(post.dislikes)){
       FeedService.removeDislike(dislike).then(function(response){
-        console.log("dislike success :", response);
+        console.log("dislike success :", response.data.post);
         $scope.getAllPostInCtrl();
       }, function(err){
         console.log("dislike error :", err);
@@ -134,7 +146,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
     }
     else{
       FeedService.addDislike(dislike).then(function(response){
-        console.log("dislike success :", response);
+        console.log("dislike success :", response.data.post);
         $scope.getAllPostInCtrl();
       }, function(err){
         console.log("dislike error :", err);
@@ -143,38 +155,40 @@ MyApp.controller('FeedCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   };
   ///////////////////  set DisLike /////////////////////////
 
-
+  /////////////////// send Post /////////////////////////
 	$scope.sendPost = function(){
 		FeedService.savePost($scope.post).then(function(response){
-			console.log("$scope.sendPost :", response);
+			console.log("$scope.sendPost :", response.tribe);
       $scope.getAllPostInCtrl();
       $scope.post.message = "";
 
 		});
 	};
+  /////////////////// send Post /////////////////////////
 
+  /////////////////// upload Picture /////////////////////////
 	$scope.uploadPicture = function(source){
 
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
 
 			if(response.status == "success"){
 				$scope.post.image = response.url_file;
-				// adding post
 				FeedService.savePost($scope.post).then(function(response){
 					console.log("News-feed uploadPicture :", response);
           $scope.getAllPostInCtrl();
           $scope.post.message = "";
-
 				});
 			}
 			else
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 		});
 	};
+  /////////////////// upload Picture /////////////////////////
 
 	$scope.goMural = function(){
 		$window.location.href = "#/app/mural/" + $stateParams.triby_id;
 	}
+
 });
 MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, CommentsService, FeedService, $window, $state) {
 
@@ -182,12 +196,8 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
   $scope.triby = {
     id: $stateParams.post_id
   };
-  console.log("$scope.triby :", $stateParams);
 
-  $scope.goBack = function(){
-    //$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-  };
-
+  /////////////////// add Comment /////////////////////////
   $scope.addComment = function(form){
     $scope.submitted = true;
     if(form.$valid){
@@ -200,7 +210,9 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
         console.log("comment error :", err);
       });    }
   };
+  /////////////////// add Comment /////////////////////////
 
+  /////////////////// get Comment /////////////////////////
   $scope.getComments = function(){
     FeedService.getPosts($stateParams.post_id).then(function(data){
         console.log("comment success :", data);
@@ -209,7 +221,36 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
         console.log("comment error :", err);
       });
   };
+  /////////////////// get Comment /////////////////////////
 
+  /////////////////// upload Picture /////////////////////////
+  $scope.uploadPicture = function(source){
+
+    SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
+
+      if(response.status == "success"){
+        $scope.post.image = response.url_file;
+        FeedService.savePost($scope.post).then(function(response){
+          console.log("comment area post from album or camera", response);
+        });
+      }
+      else
+        window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+    });
+  }
+  /////////////////// upload Picture /////////////////////////
+
+});
+MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
+  console.log("Private ChatCtrl start ...");
+  console.log("$stateParams :", $stateParams);
+  $scope.triby = {
+    id: $stateParams.triby_id
+  };
+
+  $scope.goBack = function(){
+    $window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+  }
 
   $scope.uploadPicture = function(source){
 
@@ -219,13 +260,13 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
         $scope.post.image = response.url_file;
         // adding post
         FeedService.savePost($scope.post).then(function(response){
-          console.log("comment area post from album or camera", response);
-          //if(response.status == "success"){
-          //  $timeout(function(){
-          //    $window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-          //    $window.location.reload();
-          //  }, 100);
-          //}
+          console.log(response);
+          if(response.status == "success"){
+            $timeout(function(){
+              $window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
+              $window.location.reload();
+            }, 100);
+          }
         });
       }
       else
@@ -455,37 +496,5 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 			$window.location.href = "#/app/info/" + triby._id;
 			$window.location.reload();
 		}, 100);
-	}
-});
-MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams,SettingsService,$rootScope,FeedService,$window) {
-
-	$scope.triby = {
-		id: $stateParams.triby_id
-	};
-
-	$scope.goBack = function(){
-		$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-	}
-
-	$scope.uploadPicture = function(source){
-
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
-
-			if(response.status == "success"){
-				$scope.post.image = response.url_file;
-				// adding post
-				FeedService.savePost($scope.post).then(function(response){
-					console.log(response);
-					if(response.status == "success"){
-						$timeout(function(){
-							$window.location.href = "#/app/news_feed/" + $stateParams.triby_id;
-							$window.location.reload();
-						}, 100);
-					}
-				});
-			}
-			else
-				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-		});
 	}
 });

@@ -1,5 +1,4 @@
-<!--<ion-view title="{{title}}" ng-controller="FeedCtrl">-->
-<ion-view title="{{title}}">
+<ion-view cache-view="false" title="{{title}}">
   <ion-nav-bar align-title="center" class="bar bar-triby nav-title-slide-ios7"></ion-nav-bar>
   <ion-nav-view animation="slide-left-right"></ion-nav-view>
   <ion-nav-buttons side="left">
@@ -60,14 +59,12 @@
               </div>
             </div>
             <div class="right_chat_icon">
-              <div class="envelope">
-                <a ng-href="#/app/comments_side/{{post.triby}}">
+              <a ui-sref="app.comments_side({post_id: post.createdBy._id})">
+                <div class="envelope">
                   <img src="img/envelope.png" />
-                </a>
-              </div>
-              <a class="tribys_pic_circle"
-                 ui-sref="app.comments({post_id: post._id, count: params.count})"
-                 ng-click="params.increment()">
+                </div>
+              </a>
+              <a ui-sref="app.comments({post_id: post._id})">
                 <div class="comments_area text-12-gray">
                   <img ng-if="post.comments.length" src="img/commetns.png" />
                   <img ng-if="!post.comments.length" src="img/commetns-grey.png" />
@@ -77,9 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="item black-divider">
-          &nbsp;
-        </div>
+        <div class="item black-divider"></div>
       </div>
     </div>
   </ion-content>

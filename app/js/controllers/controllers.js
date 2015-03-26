@@ -1,13 +1,13 @@
 'use strict';
 MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $rootScope) {
 
-  $scope.$watch('params.count', function(){
+  /*$scope.$watch('params.count', function(){
     console.log($rootScope.params.count);
-  });
+  });*/
 
   $scope.go = function(path){
     $location.path( path );
-  }
+  };
 
   // Form data for the login modal
   $scope.loginData = {};

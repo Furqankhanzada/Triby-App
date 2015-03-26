@@ -814,6 +814,7 @@ img.feed-img  {
 .black-divider {
   background-color: #2b2b2b;
   padding: 0px;
+  height: 12px;
   line-height: 12px;
   width: 100%;
   float: left;
@@ -1885,5 +1886,5 @@ img.pro_pic_img
   overflow: hidden;
 }
 .news_feed_content_wrapper .list-feed .feed-text-date {margin: 20px 0 0 0;}
-.black-header-bar .bar-header{background: #000;color: #fff;}
+.black-header-bar .bar-header{background: #1c1c1c;color: #fff;}
 .black-header-bar .button-icon{width: 46px;}
