@@ -115,7 +115,7 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
   /////////////////// add Comment /////////////////////////
   $scope.addComment = function(){
-    if(form.$valid){
+    //if(form.$valid){
       CommentsService.addComment($scope.post).then(function(data){
         console.log("comment success :", data);
         $scope.post.comment = '';
@@ -124,7 +124,7 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
       }, function(err){
         console.log("comment error :", err);
       });
-    }
+    //}
   };
   /////////////////// add Comment /////////////////////////
 

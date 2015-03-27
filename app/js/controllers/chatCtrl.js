@@ -120,8 +120,8 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   /////////////////// add Comment /////////////////////////
   $scope.addComment = function(form){
-    $scope.submitted = true;
-    if(form.$valid){
+    //$scope.submitted = true;
+    //if(form.$valid){
       //SideChatService.addComment({user : $scope.post.user}).then(function(data){
       CommentsService.addComment($scope.post).then(function(res){
         console.log("sidechat add comment success :", res);
@@ -131,7 +131,7 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       }, function(err){
         console.log("sidechat add comment error :", err);
       });
-    }
+    //}
   };
   /////////////////// add Comment /////////////////////////
 
