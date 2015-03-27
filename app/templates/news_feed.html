@@ -18,9 +18,9 @@
         </div>
         <div class="item item-text">
           <div class="row">
-            <div class="col col-10 col-center feed-img">
+            <div class="col col-10 col-center feed-img" ng-click="goSideChat(post.createdBy._id)">
                 <img ng-if="!post.createdBy.pic" src="img/default_avatar.jpg" />
-                <img ng-src="{{post.createdBy.pic}}" />
+                <img ng-if="post.createdBy.pic" ng-src="{{post.createdBy.pic}}" />
             </div>
             <div  class="col feed-text-name col-center">
               <span ng-bind="post.createdBy.name"></span>
@@ -59,17 +59,15 @@
               </div>
             </div>
             <div class="right_chat_icon">
-              <!--<a ui-sref="app.comments_side({user_id: post.createdBy._id})">-->
-              <a ng-click="goSideChat(post.createdBy._id)">
+              <a ng-if="post.createdBy._id != currentUser._id" ng-click="goSideChat(post.createdBy._id)">
                 <div class="envelope">
                   <img src="img/envelope.png" />
                 </div>
               </a>
-              <!--</a>-->
               <a ui-sref="app.comments({post_id: post._id})">
                 <div class="comments_area text-12-gray">
-                  <img ng-if="post.comments.length" src="img/commetns.png" />
-                  <img ng-if="!post.comments.length" src="img/commetns-grey.png" />
+                  <img ng-if="post.comments.length" src="img/comments.png" />
+                  <img ng-if="!post.comments.length" src="img/comments-grey.png" />
                   <span class="text-comment" ng-bind="post.comments.length"></span>
                 </div>
               </a>

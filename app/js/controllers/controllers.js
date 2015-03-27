@@ -155,6 +155,7 @@ MyApp.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicPopup,
         }
     };
 })
+
 .directive('focusMe', function($timeout) {
   return {
     link: function(scope, element, attrs) {
