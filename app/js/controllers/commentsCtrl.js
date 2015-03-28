@@ -1,6 +1,6 @@
 'use strict';
 MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, CommentsService, FeedService,
-                                          UserService, $window, $state) {
+                                          UserService, $window, $state, IconService) {
 
   $scope.post = {type: 'post', id: $stateParams.post_id};
   $scope.triby = {
@@ -16,22 +16,7 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
   /////////////////// icon Filter /////////////////////////
   $scope.iconFilter = function(array){
-    if($scope.currentUser){
-      for(var i = 0; i < array.length; i++)
-      {
-        if(array[i] == $scope.currentUser._id){
-          console.log('matching user id :', array[i] == $scope.currentUser._id);
-          return true;
-        }
-      }
-      return false;
-    }
-    else{
-      UserService.getUser().then(function(data){
-        console.log("get user .... :", data);
-        $scope.currentUser = data.data.user;
-      });
-    }
+      return IconService.iconFilter($scope.currentUser, array);
   };
   /////////////////// icon Filter /////////////////////////
 
@@ -42,22 +27,10 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
       id: $stateParams.post_id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.likes)){
-      FeedService.removeLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("like error :", err);
+      IconService.setLike(like, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.getComments();
       });
-    }
-    else{
-      FeedService.addLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("like error :", err);
-      });
-    }
   };
   ///////////////////  set Like /////////////////////////
 
@@ -68,22 +41,10 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
       id: $stateParams.post_id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.hearts)){
-      FeedService.removeHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("heart error :", err);
+    IconService.setHeart(heart, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.getComments();
       });
-    }
-    else{
-      FeedService.addHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("heart error :", err);
-      });
-    }
   };
   ///////////////////  set Heart /////////////////////////
 
@@ -94,22 +55,10 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
       id: $stateParams.post_id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.dislikes)){
-      FeedService.removeDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("dislike error :", err);
+    IconService.setDislike(dislike, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.getComments();
       });
-    }
-    else{
-      FeedService.addDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.getComments();
-      }, function(err){
-        console.log("dislike error :", err);
-      });
-    }
   };
   ///////////////////  set DisLike /////////////////////////
 

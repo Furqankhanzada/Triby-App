@@ -88,10 +88,27 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
           templateUrl: 'templates/news_feed.html',
           controller: "FeedCtrl"
         }
-      }
+      },
+      resolve: {
+          FeedService: 'FeedService',
+          triby : function(FeedService, $stateParams, $ionicLoading, $q){
+              $ionicLoading.show({
+                  template: 'Loading...'
+              });
+              var deffered = $q.defer();
+              FeedService.getTriby($stateParams.triby_id).then(function(response){
+                  deffered.resolve(response);
+                  $ionicLoading.hide();
+              }, function(err){
+                  alert(err.data);
+                  deffered.reject(err);
+                  $ionicLoading.hide();
+              });
+              return deffered.promise;
+          }
+          }
     })
     .state('app.comments', {
-      //url: '/comments/:post_id/:count',
       url: '/comments/:post_id',
       views: {
         'menuContent': {
@@ -249,7 +266,8 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/mural/:triby_info',
       views: {
         'menuContent': {
-          templateUrl: 'templates/mural.html'
+          templateUrl: 'templates/mural.html',
+          controller: 'MuralCtrl'
         }
       }
     })

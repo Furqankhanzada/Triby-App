@@ -1,10 +1,10 @@
 'use strict';
-MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, $state, UserService) {
-  console.log("FeedCtrl start ...");
-	$scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '" >BFFs</a>';
-  //$scope.title = '<a ui-sref="app.info({triby_id:})" href="#/app/info/' + $stateParams.triby_id + '">BFFs</a>';
+MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope,
+                                      triby, FeedService, $window, $state, UserService, IconService) {
 
   $scope.posts = [];
+  $scope.triby = triby.data.tribe;
+    $scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">' + $scope.triby.name + '</a>';
 	$scope.post = {
 		message: "",
 		image: "",
@@ -15,6 +15,95 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
     $ionicSideMenuDelegate.toggleLeft();
   };
 
+    $ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
+            $scope.gridModal = modal;
+        },
+        {
+            scope: $scope
+        });
+
+    $scope.openModal = function(selected) {
+        $scope.post = selected;
+        $scope.gridModal.show();
+
+        $scope.goComment = function(post){
+            $scope.gridModal.hide();
+            $state.go("app.comments",{post_id: post._id});
+        };
+        /////////////////// go Side Chat /////////////////////
+        $scope.goSideChat = function(id){
+            if(id != $scope.currentUser._id)
+            {
+                $scope.gridModal.hide();
+                $state.go("app.comments_side",{user_id: id});
+            }
+        };
+        /////////////////// go Side Chat /////////////////////
+
+        /////////////////// get Current User /////////////////////
+        UserService.getUser().then(function(data){
+            console.log("get user .... :", data);
+            $scope.currentUser = data.data.user;
+        });
+        /////////////////// get Current User /////////////////////
+        /////////////////// icon Filter /////////////////////////
+        $scope.iconFilter = function(array){
+            return IconService.iconFilter($scope.currentUser, array);
+        };
+        /////////////////// icon Filter /////////////////////////
+
+        /////////////////// get All Currrnt Triby Post /////////////////////////
+        $scope.getPost = function(){
+            FeedService.getPosts($scope.post._id).then(function(response){
+                $scope.post = response.data.post;
+            });
+        };
+        /////////////////// get All Currrnt Triby Post /////////////////////////
+
+        ///////////////////  set Like /////////////////////////
+        $scope.setLike = function(post){
+            var like = {
+                type: 'post',
+                id: post._id
+            };
+            IconService.setLike(like, $scope.currentUser, post, function(err, post){
+                if(err) console.log("like error :", err);
+                if(post) $scope.getPost();
+            });
+        };
+        ///////////////////  set Like /////////////////////////
+
+        ///////////////////  set Heart /////////////////////////
+        $scope.setHeart = function(post){
+            var heart = {
+                type: 'post',
+                id: post._id
+            };
+            IconService.setHeart(heart, $scope.currentUser, post, function(err, post){
+                if(err) console.log("like error :", err);
+                if(post) $scope.getPost();
+            });
+        };
+        ///////////////////  set Heart /////////////////////////
+
+        ///////////////////  set DisLike /////////////////////////
+        $scope.setDislike = function(post){
+            var dislike = {
+                type: 'post',
+                id: post._id
+            };
+            IconService.setDislike(dislike, $scope.currentUser, post, function(err, post){
+                if(err) console.log("like error :", err);
+                if(post) $scope.getPost();
+            });
+        };
+        ///////////////////  set DisLike /////////////////////////
+    };
+
+    $scope.closeModal = function() {
+        $scope.gridModal.hide();
+        $scope.getAllPostInCtrl();
+    };
   /////////////////// go Side Chat /////////////////////
   $scope.goSideChat = function(id){
     if(id != $scope.currentUser._id)
@@ -33,36 +122,18 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 
   /////////////////// icon Filter /////////////////////////
   $scope.iconFilter = function(array){
-    if($scope.currentUser){
-      for(var i = 0; i < array.length; i++)
-      {
-        if(array[i] == $scope.currentUser._id){
-          console.log('matching user id :', array[i] == $scope.currentUser._id);
-          return true;
-        }
-      }
-      return false;
-    }
-    else{
-      UserService.getUser().then(function(data){
-        console.log("get user .... :", data);
-        //$scope.currentUser = data.data.user;
-        //$scope.iconFilter(array)
-      });
-    }
+    return IconService.iconFilter($scope.currentUser, array);
   };
   /////////////////// icon Filter /////////////////////////
 
   /////////////////// get All Currrnt Triby Post /////////////////////////
   $scope.getAllPostInCtrl = function(){
-    FeedService.getTribyPosts($stateParams.triby_id).then(function(response){
-      console.log("get All Currrnt Triby Post :", response.data.posts);
-      $scope.getAllPost = response.data.posts;
+    FeedService.getTriby($stateParams.triby_id).then(function(response){
+      console.log("get All Currrnt Triby Post :", response.data.tribe.posts);
+      $scope.triby = response.data.tribe;
     });
   };
   /////////////////// get All Currrnt Triby Post /////////////////////////
-
-  $scope.getAllPostInCtrl();
 
   ///////////////////  set Like /////////////////////////
   $scope.setLike = function(post){
@@ -70,22 +141,10 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
       type: 'post',
       id: post._id
     };
-    if($scope.iconFilter(post.likes)){
-      FeedService.removeLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("like error :", err);
-      });
-    }
-    else{
-      FeedService.addLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("like error :", err);
-      });
-    }
+    IconService.setLike(like, $scope.currentUser, post, function(err, data){
+        if(err) console.log("like error :", err);
+        if(data) $scope.getAllPostInCtrl();
+    });
   };
   ///////////////////  set Like /////////////////////////
 
@@ -95,58 +154,39 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
       type: 'post',
       id: post._id
     };
-    if($scope.iconFilter(post.hearts)){
-      FeedService.removeHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("heart error :", err);
+    IconService.setHeart(heart, $scope.currentUser, post, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.getAllPostInCtrl();
       });
-    }
-    else{
-      FeedService.addHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("heart error :", err);
-      });
-    }
   };
   ///////////////////  set Heart /////////////////////////
 
   ///////////////////  set DisLike /////////////////////////
   $scope.setDislike = function(post){
-    var dislike = {
-      type: 'post',
-      id: post._id
+        var dislike = {
+            type: 'post',
+            id: post._id
+        };
+        IconService.setDislike(dislike, $scope.currentUser, post, function(err, data){
+            if(err) console.log("like error :", err);
+            if(data) $scope.getAllPostInCtrl();
+        });
     };
-    if($scope.iconFilter(post.dislikes)){
-      FeedService.removeDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("dislike error :", err);
-      });
-    }
-    else{
-      FeedService.addDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.getAllPostInCtrl();
-      }, function(err){
-        console.log("dislike error :", err);
-      });
-    }
-  };
   ///////////////////  set DisLike /////////////////////////
 
   /////////////////// send Post /////////////////////////
+    $scope.send = true;
 	$scope.sendPost = function(){
-		FeedService.savePost($scope.post).then(function(response){
-			console.log("$scope.sendPost :", response.tribe);
-      $scope.getAllPostInCtrl();
-      $scope.post.message = "";
+      if($scope.send){
+        $scope.send = false;
+        FeedService.savePost($scope.post).then(function(response){
+            console.log("$scope.sendPost :", response.tribe);
+            $scope.getAllPostInCtrl();
+            $scope.send = true;
+            $scope.post.message = "";
 
-		});
+        });
+    }
 	};
   /////////////////// send Post /////////////////////////
 
@@ -168,9 +208,4 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 		});
 	};
   /////////////////// upload Picture /////////////////////////
-
-	$scope.goMural = function(){
-		$window.location.href = "#/app/mural/" + $stateParams.triby_id;
-	}
-
 });

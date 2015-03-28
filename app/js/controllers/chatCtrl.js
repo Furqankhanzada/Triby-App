@@ -1,5 +1,5 @@
 'use strict';
-MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, CommentsService, SideChatService, UserService) {
+MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, FeedService, $window, CommentsService, SideChatService, UserService, IconService) {
   console.log("Private ChatCtrl start ...");
   console.log("$stateParams :", $stateParams);
 
@@ -21,22 +21,7 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   /////////////////// icon Filter /////////////////////////
   $scope.iconFilter = function(array){
-    if($scope.currentUser){
-      for(var i = 0; i < array.length; i++)
-      {
-        if(array[i] == $scope.currentUser._id){
-          console.log('matching user id :', array[i] == $scope.currentUser._id);
-          return true;
-        }
-      }
-      return false;
-    }
-    else{
-      UserService.getUser().then(function(data){
-        console.log("get user .... :", data);
-        $scope.currentUser = data.data.user;
-      });
-    }
+      return IconService.iconFilter($scope.currentUser, array);
   };
   /////////////////// icon Filter /////////////////////////
 
@@ -47,22 +32,10 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       id: $scope.sidechat._id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.likes)){
-      FeedService.removeLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("like error :", err);
+    IconService.setLike(like, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.sideChat();
       });
-    }
-    else{
-      FeedService.addLike(like).then(function(response){
-        console.log("like success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("like error :", err);
-      });
-    }
   };
   ///////////////////  set Like /////////////////////////
 
@@ -73,22 +46,10 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       id: $scope.sidechat._id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.hearts)){
-      FeedService.removeHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("heart error :", err);
+    IconService.setHeart(heart, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.sideChat();
       });
-    }
-    else{
-      FeedService.addHeart(heart).then(function(response){
-        console.log("heart success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("heart error :", err);
-      });
-    }
   };
   ///////////////////  set Heart /////////////////////////
 
@@ -99,22 +60,10 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       id: $stateParams.post_id,
       comment_id: comment._id
     };
-    if($scope.iconFilter(comment.dislikes)){
-      FeedService.removeDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("dislike error :", err);
+    IconService.setDislike(dislike, $scope.currentUser, comment, function(err, data){
+          if(err) console.log("like error :", err);
+          if(data) $scope.sideChat();
       });
-    }
-    else{
-      FeedService.addDislike(dislike).then(function(response){
-        console.log("dislike success :", response.data.post);
-        $scope.sideChat();
-      }, function(err){
-        console.log("dislike error :", err);
-      });
-    }
   };
   ///////////////////  set DisLike /////////////////////////
 

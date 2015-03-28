@@ -5,14 +5,13 @@
     <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/main/home')"></button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button class="button button-icon" style="color:#fff" ng-click="goMural()">Mural</button>
+    <button class="button button-icon" style="color:#fff" ui-sref="app.mural({triby_info: triby._id})">Mural</button>
   </ion-nav-buttons>
   <ion-content align="center" style="border:none" scroll="true" >
     <div class="news_feed_content_wrapper">
-      <div class="list list-feed" ng-repeat="post in getAllPost">
+      <div class="list list-feed" ng-repeat="post in triby.posts">
         <div ng-if="post.pic" class="news_feed_img_box">
-          <a ui-sref="mural_details">
-            <!--<img style="width: 100%;height: auto; max-width: 100%;" src="img/feed_photo.png">-->
+          <a ng-click="openModal(post)">
             <img style="width: auto;height: auto;" ng-src="{{post.pic}}">
           </a>
         </div>
