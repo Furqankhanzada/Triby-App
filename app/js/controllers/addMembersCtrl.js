@@ -3,6 +3,7 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 
   var triby;
   var contacts = [];
+  $scope.contacts = [];
 
 //  UserService.getUser().then(function(data){
 //        console.log("get user .... :", data);
