@@ -1,6 +1,7 @@
 'use strict';
 MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window) {
 
+  $scope.contacts = [];
   SettingsService.getContactsLocal().then(function(response){
     $scope.contacts = response;
   });
