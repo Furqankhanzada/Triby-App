@@ -14,8 +14,7 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
     // Facebook user?
     $scope.isFacebookUser = function() {
-        console.log(UserService.getMobileNumber());
-        return UserService.getMobileNumber() === '';
+        return UserService.getAuthData().isAuth;
     };
 
 	UserService.getUser().then(function(response){

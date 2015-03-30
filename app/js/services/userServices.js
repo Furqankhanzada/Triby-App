@@ -39,6 +39,10 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
     var authData = localStorageService.get('authorizationData');
     return authData.mobilenumber;
   }
+    var _getAuthData = function () {
+    var authData = localStorageService.get('authorizationData');
+    return authData;
+  }
 
   var _confirmUser = function (aCode) {
 
@@ -117,6 +121,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
 
 	userServiceFactory.signUpUser = _signUpUser;
   userServiceFactory.getMobileNumber = _getMobileNumber;
+  userServiceFactory.getAuthData = _getAuthData;
   userServiceFactory.confirmUser = _confirmUser;
   userServiceFactory.isAuthorized = _isAuthorized;
   userServiceFactory.loginUser = _loginUser;
