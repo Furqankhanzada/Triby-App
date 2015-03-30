@@ -22,7 +22,8 @@
                 <img ng-if="post.createdBy.pic" ng-src="{{post.createdBy.pic}}" />
             </div>
             <div  class="col feed-text-name col-center">
-              <span ng-bind="post.createdBy.name"></span>
+              <span ng-if="post.createdBy.name.length > 12" ng-bind="post.createdBy.name + '...' | limitTo: 12"></span>
+              <span ng-if="post.createdBy.name.length <= 12" ng-bind="post.createdBy.name"></span>
             </div>
             <div class="col col-33 feed-text-date">
               {{post.date | date:'MMM dd, yyyy @ h:mma'}}

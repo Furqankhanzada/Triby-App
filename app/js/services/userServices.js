@@ -11,6 +11,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
                         username:signupData.username,
                         mobilenumber:signupData.countryCode + signupData.phone,
                         device_id: deviceId,
+                        country: signupData.country,
                         password:"demo" // hardcode right now
                     };
 

@@ -308,14 +308,14 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
       return '100%';
     else
       return '50%';
-  }
+  };
   $rootScope.Get_PaddingLeft=function(index)
   {
     if(index%3==0 || index%3==1)
       return '0px';
     else
       return '3px';
-  }
+  };
 
   $ionicPlatform.registerBackButtonAction(function (event) {
     if($state.current.name=="app.main.home"){

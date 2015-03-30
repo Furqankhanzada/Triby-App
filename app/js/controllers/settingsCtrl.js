@@ -8,14 +8,23 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 	$scope.user_data = {
 		image : '',
 		name : '',
-		city : ''
-	}
+		city : '',
+        country : ''
+	};
+
+    // Facebook user?
+    $scope.isFacebookUser = function() {
+        console.log(UserService.getMobileNumber());
+        return UserService.getMobileNumber() === '';
+    };
 
 	UserService.getUser().then(function(response){
 		$scope.user_data = {
 			name : response.data.user.name,
-			city : response.data.user.city
-		}
+            username : response.data.user.username,
+			city : response.data.user.city,
+            country : response.data.user.country
+		};
 		if(response.data.user.pic)
 			$scope.user_data.image = response.data.user.pic;
 		else

@@ -13,10 +13,6 @@ MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ion
     FeedService.setNewTriby($scope.triby);
   });
 
-  $scope.goBack = function(tribyId){
-    $location.path('app/news_feed/' + tribyId);
-  }
-
   $scope.exitTriby = function(tribyId){
     FeedService.exitTriby(tribyId).then(function(response){
       if(response.status === 'success'){

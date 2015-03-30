@@ -3,6 +3,11 @@ MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $
                                        FeedService, UserService, $state, IconService) {
 
     FeedService.getTriby($stateParams.triby_info).then(function(response){
+        response.data.tribe.posts = response.data.tribe.posts.filter(function(post){
+            if(post.pic){
+                return post ;
+            }
+        });
         $scope.triby = response.data.tribe;
     });
 

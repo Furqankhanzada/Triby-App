@@ -1,11 +1,14 @@
 'use strict';
-MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state) {
+MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state,CountryCodeService) {
 
   $scope.signupData = {
     username: "",
     countryCode: "",
-    phone: ""
+    phone: "",
+    country: ""
   };
+
+  $scope.countries = CountryCodeService.getCountryCode();
   $scope.texto = 'Hello World!';
   if(UserService.isAuthorized()){
     UserService.loginUser().then(function(response){
@@ -68,10 +71,11 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
         console.log("Don't allow");
       }
     });
-  }
+  };
 
   $scope.signup = function(){
     $scope.signupData.username = UserService.getUserNameTmp();
+    $scope.signupData.country = CountryCodeService.getCountryName($scope.signupData.countryCode);
     UserService.signUpUser($scope.signupData,$cordovaDevice.getUUID()).then(function(response){
       if(response.status == "success")
         $location.path("/confirm");

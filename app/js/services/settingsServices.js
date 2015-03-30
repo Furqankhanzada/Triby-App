@@ -181,16 +181,17 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     }
     else
     {
-      authData = localStorageService.get('contacts');
-      if(!authData)
-        deferred.resolve([]);
-      else
-        deferred.resolve(authData.contacts);
+//        var options      = new ContactFindOptions();
+//        options.multiple = true;
+//        options.desiredFields = [navigator.contacts.fieldType.id];
+//        navigator.contacts.find([], function onSuccess(contacts) {
+//            deferred.resolve(contacts);
+//        }, function onError() {
+//            deferred.reject();
+//        }, options);
     }
-
     return deferred.promise;
-  }
-  
+  };
   var _getContacts = function(numbers){
     var deferred = $q.defer();
     var authData = localStorageService.get('authorizationData');
