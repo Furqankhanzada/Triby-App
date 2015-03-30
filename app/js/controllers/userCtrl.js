@@ -15,7 +15,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
       console.log("loginUser if Authorized response :", response);
       console.log("loginUser if Authorized response.message :",response.message);
       if(response.status == "success"){
-        $window.location.href = "#/app/main/home";
+//        $window.location.href = "#/app/main/home";
         $state.go('app.main.home');
         $timeout(function(){
           $cordovaSplashscreen.hide();
