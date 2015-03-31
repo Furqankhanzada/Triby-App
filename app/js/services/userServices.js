@@ -77,7 +77,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
       return false;
     else
       return authData.isAuth;
-  }
+  };
 
   var _loginUser = function () {
     var deferred = $q.defer();

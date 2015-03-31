@@ -149,7 +149,7 @@ MyApp.controller('ContactsCtrl', function($scope, $ionicModal, $timeout, $locati
         console.log("navigator.contacts: " + navigator.contacts);
         var fields = ["id","displayName","phoneNumbers"];
         navigator.contacts.find(fields, contacts_success, contacts_fail, obj);
-	}
+	};
 
 	function contacts_success(contacts) {
 		var lstContacts = [];

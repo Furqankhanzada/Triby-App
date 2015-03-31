@@ -1,6 +1,6 @@
 'use strict';
 MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope,
-                                      triby, FeedService, $window, $state, UserService, IconService) {
+                                      triby, FeedService, $window, $state, UserService, IconService, $ionicLoading) {
 
   $scope.posts = [];
   $scope.triby = triby.data.tribe;
@@ -192,15 +192,17 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 
   /////////////////// upload Picture /////////////////////////
 	$scope.uploadPicture = function(source){
-
 		SettingsService.fileTo($rootScope.urlBackend + '/uploads', "POST", source).then(function(response){
-
+            $ionicLoading.show({
+                template: 'Saving...'
+            });
 			if(response.status == "success"){
 				$scope.post.image = response.url_file;
 				FeedService.savePost($scope.post).then(function(response){
 					console.log("News-feed uploadPicture :", response);
           $scope.getAllPostInCtrl();
           $scope.post.message = "";
+                    $ionicLoading.hide();
 				});
 			}
 			else
