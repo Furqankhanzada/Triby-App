@@ -5,25 +5,24 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
   var contacts = [];
   $scope.contacts = [];
 
-//  UserService.getUser().then(function(data){
-//        console.log("get user .... :", data);
-//      SettingsService.getContactsLocal(data.data.user).then(function(response){
-//          console.log(response);
-//          contacts = response;
-//          //console.log(JSON.stringify(triby));
-//          triby = FeedService.getNewTriby();
-//          console.log(JSON.stringify(contacts));
-//          for(var i=0; i < contacts.length; i++){
-//              console.log(triby.members.indexOf(contacts[i].username));
-//              if(triby.members.indexOf(contacts[i].username) >= 0)
-//                  contacts[i].checked = true;
-//              else
-//                  contacts[i].checked = false;
-//          }
-//          console.log(JSON.stringify(contacts));
-//          $scope.contacts = contacts;
-//      });
-//    });
+      SettingsService.getContactsLocal().then(function(response){
+          console.log(response);
+          contacts = response;
+          //console.log(JSON.stringify(triby));
+          triby = FeedService.getNewTriby();
+          console.log(JSON.stringify(contacts));
+          for(var i=0; i < contacts.length; i++){
+              console.log(triby.members.indexOf(contacts[i].username));
+              if(triby.members.indexOf(contacts[i].username) >= 0)
+                  contacts[i].checked = true;
+              else
+                  contacts[i].checked = false;
+          }
+          console.log(JSON.stringify(contacts));
+          $scope.contacts = contacts;
+      }, function(){
+          console.log('error')
+      });
 
   $scope.updateTriby = function(){
     var triby = FeedService.getNewTriby();

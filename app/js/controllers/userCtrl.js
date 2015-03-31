@@ -1,5 +1,5 @@
 'use strict';
-MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state,CountryCodeService) {
+MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state,CountryCodeService, $ionicLoading) {
 
   $scope.signupData = {
     username: "",
@@ -11,24 +11,65 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   $scope.countries = CountryCodeService.getCountryCode();
   $scope.texto = 'Hello World!';
   if(UserService.isAuthorized()){
-    UserService.loginUser().then(function(response){
-      $cordovaSplashscreen.hide();
-      console.log("loginUser if Authorized response :", response);
-      console.log("loginUser if Authorized response.message :",response.message);
-      if(response.status == "success"){
-        //$window.location.href = "#/app/main/home";
-        $state.go('app.main.home');
-/*
+      $ionicLoading.show({
+          template: 'Loading...'
+      });
+    if(UserService.getAuthData().type == 'facebook'){
         $timeout(function(){
-          $cordovaSplashscreen.hide();
-        },5000);
-*/
-      }
-    });
+            OpenFB.login('email,user_friends').then(
+                function () {
+                    var aUser = {};
+                    OpenFB.get('/me').success(function (user) {
+                        aUser.id = user.id;
+                        aUser.name = user.name;
+                        aUser.email = user.email;
+                        OpenFB.get('/me/picture',{
+                            "redirect": false,
+                            "height": 80,
+                            "width": 80,
+                            "type": "normal"
+                        }).success(function(response){
+                            aUser.image = response.data.url;
+                            UserService.loginUserFacebook(aUser).then(function(response){
+                                console.log("UserService.loginUserFacebook success response :", response);
+                                $ionicLoading.hide();
+                                if(response.status == "success")
+                                {
+                                    $cordovaSplashscreen.hide();
+                                    $state.go('app.main.home');
+                                    console.log("Facebook login success...");
+                                }
+                            }, function(){
+                                $cordovaSplashscreen.hide();
+                            });
+                        });
 
+                    });
+                },
+                function () {
+                    alert('OpenFB login failed');
+                });
+        }, 5000);
+    }
+      else{
+        UserService.loginUser().then(function(response){
+            $cordovaSplashscreen.hide();
+            console.log("loginUser if Authorized response :", response);
+            console.log("loginUser if Authorized response.message :",response.message);
+            if(response.status == "success"){
+                $cordovaSplashscreen.hide();
+                $state.go('app.main.home');
+            }
+        }, function(){
+            $cordovaSplashscreen.hide();
+        });
+    }
   }
 
   $scope.fbLogin = function(){
+      $ionicLoading.show({
+          template: 'Loading...'
+      });
     OpenFB.login('email,user_friends').then(
       function () {
         var aUser = {};
@@ -45,6 +86,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
             aUser.image = response.data.url;
             UserService.loginUserFacebook(aUser).then(function(response){
               console.log("UserService.loginUserFacebook success response :", response);
+                $ionicLoading.hide();
               if(response.status == "success")
               {
                 //$location.path('app/main/home');
@@ -86,16 +128,16 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
       }
     });
-  }
+  };
 
   $scope.step1 = function(){
     $location.path('signup_1');
-  }
+  };
 
   $scope.step2 = function(){
     UserService.setUserNameTmp($scope.signupData.username);
     $location.path('signup_2');
-  }
+  };
 
   var myPopup;
   $scope.showPopup = function(){
@@ -114,7 +156,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
         }
       ]
     });
-  }
+  };
 
   function closePop(){
     myPopup.close();
@@ -128,9 +170,8 @@ MyApp.controller('UserCtrlConfirm', function($scope, $ionicModal, $timeout, $ion
   };
 
   $scope.init = function () {
-    console.log("load UserCtrlConfirm")
     $scope.mobilenumber = UserService.getMobileNumber();
-  }
+  };
   // init method
   $scope.init();
 

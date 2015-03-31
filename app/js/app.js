@@ -17,7 +17,7 @@ MyApp.config(['$ionicConfigProvider','$compileProvider','$sceDelegateProvider', 
   $sceDelegateProvider.resourceUrlWhitelist(['self', new RegExp('^(http[s]?):\/\/(w{3}.)?youtube\.com/.+$')]);
 }]);
 
-MyApp.config(function($stateProvider, $urlRouterProvider) {
+MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider.state('signup', {
     url: '/signup',
     templateUrl: 'templates/signup.html'
@@ -283,10 +283,49 @@ MyApp.config(function($stateProvider, $urlRouterProvider) {
           controller:'AppCtrl'
         }
       }
-    });
+    })
+   .state('app.server_connection_error', {
+      url:'/server_connection',
+      views: {
+          'menuContent' :{
+              templateUrl: 'templates/server_connection_error.html'
+          }
+      }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/signup');
+
+  $httpProvider.interceptors.push('authInterceptor');
+});
+
+MyApp.factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
+    return {
+        // Add authorization token to headers
+        request: function (config) {
+            config.headers = config.headers || {};
+            var authData = localStorageService.get('authorizationData');
+            if (authData && authData.token) {
+                config.headers.Authorization = authData.token;
+            }
+            return config;
+        },
+
+        // Intercept 401s and redirect you to login
+        responseError: function(response) {
+            if(response.status === 0) {
+                $location.path('app/server_connection');
+                return $q.reject(response);
+            }
+            if(response.status === 401) {
+                $location.path('signup');
+                return $q.reject(response);
+            }
+            else {
+                return $q.reject(response);
+            }
+        }
+    };
 });
 
 MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location,$state) {
@@ -344,7 +383,10 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
         $state.go('app.main.no_connection');
       }, false);
       document.addEventListener("online", function() {
-        $state.go('app.main.home');
+        if(UserService.isAuthorized()){
+            $state.go('app.main.home');
+        }
+        else $state.go('signup');
       }, false);
     }
       console.log("Checking user..");

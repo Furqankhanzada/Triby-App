@@ -1,6 +1,6 @@
 'use strict';
 
-MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService) {
+MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService, $ionicLoading) {
   
   var userServiceFactory = {};
 
@@ -30,19 +30,19 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
   var _tmpUserName = "";
   var _setUserNameTmp = function(aUserName) {
     _tmpUserName = aUserName;
-  }
+  };
   var _getUserNameTmp = function() {
     return _tmpUserName;
-  }
+  };
 
   var _getMobileNumber = function () {
     var authData = localStorageService.get('authorizationData');
     return authData.mobilenumber;
-  }
+  };
     var _getAuthData = function () {
     var authData = localStorageService.get('authorizationData');
     return authData;
-  }
+  };
 
   var _confirmUser = function (aCode) {
 
@@ -58,7 +58,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
           if(response.status == "success"){
             $http.post($rootScope.urlBackend + '/user/login', data).success(function (response) {
               console.log(response);
-              localStorageService.set('authorizationData', { username: data.username, mobilenumber: data.mobilenumber, token:response.token, isAuth:true });
+              localStorageService.set('authorizationData', { username: data.username, mobilenumber: data.mobilenumber, token:response.token, isAuth:true, type: 'mobile' });
               deferred.resolve(response);
             });
           }
@@ -94,14 +94,14 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
       });
 
       return deferred.promise;
-  }
+  };
 
   var _loginUserFacebook = function (userData) {
     var deferred = $q.defer();
     
     $http.post($rootScope.urlBackend + '/user/facebook', userData).success(function (response) {
       if(response.status == "success"){
-        localStorageService.set('authorizationData', { username: response.user.username, mobilenumber: response.user.mobilenumber, token:response.token, isAuth:true });  
+        localStorageService.set('authorizationData', { username: response.user.username, mobilenumber: response.user.mobilenumber, token:response.token, isAuth:true, type: 'facebook' });
       }
       deferred.resolve(response);
     }).error(function (err, status) {
