@@ -26,7 +26,7 @@
               <span ng-if="post.createdBy.name.length <= 12" ng-bind="post.createdBy.name"></span>
             </div>
             <div class="col col-33 feed-text-date">
-              {{post.date | date:'MMM dd, yyyy @ h:mma'}}
+              {{post.date | customDate}}
             </div>
           </div>
           <div class="row feed-post-text" >

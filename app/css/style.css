@@ -536,9 +536,6 @@ img.feed-img  {
   height: 20px !important;
   float: right;
 }
-.list-feed  .item-icons img{
-  width:30px;
-}
 
 .list-feed .item-text img {
     max-width: 80px;
@@ -701,12 +698,8 @@ img.feed-img  {
   overflow: hidden;
 }
 .chat-icons .hand-up img{
-    /*width: 24px;
-    height: 24px;*/
     margin: 0;
     padding: 0;
-    width: 25px;
-    height: 25px;
     position: relative;
     overflow: hidden;
 }
@@ -723,8 +716,6 @@ img.feed-img  {
   margin: 0 !important;
   padding: 0 !important;
   float: left !important;
-  width: 22px !important;
-  height: 22px !important;
   position: relative !important;
   top: 0 !important;
   bottom: 0 !important;
@@ -753,8 +744,6 @@ img.feed-img  {
   position: absolute;
   bottom: 0px;
   right: 100px;
-  width: 35px !important;
-  height: 35px !important;
 }
 .chat-icons .grey-hand-down
 {
@@ -1044,8 +1033,6 @@ img.profile-pic.right {
 }
 .mural_footer .icons img{
   margin: 4px 0 0 0;
-  height: 25px;
-  width: 25px;
 }
 .mural_footer .icons .hand-down img {margin: 7px 0 0 0 !important;}
 .mural_footer > h4
@@ -1430,8 +1417,6 @@ img.pro_pic_img
   overflow: hidden;
 }
 .mural_details_icons > div:nth-child(2) img {
-  height: 35px;
-  width: 35px;
   margin:2px 0 0 0;
 }
 .mural_details_icons > div > span
@@ -1792,8 +1777,6 @@ img.pro_pic_img
   margin: 0 ;
   padding: 0 ;
   float: left ;
-  width: 25px !important;
-  height: 25px !important;
   position: relative ;
   top: 0 ;
   bottom: 0 ;
@@ -1803,8 +1786,6 @@ img.pro_pic_img
 }
 .left_chat_icon .heart img {
   margin: 0px 0 0 0;
-  width: 35px !important;
-  height: 24px !important;
 }
 .left_chat_icon div span,
 .right_chat_icon div span {
@@ -1830,8 +1811,6 @@ img.pro_pic_img
 }
 .right_chat_icon .comments_area img {
   float: left !important;
-  width: 25px !important;
-  height: 24px !important;
   margin: 1px 0 0 0;
 }
 .about_wrapper .slider-pager-page
