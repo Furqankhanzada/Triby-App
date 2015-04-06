@@ -10,7 +10,10 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 		image: "",
 		triby: $stateParams.triby_id
 	};
-
+  $scope.updateEditor = function() {
+    var element = document.getElementById("page_content");
+    element.style.height = element.scrollHeight + "px";
+};
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };

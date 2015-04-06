@@ -2,7 +2,7 @@
 MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window) {
 
   $ionicLoading.show({
-        template: 'Loading...'
+      content: '<ion-spinner class="spinner-energized"></ion-spinner>'
     });
   $scope.contacts = [];
   SettingsService.getContactsLocal().then(function(response){

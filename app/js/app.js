@@ -59,8 +59,26 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       views: {
         'tab-home' :{
           templateUrl: 'templates/home.html',
-          controller:'AppCtrl'
+          controller:'HomeCtrl'
         }
+      },
+      resolve: {
+          FeedService: 'FeedService',
+          tribes : function(FeedService, $stateParams, $ionicLoading, $q){
+              $ionicLoading.show({
+                  content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+              });
+              var deffered = $q.defer();
+              FeedService.getTribes().then(function(response){
+                  deffered.resolve(response);
+                  $ionicLoading.hide();
+              }, function(err){
+                  alert(err.data);
+                  deffered.reject(err);
+                  $ionicLoading.hide();
+              });
+              return deffered.promise;
+          }
       }
     })
     .state('app.noti', {
@@ -81,7 +99,6 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       }
     })
     .state('app.news_feed', {
-      //url: '/news_feed/:triby_id/:count',
       url: '/news_feed/:triby_id',
       views: {
         'menuContent': {
@@ -93,7 +110,7 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
           FeedService: 'FeedService',
           triby : function(FeedService, $stateParams, $ionicLoading, $q){
               $ionicLoading.show({
-                  template: 'Loading...'
+                  content: '<ion-spinner class="spinner-energized"></ion-spinner>'
               });
               var deffered = $q.defer();
               FeedService.getTriby($stateParams.triby_id).then(function(response){
@@ -162,8 +179,27 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       url: '/search',
       views: {
         'menuContent': {
-          templateUrl: 'templates/search.html'
+          templateUrl: 'templates/search.html',
+          controller: "HomeCtrl"
         }
+      },
+      resolve: {
+          FeedService: 'FeedService',
+          tribes : function(FeedService, $stateParams, $ionicLoading, $q){
+              $ionicLoading.show({
+                  content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+              });
+              var deffered = $q.defer();
+              FeedService.getTribes().then(function(response){
+                  deffered.resolve(response);
+                  $ionicLoading.hide();
+              }, function(err){
+                  alert(err.data);
+                  deffered.reject(err);
+                  $ionicLoading.hide();
+              });
+              return deffered.promise;
+          }
       }
     })
     .state('app.tribys', {
@@ -328,7 +364,7 @@ MyApp.factory('authInterceptor', function ($rootScope, $q, $location, localStora
     };
 });
 
-MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location,$state) {
+MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$ionicPopup,OpenFB,$location,$state,$ionicLoading) {
 
   $rootScope.params = {count: 0};
   $rootScope.params.increment = function(){
@@ -393,6 +429,57 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
     if(!UserService.isAuthorized()){
       console.log("Not authorized");
       $cordovaSplashscreen.hide();
+    }
+      else if(UserService.isAuthorized()){
+        $ionicLoading.show({
+            content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+        });
+        if(UserService.getAuthData().type == 'facebook'){
+        OpenFB.login('email,user_friends').then(
+            function () {
+                $cordovaSplashscreen.hide();
+                var aUser = {};
+                OpenFB.get('/me').success(function (user) {
+                    aUser.id = user.id;
+                    aUser.name = user.name;
+                    aUser.email = user.email;
+                    OpenFB.get('/me/picture',{
+                        "redirect": false,
+                        "height": 80,
+                        "width": 80,
+                        "type": "normal"
+                    }).success(function(response){
+                        aUser.image = response.data.url;
+                        UserService.loginUserFacebook(aUser).then(function(response){
+                            console.log("UserService.loginUserFacebook success response :", response);
+                            $ionicLoading.hide();
+                            $cordovaSplashscreen.hide();
+                            if(response.status == "success")
+                            {
+                                $state.go('app.main.home');
+                                console.log("Facebook login success...");
+                            }
+                        });
+                    });
+
+                });
+            },
+            function () {
+                alert('Facebook login failed check your internet connection');
+                $ionicLoading.hide();
+            });
+        }
+        else{
+                UserService.loginUser().then(function(response){
+                    $cordovaSplashscreen.hide();
+                    $ionicLoading.hide();
+                    console.log("loginUser if Authorized response :", response);
+                    console.log("loginUser if Authorized response.message :",response.message);
+                    if(response.status == "success"){
+                        $state.go('app.main.home');
+                    }
+                });
+            }
     }
   });
 });

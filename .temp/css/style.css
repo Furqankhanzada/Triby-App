@@ -1804,7 +1804,7 @@ img.pro_pic_img
 .left_chat_icon .heart img {
   margin: 0px 0 0 0;
   width: 35px !important;
-  height: 35px !important;
+  height: 24px !important;
 }
 .left_chat_icon div span,
 .right_chat_icon div span {
@@ -1833,10 +1833,6 @@ img.pro_pic_img
   width: 25px !important;
   height: 24px !important;
   margin: 1px 0 0 0;
-}
-.about_wrapper .slider-pager {
-    bottom: 20% !important;
-    z-index: 999 !important;
 }
 .about_wrapper .slider-pager-page
 {

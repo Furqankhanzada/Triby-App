@@ -3,7 +3,7 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 
     $scope.contacts = [];
     $ionicLoading.show({
-        template: 'Loading...'
+        content: '<ion-spinner class="spinner-energized"></ion-spinner>'
     });
 
     // get contacts for add in triby
@@ -21,7 +21,7 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
     // update triby
     $scope.updateTriby = function(){
         $ionicLoading.show({
-            template: 'Loading...'
+            content: '<ion-spinner class="spinner-energized"></ion-spinner>'
         });
         var triby = FeedService.getNewTriby();
         triby.members = [];

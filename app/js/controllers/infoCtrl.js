@@ -3,7 +3,7 @@ MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ion
 
   $scope.triby = {};
     $ionicLoading.show({
-        template: 'Loading...'
+        content: '<ion-spinner class="spinner-energized"></ion-spinner>'
     });
   FeedService.getTriby($stateParams.triby_id).then(function(response){
     $scope.triby = response.data.tribe;
@@ -19,7 +19,7 @@ MyApp.controller('InfoCtrl', function($window, $timeout, $scope, $location, $ion
 
   $scope.exitTriby = function(tribyId){
       $ionicLoading.show({
-          template: 'Loading...'
+          content: '<ion-spinner class="spinner-energized"></ion-spinner>'
       });
     FeedService.exitTriby(tribyId).then(function(response){
       if(response.status === 'success'){

@@ -2,7 +2,7 @@
 MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, SettingsService, UserService, $rootScope, $ionicLoading) {
 
 	$ionicLoading.show({
-	      template: 'Loading...'
+        content: '<ion-spinner class="spinner-energized"></ion-spinner>'
 	});
 
 	$scope.user_data = {
