@@ -13,7 +13,8 @@
             </label>
         </div>
         <ion-list class="list-search">
-            <ion-toggle class="item-avatar" ng-repeat="contact in contacts | filter:query" ng-model="contact.checked">
+            <ion-toggle class="item-avatar" ng-repeat="contact in contacts | filter:query" ng-model="contact.checked"
+                        ng-checked="contact.checked">
                 <img class="left" ng-src="{{contact.pic}}">
                 <h2>{{contact.name}}</h2>
                 <p>{{contact.city}}</p>
