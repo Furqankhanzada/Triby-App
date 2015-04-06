@@ -12,12 +12,13 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
       template: 'Uploading...'
     });
     SettingsService.fileTo($rootScope.urlBackend + '/uploads',"TRIBY").then(function(response){
-        $ionicLoading.hide();
+
       if(response.status == "success"){
         $scope.triby.pic = response.url_file;
       }
       else
         window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+      $ionicLoading.hide();
     });
   };
 

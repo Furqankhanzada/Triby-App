@@ -158,6 +158,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     var deferred = $q.defer();
     var authData = localStorageService.get('authorizationData');
     if(authData.type === "facebook"){
+      console.log("Getting facebook users");
       OpenFB.get('/me/friends',{limit: 50}).success(function (result) {
           
           var contacts = [];
@@ -180,15 +181,16 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     }
     else
     {
-        $http.defaults.headers.common.Authorization = authData.token;
-        $http.get($rootScope.urlBackend + '/user/contacts').success(function (response) {
-            if(response.status === 'success')
-                deferred.resolve(response.users);
-            else
-                deferred.reject({"error":"error getting facebook friends"});
-        }).error(function (err, status) {
-            deferred.reject(err);
-        });
+        var options      = new ContactFindOptions();
+//        options.filter   = "Bob";
+        options.multiple = true;
+//        options.desiredFields = [navigator.contacts.fieldType.id];
+        navigator.contacts.find([], function onSuccess(contacts) {
+            console.log(contacts)
+            deferred.resolve(contacts);
+        }, function onError() {
+            deferred.reject();
+        }, options);
     }
     return deferred.promise;
   };

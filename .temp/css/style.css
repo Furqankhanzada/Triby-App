@@ -1834,10 +1834,6 @@ img.pro_pic_img
   height: 24px !important;
   margin: 1px 0 0 0;
 }
-.about_wrapper .slider-pager {
-    bottom: 20% !important;
-    z-index: 999 !important;
-}
 .about_wrapper .slider-pager-page
 {
   height: 18px !important;
