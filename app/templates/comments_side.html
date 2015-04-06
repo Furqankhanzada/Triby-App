@@ -33,21 +33,21 @@
                 <img ng-if="!iconFilter(comment.likes)" src="img/hand-up-grey.png" />
                 <img ng-if="iconFilter(comment.likes)" src="img/hand-up.png" />
               </a>
-              <span ng-bind="comment.likes.length"></span>
+              <span ng-bind="comment.likes.length" ng-if="comment.likes.length"></span>
             </div>
             <div class="heart text-12-gray">
               <a ng-click="setHeart(comment)">
                 <img ng-if="!iconFilter(comment.hearts)" src="img/heart-grey.png" />
                 <img ng-if="iconFilter(comment.hearts)" src="img/heart.png" />
               </a>
-              <span class="text-heart" ng-bind="comment.hearts.length"></span>
+              <span class="text-heart" ng-bind="comment.hearts.length" ng-if="comment.hearts.length"></span>
             </div>
             <div class="grey-hand-down text-12-gray">
               <a ng-click="setDislike(comment)">
                 <img ng-if="!iconFilter(comment.dislikes)" src="img/hand-down-grey.png" />
                 <img ng-if="iconFilter(comment.dislikes)" src="img/hand-down.png" />
               </a>
-              <span ng-bind="comment.dislikes.length"></span>
+              <span ng-bind="comment.dislikes.length" ng-if="comment.dislikes.length"></span>
             </div>
           </div>
         </div>

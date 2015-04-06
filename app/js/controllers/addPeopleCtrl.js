@@ -1,9 +1,15 @@
 'use strict';
 MyApp.controller('AddPeopleCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $ionicLoading, SettingsService, FeedService, $rootScope, $window) {
 
+  $ionicLoading.show({
+      content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+    });
   $scope.contacts = [];
   SettingsService.getContactsLocal().then(function(response){
-    $scope.contacts = response;
+    if(Array.isArray(response)){
+          $scope.contacts = response;
+      }
+    $ionicLoading.hide();
   });
 
   $scope.createTriby = function(){

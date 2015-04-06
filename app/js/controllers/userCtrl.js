@@ -10,65 +10,9 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   $scope.countries = CountryCodeService.getCountryCode();
   $scope.texto = 'Hello World!';
-  if(UserService.isAuthorized()){
-      $ionicLoading.show({
-          template: 'Loading...'
-      });
-    if(UserService.getAuthData().type == 'facebook'){
-        $timeout(function(){
-            OpenFB.login('email,user_friends').then(
-                function () {
-                    var aUser = {};
-                    OpenFB.get('/me').success(function (user) {
-                        aUser.id = user.id;
-                        aUser.name = user.name;
-                        aUser.email = user.email;
-                        OpenFB.get('/me/picture',{
-                            "redirect": false,
-                            "height": 80,
-                            "width": 80,
-                            "type": "normal"
-                        }).success(function(response){
-                            aUser.image = response.data.url;
-                            UserService.loginUserFacebook(aUser).then(function(response){
-                                console.log("UserService.loginUserFacebook success response :", response);
-                                $ionicLoading.hide();
-                                if(response.status == "success")
-                                {
-                                    $cordovaSplashscreen.hide();
-                                    $state.go('app.main.home');
-                                    console.log("Facebook login success...");
-                                }
-                            }, function(){
-                                $cordovaSplashscreen.hide();
-                            });
-                        });
-
-                    });
-                },
-                function () {
-                    alert('OpenFB login failed');
-                });
-        }, 5000);
-    }
-      else{
-        UserService.loginUser().then(function(response){
-            $cordovaSplashscreen.hide();
-            console.log("loginUser if Authorized response :", response);
-            console.log("loginUser if Authorized response.message :",response.message);
-            if(response.status == "success"){
-                $cordovaSplashscreen.hide();
-                $state.go('app.main.home');
-            }
-        }, function(){
-            $cordovaSplashscreen.hide();
-        });
-    }
-  }
-
   $scope.fbLogin = function(){
       $ionicLoading.show({
-          template: 'Loading...'
+          content: '<ion-spinner class="spinner-energized"></ion-spinner>'
       });
     OpenFB.login('email,user_friends').then(
       function () {

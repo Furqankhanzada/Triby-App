@@ -1,22 +1,9 @@
 'use strict';
-MyApp.controller('HomeCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $timeout) {
+MyApp.controller('HomeCtrl', function($scope, $location, tribes) {
 
-  $ionicLoading.show({
-    duration: 30000,
-    noBackdrop: false,
-    content: '<ion-spinner class="spinner-energized"></ion-spinner>'
-  });
   $scope.tribes = {};
-  $scope.hideEmptyTribes = true;
-
-  FeedService.getTribes().then(function(response){
-    if(response.data.tribes.length > 0)
-      $scope.hideEmptyTribes = true;
-    else
-      $scope.hideEmptyTribes = false;
-    $scope.tribes = chunk(response.data.tribes, 2);
-    $timeout(function() { $ionicLoading.hide(); },300);
-  });
+  $scope.hideEmptyTribes = tribes.data.tribes.length > 0;
+  $scope.tribes = chunk(tribes.data.tribes, 2);
 
   function chunk(arr, size) {
     var newArr = [];
