@@ -1,12 +1,12 @@
-<ion-view cache-view="false" view-title="Mural Details" ng-ini="example1 = false">
-  <ion-content style="background-color:#444" scroll="false">
+<ion-view cache-view="false" view-title="Mural Details" ng-click="setComments()"
+          hide-comments="hideSetComments()" ng-style="{'background-image': 'url(' + post.pic + ')','background-size': '100% 100%'}">
+  <ion-content scroll="false">
     <a class="button button-icon button-clear ion-chevron-left" ng-click="closeModal()" style="position: absolute;
     font-size: 26px;color: white;opacity: 1.0;top:20px;left:7px;"></a>
-    <img ng-click="example1=!example1" ng-src="{{post.pic}}" class="image-size"/>
-    <div ng-hide="example1" class="cssSlideUp mural_footer">
+    <div ng-show="comments" class="cssSlideUp mural_footer" hide-comments="hideSetComments()">
       <div class="pro_pic" ng-click="goSideChat(post.createdBy._id)">
           <img ng-if="!post.createdBy.pic" src="img/default_avatar.jpg" class="image-size"/>
-          <img ng-if="post.createdBy.pic" ng-src="{{post.createdBy.pic}}" />
+          <img ng-if="post.createdBy.pic" ng-src="{{post.createdBy.pic}}" class="image-size"/>
       </div>
       <h4 ng-bind="post.createdBy.name"></h4>
       <div class="icons mural_details_icons">

@@ -19,6 +19,14 @@ MyApp.controller('MuralCtrl', function($window, $scope, $timeout, $ionicPopup, $
      });
 
     $scope.openModal = function(selected) {
+
+        $scope.comments = false;
+        $scope.setComments = function(){
+            $scope.comments = !$scope.comments;
+        };
+        $scope.hideSetComments = function(){
+            $scope.comments = true;
+        };
         $scope.post = selected;
         $scope.gridModal.show();
 

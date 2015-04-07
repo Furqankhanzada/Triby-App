@@ -4,16 +4,13 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 
   $scope.posts = [];
   $scope.triby = triby.data.tribe;
+    autosize(document.getElementById('#page_content'));
     $scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">' + $scope.triby.name + '</a>';
 	$scope.post = {
 		message: "",
 		image: "",
 		triby: $stateParams.triby_id
 	};
-  $scope.updateEditor = function() {
-    var element = document.getElementById("page_content");
-    element.style.height = element.scrollHeight + "px";
-};
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
@@ -26,6 +23,14 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
         });
 
     $scope.openModal = function(selected) {
+
+        $scope.comments = false;
+        $scope.setComments = function(){
+            $scope.comments = !$scope.comments;
+        };
+        $scope.hideSetComments = function(){
+            $scope.comments = true;
+        };
         $scope.post = selected;
         $scope.gridModal.show();
 

@@ -784,6 +784,7 @@ img.feed-img  {
 .feed-post-text {
     text-align: left;
     padding-left: 10px !important;
+    padding-right: 10px !important;
     padding-bottom: 10px !important;
     font-size: 16px;
     white-space: normal;
@@ -807,6 +808,7 @@ img.feed-img  {
   line-height: 12px;
   width: 100%;
   float: left;
+  border: none;
 }
 
 .inputForm
@@ -1165,8 +1167,7 @@ img.profile-pic.right {
 .news_feed_content_wrapper .item-text
 {
   margin: 0;
-  /*padding: 0 25px 0 8px;*/
-  padding: 0 0px 0 8px;
+  padding: 0 8px 0 8px;
 }
 .news_feed_content_wrapper .item-text > .row{margin-bottom: 5px;color: #000;}
 .news_feed_content_wrapper .item-text > .feed-post-text{margin-bottom: 0px;color: #000;}
