@@ -324,7 +324,13 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       url:'/server_connection',
       views: {
           'menuContent' :{
-              templateUrl: 'templates/server_connection_error.html'
+              templateUrl: 'templates/server_connection_error.html',
+              controller:'AppCtrl'
+          }
+      },
+      resolve: {
+          tribes : function($ionicLoading){
+              $ionicLoading.hide();
           }
       }
   });

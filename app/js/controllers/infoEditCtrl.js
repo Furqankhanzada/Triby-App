@@ -1,5 +1,6 @@
 'use strict';
-MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, SettingsService, $window, $timeout, $route) {
+MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, FeedService, $rootScope, $stateParams, SettingsService, $window, $timeout, $route
+    ,$state) {
 
   $scope.triby = {};
   FeedService.getTriby($stateParams.triby_id).then(function(response){
@@ -8,7 +9,7 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
   });
 
   $scope.showDone = "";
-  var initializing = true
+  var initializing = true;
   $scope.$watch("triby.name", function(newValue, oldValue) {
     if(initializing){
       $timeout(function() { initializing = false; },500);
@@ -43,26 +44,21 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
         window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
       $ionicLoading.hide();
     });
-  }
+  };
 
   $scope.saveTribyInfo = function(){
 
     FeedService.updateTriby($scope.triby).then(function(response){
       if(response.status=="success"){
-        $timeout(function(){
-          $window.location.href = "#/app/info/" + $scope.triby._id;
-          $window.location.reload();
-        }, 100);
+          $state.go("app.info",{triby_id: $scope.triby._id});
       }
       else
         window.plugins.toast.showShortCenter(response.message, function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
     });
-  }
+  };
 
   $scope.goBack = function(){
-    $timeout(function(){
-      $window.location.href = "#/app/news_feed/" + $scope.triby._id;
-    }, 100);
+      $state.go("app.news_feed",{triby_id: $scope.triby._id});
   }
 });
 

@@ -4,7 +4,6 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 
   $scope.posts = [];
   $scope.triby = triby.data.tribe;
-    autosize(document.getElementById('#page_content'));
     $scope.title = '<a href="#/app/info/' + $stateParams.triby_id + '">' + $scope.triby.name + '</a>';
 	$scope.post = {
 		message: "",
@@ -14,6 +13,22 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft();
   };
+  $scope.AutoGrowTextArea = function()
+    {
+        var textField = document.getElementById("textarea1");
+        var footer = document.getElementById("post_footer");
+        textField.style.height = textField.scrollHeight + "px";
+        footer.style.height = (textField.scrollHeight + 30) + "px";
+            if (textField.clientHeight < textField.scrollHeight)
+            {
+                textField.style.height = (textField.scrollHeight * 2 - textField.clientHeight) + "px";
+                footer.style.height = ((textField.scrollHeight * 2 - textField.clientHeight) + 30) + "px";
+            }
+            else{
+                textField.style.height = textField.scrollHeight + "px";
+                footer.style.height = (textField.scrollHeight + 30) + "px";
+            }
+    };
 
     $ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
             $scope.gridModal = modal;
@@ -190,6 +205,10 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
         FeedService.savePost($scope.post).then(function(response){
             console.log("$scope.sendPost :", response.tribe);
             $scope.getAllPostInCtrl();
+            var textField = document.getElementById("textarea1");
+            var footer = document.getElementById("post_footer");
+            textField.style.height = "30px";
+            footer.style.height = "60px";
             $scope.send = true;
             $scope.post.message = "";
 
@@ -208,8 +227,12 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 				$scope.post.image = response.url_file;
 				FeedService.savePost($scope.post).then(function(response){
 					console.log("News-feed uploadPicture :", response);
-          $scope.getAllPostInCtrl();
-          $scope.post.message = "";
+                    var textField = document.getElementById("textarea1");
+                    var footer = document.getElementById("post_footer");
+                    textField.style.height = "30px";
+                    footer.style.height = "60px";
+                    $scope.getAllPostInCtrl();
+                    $scope.post.message = "";
                     $ionicLoading.hide();
 				});
 			}

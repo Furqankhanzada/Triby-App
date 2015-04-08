@@ -78,17 +78,17 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer-bar class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
-    <form name="sendMessageForm" class="chat_message_area">
+  <ion-footer-bar id="post_footer" class="bar-stable message-footer comment_footer_wrapper chat_mesg_footer_bar">
+    <form name="sendMessageForm" class="chat_message_area" ng-submit="sendPost()" novalidate>
       <div class="list list-feed bottom_top-border">
         <div class="item item-send-text">
           <div class="row">
             <div class="col col-center image_upload_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-click="uploadPicture('LIBRARY')">
               <img src="img/image_upload.png" style="width:100%" />
             </div>
-            <div class="col col-75 col-center comment_input_box">
-              <textarea style="font-size:20px" id="page_content" class="comment_input inputForm" ng-model="post.message">Say something...</textarea>
-              <!--<input type="text" style="font-size:20px" class="comment_input inputForm" ng-model="post.message" placeholder="Say something..." />-->
+            <div class="col col-75 col-center comment_input_box" keyboard-attach>
+              <textarea style="font-size:20px;overflow:hidden height: auto;" id="textarea1" ng-keyup="AutoGrowTextArea()"
+                        cols="30" rows="2" class="inputForm" ng-model="post.message">Say something...</textarea>
             </div>
             <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-show="post.message" ng-click="sendPost()">
               <span style="color:#006edb">send</span>

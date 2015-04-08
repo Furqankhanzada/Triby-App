@@ -5,7 +5,7 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
     pic : 'img/add_photo.png',
     name : '',
     members : []
-  }
+  };
 
   $scope.uploadPicture = function(){
     $ionicLoading.show({

@@ -11,4 +11,16 @@ MyApp.directive('hideComments', function($document){
             })
         }
     }
+})
+    .directive('myMaxlength', function() {
+    return {
+        link: function (scope, element, attrs) {
+            var maxLength = Number(attrs.myMaxlength);
+            scope.$watch('triby.name', function(newVal, oldVal){
+                if (newVal.length > maxLength) {
+                   scope.triby.name = oldVal;
+                }
+            })
+        }
+    };
 });

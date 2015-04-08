@@ -38,7 +38,6 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     }).error(function (err, status) {
           deferred.reject(err);
     });
-
     return deferred.promise;
   }
 
