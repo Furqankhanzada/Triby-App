@@ -50,7 +50,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
 
     return deferred.promise;
     
-  }
+  };
 	
   var _fileTo = function(serverURL,aType,aSource) {
     var deferred = $q.defer();
@@ -61,7 +61,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
           quality: 100
           , destinationType: Camera.DestinationType.FILE_URI
           , encodingType: Camera.EncodingType.JPEG
-      }
+      };
       if(aSource === 'CAMERA')
         options.sourceType = Camera.PictureSourceType.CAMERA;
       else

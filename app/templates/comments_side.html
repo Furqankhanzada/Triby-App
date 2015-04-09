@@ -15,6 +15,7 @@
         </div>
         <div class="chat-bubble" ng-class="{'chat-bubble-green': sidechat.owner == comment.user._id,'chat-bubble-blue': sidechat.user == comment.user._id}">
           <span ng-bind="comment.comment"></span>
+          <img ng-if="comment.pic" ng-src="{{comment.pic}}" class="comment_pic">
           <div class="chat-text-date">
             {{comment.time | date:'MMM dd, yyyy @ h:mma'}}
           </div>

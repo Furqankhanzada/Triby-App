@@ -1,8 +1,9 @@
 'use strict';
 MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, $cordovaCamera, $stateParams, SettingsService, $rootScope, CommentsService, FeedService,
-                                          UserService, $window, $state, IconService) {
+                                          UserService, $window, $state, IconService, comments) {
 
   $scope.post = {type: 'post', id: $stateParams.post_id};
+  $scope.comments = comments;
   $scope.triby = {
     id: $stateParams.post_id
   };

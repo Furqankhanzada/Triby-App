@@ -1,4 +1,4 @@
-<ion-view cache-view="false" title="Comments" ng-init="getComments()">
+<ion-view cache-view="false" title="Comments">
   <ion-header-bar align-title="center" class="black-header-bar">
     <ion-nav-bar>
       <ion-nav-back-button class="button button-icon ion-chevron-left" style="color:white"></ion-nav-back-button>
@@ -15,6 +15,7 @@
         </div>
         <div class="chat-bubble" ng-class-odd="'chat-bubble-green'" ng-class-even="'chat-bubble-blue'">
           <span ng-bind="comment.comment"></span>
+          <img ng-if="comment.pic" ng-src="{{comment.pic}}" class="comment_pic">
           <div class="chat-text-date">
             {{comment.time | date:'MMM dd, yyyy @ h:mma'}}
           </div>

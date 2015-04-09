@@ -132,6 +132,24 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
           templateUrl: 'templates/comments.html',
           controller:"CommentsCtrl"
         }
+      },
+      resolve: {
+          FeedService: 'FeedService',
+          comments : function(FeedService, $stateParams, $ionicLoading, $q){
+              $ionicLoading.show({
+                  content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+              });
+              var deffered = $q.defer();
+              FeedService.getPosts($stateParams.post_id).then(function(response){
+                  deffered.resolve(response.data.post.comments);
+                  $ionicLoading.hide();
+              }, function(err){
+                  alert(err.data);
+                  deffered.reject(err);
+                  $ionicLoading.hide();
+              });
+              return deffered.promise;
+          }
       }
     })
     .state('app.comments_side', {

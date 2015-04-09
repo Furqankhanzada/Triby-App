@@ -17,17 +17,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
     {
         var textField = document.getElementById("textarea1");
         var footer = document.getElementById("post_footer");
-        textField.style.height = textField.scrollHeight + "px";
-        footer.style.height = (textField.scrollHeight + 30) + "px";
-            if (textField.clientHeight < textField.scrollHeight)
-            {
-                textField.style.height = (textField.scrollHeight * 2 - textField.clientHeight) + "px";
-                footer.style.height = ((textField.scrollHeight * 2 - textField.clientHeight) + 30) + "px";
-            }
-            else{
-                textField.style.height = textField.scrollHeight + "px";
-                footer.style.height = (textField.scrollHeight + 30) + "px";
-            }
+        footer.style.height = (textField.scrollHeight + 20) + "px";
     };
 
     $ionicModal.fromTemplateUrl('templates/mural_details.html', function(modal) {
@@ -227,10 +217,6 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 				$scope.post.image = response.url_file;
 				FeedService.savePost($scope.post).then(function(response){
 					console.log("News-feed uploadPicture :", response);
-                    var textField = document.getElementById("textarea1");
-                    var footer = document.getElementById("post_footer");
-                    textField.style.height = "30px";
-                    footer.style.height = "60px";
                     $scope.getAllPostInCtrl();
                     $scope.post.message = "";
                     $ionicLoading.hide();
