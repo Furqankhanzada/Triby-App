@@ -87,8 +87,11 @@
               <img src="img/image_upload.png" style="width:100%" />
             </div>
             <div class="col col-75 col-center comment_input_box" keyboard-attach>
-              <textarea style="font-size:20px;overflow:hidden height: auto;" id="textarea1" ng-keyup="AutoGrowTextArea()"
-                        cols="30" rows="2" class="inputForm" ng-model="post.message">Say something...</textarea>
+                <textarea class="msd-elastic: \n;" style="font-size:20px; ng-model="post.message">
+                    Say something...
+                </textarea>
+              <!--<textarea style="font-size:20px;overflow:hidden height: auto;" id="textarea1" ng-keyup="AutoGrowTextArea()"-->
+                        <!--cols="30" rows="2" class="inputForm" ng-model="post.message">Say something...</textarea>-->
             </div>
             <div class="col col-center camera_icon" style="text-align:center;padding-left:5px;padding-right:5px;" ng-show="post.message" ng-click="sendPost()">
               <span style="color:#006edb">send</span>
