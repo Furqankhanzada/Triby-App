@@ -14,10 +14,12 @@
         </div>
         <ion-list class="list-search">
             <ion-toggle class="item-avatar" ng-repeat="contact in contacts | filter:query" ng-model="contact.checked"
-                        ng-checked="contact.checked">
-                <img class="left" ng-src="{{contact.pic}}">
+                        ng-checked="contact.checked" ng-show="query.length">
+                <img ng-if="!contact.pic" class="left" ng-src="img/default_avatar.jpg">
+                <img ng-if="contact.pic" class="left" ng-src="{{contact.pic}}">
                 <h2>{{contact.name}}</h2>
-                <p>{{contact.city}}</p>
+                <p ng-if="contact.city">{{contact.city}}</p>
+                <p ng-if="contact.country">{{contact.country}}</p>
             </ion-toggle>
         </ion-list>
     </ion-content>

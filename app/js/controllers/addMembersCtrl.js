@@ -44,9 +44,8 @@ MyApp.controller('AddMembersCtrl', function($scope, $ionicModal, $timeout, $ioni
 
     // go to triby info page
     $scope.goBack = function(){
-        $timeout(function(){
-            $state.go("app.info",{triby_id: triby._id});
-        }, 100);
+        var triby = FeedService.getNewTriby();
+        $state.go("app.info",{triby_id: triby._id});
     }
 });
 

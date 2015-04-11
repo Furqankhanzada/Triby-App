@@ -9,6 +9,7 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
   		var deferred = $q.defer();
         var data = {
                         username:signupData.username,
+                        name:signupData.username,
                         mobilenumber:signupData.countryCode + signupData.phone,
                         device_id: deviceId,
                         country: signupData.country,
@@ -27,12 +28,18 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
         return deferred.promise;
 	};
 
-  var _tmpUserName = "";
-  var _setUserNameTmp = function(aUserName) {
-    _tmpUserName = aUserName;
+  var _tmpUser = {
+      username: "",
+      name: "",
+      countryCode: "",
+      phone: "",
+      country: ""
   };
-  var _getUserNameTmp = function() {
-    return _tmpUserName;
+  var _setUserTmp = function(aUser) {
+      _tmpUser = aUser;
+  };
+  var _getUserTmp = function() {
+    return _tmpUser;
   };
 
   var _getMobileNumber = function () {
@@ -127,8 +134,8 @@ MyApp.factory('UserService', function($q, $rootScope, $http, localStorageService
   userServiceFactory.loginUser = _loginUser;
   userServiceFactory.loginUserFacebook = _loginUserFacebook;
   userServiceFactory.getUser = _getUser; 
-  userServiceFactory.getUserNameTmp = _getUserNameTmp;
-  userServiceFactory.setUserNameTmp = _setUserNameTmp;
+  userServiceFactory.getUserTmp = _getUserTmp;
+  userServiceFactory.setUserTmp = _setUserTmp;
 	
   return userServiceFactory;
 })

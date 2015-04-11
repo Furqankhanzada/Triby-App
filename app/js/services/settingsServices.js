@@ -181,7 +181,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     else
     {
         $http.defaults.headers.common.Authorization = authData.token;
-        $http.get($rootScope.urlBackend + '/user/contacts').success(function (response) {
+        $http.get($rootScope.urlBackend + '/user/mobile/contacts').success(function (response) {
             if(response.status === 'success')
                 deferred.resolve(response.users);
             else

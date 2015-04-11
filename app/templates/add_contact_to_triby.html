@@ -1,0 +1,24 @@
+<ion-view cache-view="false" view-title="Add People To Triby">
+    <ion-nav-buttons side="left">
+        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="goBack()"></button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon" style="color:#2695f9" ng-click="updateTribes()">Done</button>
+    </ion-nav-buttons>
+    <ion-content>
+        <br>
+        <div class="list list-add-triby">
+            <label class="item item-input">
+                <input type="text" ng-model="query" placeholder="Enter triby name">
+            </label>
+        </div>
+        <ion-list class="list-search">
+            <ion-toggle class="item-avatar" ng-repeat="triby in tribes | filter:query" ng-model="triby.checked"
+                        ng-checked="triby.checked" ng-show="query.length">
+                <img ng-if="!triby.pic" class="left" ng-src="img/default_avatar.jpg">
+                <img ng-if="triby.pic" class="left" ng-src="{{triby.pic}}">
+                <h2>{{triby.name}}</h2>
+            </ion-toggle>
+        </ion-list>
+    </ion-content>
+</ion-view>

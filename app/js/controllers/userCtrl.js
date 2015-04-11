@@ -1,12 +1,7 @@
 'use strict';
 MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup, $location, UserService, $window, $cordovaDevice, OpenFB, $cordovaSplashscreen, $state,CountryCodeService, $ionicLoading) {
 
-  $scope.signupData = {
-    username: "",
-    countryCode: "",
-    phone: "",
-    country: ""
-  };
+  $scope.signupData = UserService.getUserTmp();
 
   $scope.countries = CountryCodeService.getCountryCode();
   $scope.texto = 'Hello World!';
@@ -63,7 +58,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   };
 
   $scope.signup = function(){
-    $scope.signupData.username = UserService.getUserNameTmp();
+    $scope.signupData = UserService.getUserTmp();
     $scope.signupData.country = CountryCodeService.getCountryName($scope.signupData.countryCode);
     UserService.signUpUser($scope.signupData,$cordovaDevice.getUUID()).then(function(response){
       if(response.status == "success")
@@ -79,7 +74,7 @@ MyApp.controller('UserCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
   };
 
   $scope.step2 = function(){
-    UserService.setUserNameTmp($scope.signupData.username);
+    UserService.setUserTmp($scope.signupData);
     $location.path('signup_2');
   };
 

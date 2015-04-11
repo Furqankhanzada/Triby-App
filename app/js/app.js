@@ -268,6 +268,33 @@ MyApp.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
         }
       }
     })
+    .state('app.add_contact_to_triby', {
+          url: '/add_contact_to_triby/:username',
+          views: {
+              'menuContent': {
+                  templateUrl: 'templates/add_contact_to_triby.html',
+                  controller: 'AddContactToTribyCtrl'
+              }
+          },
+          resolve: {
+              FeedService: 'FeedService',
+              tribes : function(FeedService, $stateParams, $ionicLoading, $q){
+                  $ionicLoading.show({
+                      content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+                  });
+                  var deffered = $q.defer();
+                  FeedService.getTribes().then(function(response){
+                      deffered.resolve(response.data.tribes);
+                      $ionicLoading.hide();
+                  }, function(err){
+                      alert(err.data);
+                      deffered.reject(err);
+                      $ionicLoading.hide();
+                  });
+                  return deffered.promise;
+              }
+          }
+      })
     .state('app.change_number', {
       url: '/change_number',
       views: {
@@ -399,7 +426,7 @@ MyApp.run(function($ionicPlatform,$rootScope,UserService,$cordovaSplashscreen,$i
   //OpenFB.init('336119189918118','http://localhost:8100/oauthcallback.html', window.localStorage);
   OpenFB.init('738821969512630','http://localhost:8100/oauthcallback.html', window.localStorage);
   $rootScope.urlBackend = 'http://104.236.5.153:3000';
-  //$rootScope.urlBackend = 'http://192.168.1.104:3000';
+//  $rootScope.urlBackend = 'http://192.168.1.101:3000';
 
   $rootScope.Get_Width=function(index)
   {

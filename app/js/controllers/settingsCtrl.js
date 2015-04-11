@@ -42,7 +42,7 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 			
 		});
-	}
+	};
 
 	$scope.saveProfile = function(){
 		SettingsService.saveProfile($scope.user_data).then(function(response){
@@ -137,18 +137,33 @@ MyApp.controller('DeleteNumberCtrl', function($scope, $ionicModal, $timeout, $io
 
 });
 
-MyApp.controller('ContactsCtrl', function($scope, $ionicModal, $timeout, $location, SettingsService,$window) {
+MyApp.controller('ContactsCtrl', function($scope, $ionicModal, $timeout, $location, SettingsService,$window, $ionicLoading) {
 
-	$scope.contacts = SettingsService.getContactsLocal();
+    $ionicLoading.show({
+        content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+    });
+    // get contacts for add in triby
+    SettingsService.getContactsLocal().then(function(contacts){
+        if(Array.isArray(contacts)){
+            $scope.contacts = contacts;
+        }
+        $ionicLoading.hide();
+    }, function(){
+        $ionicLoading.hide();
+    });
 
 	$scope.getContacts = function(){
-		var obj = new ContactFindOptions();
-        obj.filter = "";
-        obj.multiple = true;
-
-        console.log("navigator.contacts: " + navigator.contacts);
-        var fields = ["id","displayName","phoneNumbers"];
-        navigator.contacts.find(fields, contacts_success, contacts_fail, obj);
+        $ionicLoading.show({
+            content: '<ion-spinner class="spinner-energized"></ion-spinner>'
+        });
+        SettingsService.getContactsLocal().then(function(contacts){
+            if(Array.isArray(contacts)){
+                $scope.contacts = contacts;
+            }
+            $ionicLoading.hide();
+        }, function(){
+            $ionicLoading.hide();
+        });
 	};
 
 	function contacts_success(contacts) {

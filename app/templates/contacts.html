@@ -1,14 +1,15 @@
 <ion-view cache-view="false" view-title="Contacts" ng-controller="ContactsCtrl">
     <ion-nav-buttons side="left">
-        <button class="button button-icon ion-chevron-left" style="color:white" ng-click="go('app/main/home')"></button>
+        <button class="button button-icon ion-chevron-left" style="color:white" ui-sref="app.settings"></button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon" style="color:white" ng-click="getContacts()">Refresh</button>
     </ion-nav-buttons>
     <ion-content scroll="false">
         <div class="list list-noti">
-            <a class="item item-avatar" ng-repeat="contact in contacts" >
-                <img ng-src="{{contact.pic}}">
+            <a class="item item-avatar" ng-repeat="contact in contacts" ui-sref="app.add_contact_to_triby({username: contact.username})">
+                <img ng-if="!contact.pic" src="img/default_avatar.jpg" />
+                <img ng-if="contact.pic" ng-src="{{contact.pic}}" />
                 <h2>{{contact.name}}</h2>
             </a>
         </div>
