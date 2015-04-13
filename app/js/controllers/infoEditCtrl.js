@@ -32,17 +32,13 @@ MyApp.controller('InfoEditCtrl', function($scope, $location, $ionicLoading, Feed
   });
 
   $scope.uploadPicture = function(){
-    $ionicLoading.show({
-      template: 'Uploading...'
-    });
-    SettingsService.fileTo($rootScope.urlBackend + '/uploads','AVATAR').then(function(response){
+    SettingsService.fileTo('AVATAR',{}, '/uploads', undefined, function(response, err){
 
-      if(response.status == "success"){
+      if(response && response.status == "success"){
         $scope.triby.pic = response.url_file;
       }
       else
         window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-      $ionicLoading.hide();
     });
   };
 

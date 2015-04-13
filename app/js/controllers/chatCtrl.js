@@ -76,7 +76,7 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
         console.log("sidechat add comment success :", res);
         $scope.post.comment = '';
         $scope.submitted = false;
-        $scope.sidechat = res.data.sidechat;
+        $scope.sidechat = res.sidechat;
       }, function(err){
         console.log("sidechat add comment error :", err);
       });
@@ -100,21 +100,18 @@ MyApp.controller('ChatCtrl', function($scope, $ionicModal, $timeout, $ionicPopup
 
   $scope.uploadPicture = function(source){
 
-    SettingsService.fileTo($rootScope.urlBackend + '/uploads',"POST",source).then(function(response){
+        CommentsService.addComment($scope.post, "POST", source).then(function(res){
+            if(res.status == "success"){
+                console.log("sidechat add comment success :", res);
+                $scope.post.comment = '';
+                $scope.sidechat = res.sidechat;
+            }
+            else
+                window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
 
-      if(response.status == "success"){
-        $scope.post.pic = response.url_file;
-        CommentsService.addComment($scope.post).then(function(res){
-          console.log("sidechat add comment success :", res);
-          $scope.post.comment = '';
-          $scope.sidechat = res.data.sidechat;
         }, function(err){
           console.log("sidechat add comment error :", err);
         });
-      }
-      else
-        window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-    });
   };
 
 

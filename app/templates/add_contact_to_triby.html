@@ -9,12 +9,12 @@
         <br>
         <div class="list list-add-triby">
             <label class="item item-input">
-                <input type="text" ng-model="query" placeholder="Enter triby name">
+                <input type="text" ng-model="query.name" placeholder="Enter triby name">
             </label>
         </div>
         <ion-list class="list-search">
             <ion-toggle class="item-avatar" ng-repeat="triby in tribes | filter:query" ng-model="triby.checked"
-                        ng-checked="triby.checked" ng-show="query.length">
+                        ng-checked="triby.checked" ng-show="query.name.length">
                 <img ng-if="!triby.pic" class="left" ng-src="img/default_avatar.jpg">
                 <img ng-if="triby.pic" class="left" ng-src="{{triby.pic}}">
                 <h2>{{triby.name}}</h2>

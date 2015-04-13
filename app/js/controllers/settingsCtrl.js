@@ -33,15 +33,14 @@ MyApp.controller('SettingsCtrl', function($scope, $ionicModal, $timeout, $ionicP
 
 
 	$scope.uploadPicture = function(){
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads','AVATAR').then(function(response){
+    SettingsService.fileTo('AVATAR', {}, '/uploads', undefined, function(response, err){
 
-			if(response.status === 'success'){
-				$scope.user_data.image = response.url_file;
-			}
-			else
-				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-			
-		});
+        if(response && response.status === 'success'){
+            $scope.user_data.image = response.url_file;
+        }
+        else
+            window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+    });
 	};
 
 	$scope.saveProfile = function(){

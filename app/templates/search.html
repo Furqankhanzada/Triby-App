@@ -5,11 +5,11 @@
     <ion-content>
         <div class="list" style="padding-top:10px;padding-bottom:10px;">
             <label class="item item-input" style="border-width:0px;" focus-me>
-                <input type="text" placeholder="Search Triby" ng-model="searchTriby">
+                <input type="text" placeholder="Search Triby" ng-model="searchTriby.name">
             </label>
         </div>
         <div class="row row-center tribys_circles" ng-repeat="rows in tribes">
-            <div class="col col-50 triby-title" style="text-align:center;" ng-repeat="item in rows | filter:searchTriby" ng-show="searchTriby.length">
+            <div class="col col-50 triby-title" style="text-align:center;" ng-repeat="item in rows | filter:searchTriby" ng-show="searchTriby.name.length">
                 <div class="tribys_name_text" style="text-align: center">
                     {{item.name}}
                 </div>

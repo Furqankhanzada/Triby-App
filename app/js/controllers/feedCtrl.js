@@ -193,7 +193,7 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
       if($scope.send){
         $scope.send = false;
         FeedService.savePost($scope.post).then(function(response){
-            console.log("$scope.sendPost :", response.tribe);
+            console.log("$scope.sendPost :", response);
             $scope.getAllPostInCtrl();
             var textField = document.getElementById("textarea1");
             var footer = document.getElementById("post_footer");
@@ -209,22 +209,17 @@ MyApp.controller('FeedCtrl', function($scope, $ionicSideMenuDelegate, $ionicModa
 
   /////////////////// upload Picture /////////////////////////
 	$scope.uploadPicture = function(source){
-		SettingsService.fileTo($rootScope.urlBackend + '/uploads', "POST", source).then(function(response){
-            $ionicLoading.show({
-                template: 'Saving...'
-            });
-			if(response.status == "success"){
-				$scope.post.image = response.url_file;
-				FeedService.savePost($scope.post).then(function(response){
-					console.log("News-feed uploadPicture :", response);
-                    $scope.getAllPostInCtrl();
-                    $scope.post.message = "";
-                    $ionicLoading.hide();
-				});
-			}
-			else
-				window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-		});
+        FeedService.savePost($scope.post, "POST", source).then(function(response){
+            if(response.status == 'success'){
+                console.log("News-feed uploadPicture :", response);
+                $scope.getAllPostInCtrl();
+                $scope.post.message = "";
+            }
+            else
+                window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+        }, function(){
+            window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
+        });
 	};
   /////////////////// upload Picture /////////////////////////
 });

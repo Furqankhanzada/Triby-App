@@ -26,7 +26,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
 
     return deferred.promise;
     
-  }
+  };
 
   var _removeUser = function(numbers){
 
@@ -51,76 +51,64 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     return deferred.promise;
     
   };
-	
-  var _fileTo = function(serverURL,aType,aSource) {
-    var deferred = $q.defer();
 
-    if (ionic.Platform.isWebView()) {
+    var _fileTo = function(aSource, postData, serverURL, aType, cb) {
+        if (ionic.Platform.isWebView()) {
 
-      var options = {
-          quality: 100
-          , destinationType: Camera.DestinationType.FILE_URI
-          , encodingType: Camera.EncodingType.JPEG
-      };
-      if(aSource === 'CAMERA')
-        options.sourceType = Camera.PictureSourceType.CAMERA;
-      else
-        options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+            var options = {
+                quality: 100
+                , destinationType: Camera.DestinationType.FILE_URI
+                , encodingType: Camera.EncodingType.JPEG
+            };
+            if(aSource === 'CAMERA')
+                options.sourceType = Camera.PictureSourceType.CAMERA;
+            else
+                options.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
 
-      if(aType === 'AVATAR'){
-        options.targetWidth = 400;
-        options.targetHeight = 400;
-      }
-      if(aType === 'TRIBY'){
-        options.targetWidth = 200;
-        options.targetHeight = 200;
-      }
+            $cordovaCamera.getPicture(options).then(
 
-      $cordovaCamera.getPicture(options).then(
+                function(fileURL) {
+                    $ionicLoading.show({
+                        template: 'Uploading...'
+                    });
 
-        function(fileURL) {
-          $ionicLoading.show({
-            template: 'Uploading...'
-          });
+                    var authData = localStorageService.get('authorizationData');
+                    $http.defaults.headers.common.Authorization = authData.token;
 
-          var authData = localStorageService.get('authorizationData');
-          $http.defaults.headers.common.Authorization = authData.token;
+                    var uploadOptions = new FileUploadOptions();
+                    uploadOptions.fileKey = 'file';
+                    uploadOptions.fileName = authData.username + '_' + Date.now();
+                    uploadOptions.mimeType = 'image/jpeg';
+                    uploadOptions.chunkedMode = false;
+                    uploadOptions.headers = {'Authorization': authData.token};
 
-          var uploadOptions = new FileUploadOptions();
-          uploadOptions.fileKey = 'file';
-          uploadOptions.fileName = authData.username + '_' + Date.now();
-          uploadOptions.mimeType = 'image/jpeg';
-          uploadOptions.chunkedMode = false;
+                    var params = {
+                        image_type: aType
+                    };
+                    params = angular.extend(params, postData);
+                    uploadOptions.params = params;
+                    uploadOptions.fileName += '.jpg';
 
-          var params = {
-            type: aType
-          };
-          uploadOptions.params = params;
-          uploadOptions.fileName += '.jpg';
+                    $cordovaFile.uploadFile($rootScope.urlBackend + serverURL, fileURL, uploadOptions).then(
+                        function(result) {
+                            var obj = JSON.parse(result.response);
+                            cb(obj);
+                            $ionicLoading.hide();
+                        }, function(err) {
+                            cb(null, err);
+                            $ionicLoading.hide();
+                        });
 
-          $cordovaFile.uploadFile(serverURL, fileURL, uploadOptions).then(
-            function(result) {
-              var obj = JSON.parse(result.response);
-              deferred.resolve(obj);
-              $ionicLoading.hide();
-            }, function(err) {
-              deferred.reject(err);
-              $ionicLoading.hide();
-            });
+                }, function(err){
+                    cb(null, err);
+                    $ionicLoading.hide();
+                });
 
-        }, function(err){
-          deferred.reject(err);
-          $ionicLoading.hide();
-        });
-
-    }
-    else {
-      deferred.reject('Uploading not supported in browser');
-    }
-    $ionicLoading.hide();
-    return deferred.promise;
-
-  }
+        }
+        else {
+            cb(null,'Uploading not supported in browser');
+        }
+    };
 
   var _saveProfile = function(userData){
     var deferred = $q.defer();
@@ -137,7 +125,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
 
     return deferred.promise;
 
-  }
+  };
 
   var _saveFeedback = function(feedBackData){
     var deferred = $q.defer();
@@ -152,7 +140,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     });
 
     return deferred.promise;
-  }
+  };
 
   var _getContactsLocal = function(){
     var deferred = $q.defer();
@@ -206,7 +194,7 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
     });
 
     return deferred.promise;
-  }
+  };
 
   settingsServiceFactory.changeNumbers = _changeNumbers;
   settingsServiceFactory.removeUser = _removeUser;
@@ -217,4 +205,4 @@ MyApp.factory('SettingsService', function($ionicLoading, $q, $rootScope, $http, 
   settingsServiceFactory.getContactsLocal = _getContactsLocal;
   
   return settingsServiceFactory;
-})
+});

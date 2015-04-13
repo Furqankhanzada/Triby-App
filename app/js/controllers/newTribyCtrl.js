@@ -8,12 +8,8 @@ MyApp.controller('NewTribyCtrl', function($scope, $ionicModal, $timeout, $ionicP
   };
 
   $scope.uploadPicture = function(){
-    $ionicLoading.show({
-      template: 'Uploading...'
-    });
-    SettingsService.fileTo($rootScope.urlBackend + '/uploads',"TRIBY").then(function(response){
-        $ionicLoading.hide();
-      if(response.status == "success"){
+    SettingsService.fileTo("TRIBY", {}, '/uploads', undefined, function(response, err){
+      if(response && response.status == "success"){
         $scope.triby.pic = response.url_file;
       }
       else

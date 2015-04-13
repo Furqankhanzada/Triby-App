@@ -1,6 +1,6 @@
 'use strict';
 
-MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile) {
+MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService, $cordovaCamera, $cordovaFile, $ionicLoading, SettingsService) {
 
   var feedServiceFactory = {};
 
@@ -68,27 +68,34 @@ MyApp.factory('FeedService', function($q, $rootScope, $http, localStorageService
     $http.defaults.headers.common['Authorization'] = authData.token;
 
     return $http.get($rootScope.urlBackend + '/tribes/' + aTribyId);
-  }
+  };
 
-  var _savePost = function(postData){
-    var deferred = $q.defer();
-    var authData = localStorageService.get('authorizationData');
-    $http.defaults.headers.common['Authorization'] = authData.token;
+  var _savePost = function(postData, aType, aSource){
+      var deferred = $q.defer();
 
-    postData.parentid = postData.triby;
-    postData.parenttype = "tribe";
-    postData.content = postData.message;
-    postData.pic = postData.image;
+      postData.parentid = postData.triby;
+      postData.parenttype = "tribe";
+      postData.content = postData.message;
+
+      if(aType && aSource){
+          SettingsService.fileTo(aSource, postData, '/posts', aType, function(success, err){
+              if(success) deferred.resolve(success);
+              if(err) deferred.reject(err);
+          });
+      }
+      else{
+          var authData = localStorageService.get('authorizationData');
+          $http.defaults.headers.common['Authorization'] = authData.token;
+
+          $http.post($rootScope.urlBackend + '/posts', postData).success(function (response) {
+              deferred.resolve(response.data);
+          }).error(function (err, status) {
+              deferred.reject(err);
+          });
+      }
+      return deferred.promise;
     //postData.user = authData.username;
-
-    $http.post($rootScope.urlBackend + '/posts', postData).success(function (response) {
-        deferred.resolve(response);
-    }).error(function (err, status) {
-          deferred.reject(err);
-    });
-
-    return deferred.promise;
-  }
+  };
 
   var _getTribyPosts = function(tribyID){
     var authData = localStorageService.get('authorizationData');

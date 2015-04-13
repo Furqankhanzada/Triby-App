@@ -70,7 +70,7 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
         console.log("comment success :", data);
         $scope.post.comment = '';
         $scope.submitted = false;
-        $scope.comments = data.data.post.comments;
+        $scope.comments = data.post.comments;
       }, function(err){
         console.log("comment error :", err);
       });
@@ -92,21 +92,17 @@ MyApp.controller('CommentsCtrl', function($scope, $ionicModal, $timeout, $ionicP
   /////////////////// upload Picture /////////////////////////
   $scope.uploadPicture = function(source){
 
-    SettingsService.fileTo($rootScope.urlBackend + '/uploads', "POST", source).then(function(response){
-
-      if(response.status == "success"){
-        $scope.post.pic = response.url_file;
-        CommentsService.addComment($scope.post).then(function(data){
-          console.log("comment success :", data);
-          $scope.post.comment = '';
-          $scope.comments = data.data.post.comments;
+        CommentsService.addComment($scope.post, "POST", source).then(function(data){
+            if(data.status == "success"){
+                console.log("comment success :", data);
+                $scope.post.comment = '';
+                $scope.comments = data.post.comments;
+            }
+            else
+                window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
         }, function(err){
           console.log("comment error :", err);
         });
-      }
-      else
-        window.plugins.toast.showShortCenter("Error uploading picture", function(a){console.log('toast success: ' + a)}, function(b){alert('toast error: ' + b)});
-    });
   };
   /////////////////// upload Picture /////////////////////////
 
